@@ -10,10 +10,10 @@ const BannerContent:React.FC = () => {
                     <Container fluid={true} className="logo-container m-0 p-0" >
                         <img src={leaves_logo} alt="leaves logo" />
                     </Container>
-                    <h4 className="text-secondary">100% Healthy and Affordable</h4>
-                    <h1 className="text-success" >Organic Vegetables</h1>
-                    <h4 className="text-secondary">Small Chages Big Difference</h4>
-                    <Button variant="light" >Shop Now</Button>
+                    <h4 className="text-secondary text-left">100% Healthy and Affordable</h4>
+                    <h1 className="text-success text-left" >Organic Vegetables</h1>
+                    <h4 className="text-secondary text-left">Small Chages Big Difference</h4>
+                    <Button variant="light" className="float-left" >Shop Now</Button>
                 </Col>
             </Row>
         </Container>
