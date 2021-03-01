@@ -1,5 +1,6 @@
 import React from "react";
 import {Button, Col, Container, Row} from "react-bootstrap";
+import leaves_logo from "../../../assets/images/banner_images/leaves-logo.png";
 
 const BannerContent:React.FC = () => {
     return (
