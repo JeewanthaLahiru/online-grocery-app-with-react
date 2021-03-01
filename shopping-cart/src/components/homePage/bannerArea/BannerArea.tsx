@@ -6,7 +6,20 @@ import BannerContent from "./BannerContent";
 const BannerArea:React.FC = () => {
     return (
         <Container fluid={true} className="banner-area m-0 p-0" >
-            <h1>banner area</h1>
+            <Carousel>
+                <Carousel.Item interval={4000}>
+                    <BannerImage/>
+                    <BannerContent/>
+                </Carousel.Item>
+                <Carousel.Item interval={4000}>
+                    <BannerImage/>
+                    <BannerContent/>
+                </Carousel.Item>
+                <Carousel.Item interval={4000}>
+                    <BannerImage/>
+                    <BannerContent/>
+                </Carousel.Item>
+            </Carousel>
 
         </Container>
     )
