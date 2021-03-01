@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import './assets/styles/_main.scss';
 import ClientApp from "./ClientApp";
 
 function App() {
