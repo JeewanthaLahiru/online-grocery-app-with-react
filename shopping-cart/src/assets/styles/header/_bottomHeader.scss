@@ -1,0 +1,54 @@
+.bottom-header{
+  position: relative;
+
+  .shadow-line{
+    position: absolute;
+    width: 100%;
+    bottom: 7px;
+    height: 10px;
+    background-color: transparent;
+    z-index: 1;
+    box-shadow: 0 4px 10px -2px rgba(0,0,0,0.15);
+  }
+
+  .notification {
+    color: white;
+    text-decoration: none;
+    padding: 18px 26px;
+    position: relative;
+    display: inline-block;
+    border-radius: 2px;
+    i{
+      font-size: 2.3em;
+      padding: 0 5px;
+    }
+  }
+
+  .notification .badge {
+    position: absolute;
+    top: 13px;
+    right: 0px;
+    padding: 7px 10px;
+    border-radius: 50%;
+    background: #55ab18;
+    color: white;
+  }
+
+  .bottom-header-title{
+    span{
+      font-size: 2.5em;
+      font-weight: 600;
+    }
+  }
+
+}
+
+@media screen and (max-width: 576px) {
+  .bottom-header{
+    .navbar{
+      .check-out-button{
+        display: none;
+      }
+    }
+  }
+}
