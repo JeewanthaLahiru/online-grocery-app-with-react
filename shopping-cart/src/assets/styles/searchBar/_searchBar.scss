@@ -1,0 +1,26 @@
+.search-area{
+  .search-items{
+    border:1px solid #bababa;
+    border-radius: 15px;
+
+    .search-icon{
+      font-size: 1.3em;
+      color: #a7a7a7;
+    }
+
+    .search-bar{
+      border: none;
+    }
+    .search-bar:focus{
+      border: none;
+      border-color: transparent;
+      box-shadow: none;
+    }
+  }
+  .search-items:focus-within{
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
+  }
+  .search-items:hover{
+    box-shadow: 0 0 0 2px rgba(68, 198, 0, 0.3);
+  }
+}
