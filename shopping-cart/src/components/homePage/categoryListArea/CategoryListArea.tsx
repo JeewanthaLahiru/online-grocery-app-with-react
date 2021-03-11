@@ -1,5 +1,7 @@
 import React from "react";
 import {Col, Row} from "react-bootstrap";
+import CategoryItem from "./CategoryItem";
+import AllCat from "../../../assets/images/product_category/allcategories.jpg";
 
 const ProductListArea:React.FC = () => {
     return(
@@ -11,11 +13,21 @@ const ProductListArea:React.FC = () => {
                     </Col>
                 </Row>
                 <Row className="px-lg-5">
-                    <Col>hello</Col>
-                    <Col>hello</Col>
-                    <Col>hello</Col>
-                    <Col>hello</Col>
-                    <Col>hello</Col>
+                    <Col xs={2}>
+                        <CategoryItem image={AllCat} name={"All"}/>
+                    </Col>
+                    <Col xs={2}>
+                        <CategoryItem image={AllCat} name={"All"}/>
+                    </Col>
+                    <Col xs={2}>
+                        <CategoryItem image={AllCat} name={"All"}/>
+                    </Col>
+                    <Col xs={2}>
+                        <CategoryItem image={AllCat} name={"All"}/>
+                    </Col>
+                    <Col xs={2}>
+                        <CategoryItem image={AllCat} name={"All"}/>
+                    </Col>
                 </Row>
             </Col>
         </Row>
