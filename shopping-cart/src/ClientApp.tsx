@@ -3,7 +3,7 @@ import {Container} from "react-bootstrap";
 import HeaderArea from "./components/homePage/headerArea/HeaderArea";
 import BannerArea from "./components/homePage/bannerArea/BannerArea";
 import SearchArea from "./components/homePage/searchArea/SearchArea";
-import ProductListArea from "./components/homePage/productListArea/ProductListArea";
+import CategoryListArea from "./components/homePage/categoryListArea/CategoryListArea";
 
 const ClientApp:React.FC = () => {
     return(
@@ -11,7 +11,7 @@ const ClientApp:React.FC = () => {
             <HeaderArea/>
             <BannerArea/>
             <SearchArea/>
-            <ProductListArea/>
+            <CategoryListArea/>
         </Container>
     )
 }
