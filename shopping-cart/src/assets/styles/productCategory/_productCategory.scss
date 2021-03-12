@@ -12,21 +12,24 @@
       background-color: #d1ecf1;
       border: 1px solid #bee5eb;
       border-radius: 5px;
-      height: 40px;
       p{
         float: left;
-        padding-top: 7px;
         font-style: italic;
         font-size: 0.9em;
         color: #2c5960;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-weight: 400;
       }
       i{
-        padding-top: 10px;
+        padding-top: 14px;
         float: right;
+        font-weight: 600;
         color: #2c5960;
       }
       i:hover{
         cursor: pointer;
+        color: black;
       }
     }
   }
@@ -59,7 +62,11 @@
 }
 
 @media screen and (max-width: 1200px) {
+
   .category-list-area{
+    .closing-label{
+      padding: 0;
+    }
     .product-list-area{
       .category-item{
         .image-container{
