@@ -11,9 +11,10 @@ const ProductListArea:React.FC = () => {
     return(
         <Row className="mx-0 px-lg-5 category-list-area">
             <Col className="m-0 p-0">
-                <Row>
-                    <Col xs="12">
-                        <h2 className="my-3 text-success text-center">Demo Products</h2>
+
+                <Row className="m-0 p-0">
+                    <Col xs={12} className="m-0 p-0">
+                        <h2 className="my-3 text-success text-center p-0">Demo Products</h2>
                     </Col>
                 </Row>
                 <Row className="justify-content-around product-list-area">

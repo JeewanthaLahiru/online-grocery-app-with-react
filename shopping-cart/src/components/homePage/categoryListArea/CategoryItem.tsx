@@ -12,7 +12,7 @@ const CategoryItem:React.FC<CategoryItemProps> = (props) => {
             <Col xs={12} className="image-container" >
                 <Image src={props.image} className="category-image" />
             </Col>
-            <Col xs={12}>
+            <Col xs={12} className="p-0" >
                 <h5 className="text-center category-name">{props.name}</h5>
             </Col>
         </Row>
