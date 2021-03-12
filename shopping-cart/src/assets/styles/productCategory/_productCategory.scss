@@ -1,4 +1,36 @@
 .category-list-area{
+
+  .closing-label{
+    max-width: 1200px;
+    margin: auto;
+    justify-content: center;
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 5px;
+
+    .closing-label-inside{
+      background-color: #d1ecf1;
+      border: 1px solid #bee5eb;
+      border-radius: 5px;
+      height: 40px;
+      p{
+        float: left;
+        padding-top: 7px;
+        font-style: italic;
+        font-size: 0.9em;
+        color: #2c5960;
+      }
+      i{
+        padding-top: 10px;
+        float: right;
+        color: #2c5960;
+      }
+      i:hover{
+        cursor: pointer;
+      }
+    }
+  }
+
   .product-list-area{
     max-width: 1200px;
     margin: auto;

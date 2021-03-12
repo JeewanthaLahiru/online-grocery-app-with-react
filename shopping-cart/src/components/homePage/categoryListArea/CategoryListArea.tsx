@@ -10,8 +10,14 @@ import Electro from "../../../assets/images/product_category/electro.png";
 const ProductListArea:React.FC = () => {
     return(
         <Row className="mx-0 px-lg-5 category-list-area">
-            <Col className="m-0 p-0">
-
+            <Col className="m-0 px-5">
+                <Row className=" closing-label" >
+                    <Col className="closing-label-inside" >
+                        <p>*Products listed here are demo purpose
+                        only. They are not available for sale.</p>
+                        <i className="feather icon-x" ></i>
+                    </Col>
+                </Row>
                 <Row className="m-0 p-0">
                     <Col xs={12} className="m-0 p-0">
                         <h2 className="my-3 text-success text-center p-0">Demo Products</h2>
