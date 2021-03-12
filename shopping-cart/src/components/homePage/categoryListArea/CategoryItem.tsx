@@ -9,11 +9,11 @@ type CategoryItemProps = {
 const CategoryItem:React.FC<CategoryItemProps> = (props) => {
     return(
         <Row className="mx-0 category-item">
-            <Col xs={12}>
+            <Col xs={12} className="image-container" >
                 <Image src={props.image} className="category-image" />
             </Col>
             <Col xs={12}>
-                <h5 className="text-center">{props.name}</h5>
+                <h5 className="text-center category-name">{props.name}</h5>
             </Col>
         </Row>
     )

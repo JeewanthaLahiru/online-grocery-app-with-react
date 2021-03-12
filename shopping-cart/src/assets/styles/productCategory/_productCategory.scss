@@ -1,5 +1,26 @@
-.category-item{
-  .category-image{
-    width: 100%;
+.category-list-area{
+  .product-list-area{
+    max-width: 1200px;
+    margin: auto;
+    justify-content: center;
+
+    .category-item{
+      width: 100%;
+      border:1px solid #b8b8b8;
+      border-radius: 5px;
+      .image-container{
+        min-height: 152px;
+        .category-image{
+          max-height: 100%;
+          padding: 15px;
+          width: 100%;
+        }
+      }
+      .category-name{
+        font-size: 0.9em;
+      }
+    }
   }
 }
+
+@media screen and (max-width: 1200px) {}
