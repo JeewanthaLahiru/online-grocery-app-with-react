@@ -5,7 +5,7 @@ const BottomHeader:React.FC = () => {
     return (
         <Container fluid={true} className="m-0 p-0 bottom-header" >
             <div className="shadow-line" ></div>
-            <Navbar bg="white" expand="lg" >
+            <Navbar bg="white" expand="lg">
                 <Navbar.Brand href="#home" className="text-success bottom-header-title" >
                     <span>LOGO</span>
                 </Navbar.Brand>
