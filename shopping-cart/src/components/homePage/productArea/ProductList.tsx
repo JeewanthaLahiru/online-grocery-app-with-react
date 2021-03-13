@@ -50,7 +50,7 @@ const ProductList:React.FC = () => {
             <Col xs={12} className="m-0 p-0">
                 <Row>
                     <Col className="mt-4 ml-3">
-                        <h5 className="text-left">Food</h5>
+                        <h5 className="text-left">Foods</h5>
                     </Col>
                 </Row>
                 <Row className="m-0 p-0" >
