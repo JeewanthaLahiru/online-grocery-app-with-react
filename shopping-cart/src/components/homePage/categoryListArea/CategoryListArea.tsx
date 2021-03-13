@@ -16,7 +16,7 @@ const ProductListArea:React.FC = () => {
     }
 
     return(
-        <Row className="mx-0 px-lg-5 category-list-area">
+        <Row className="mx-0 mb-4 px-lg-5 category-list-area">
             <Col className="m-0 px-lg-5">
                 { isLabelVisible && <Row className=" closing-label my-2" >
                     <Col className="closing-label-inside" >
