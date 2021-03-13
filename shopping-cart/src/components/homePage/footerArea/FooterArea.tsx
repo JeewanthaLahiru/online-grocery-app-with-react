@@ -6,7 +6,7 @@ import FooterCopyrightBar from "./FooterCopyrightBar";
 
 const FooterArea:React.FC = () => {
     return(
-        <Row className="m-0">
+        <Row className="m-0 footer-background">
             <Col xs={{span:8, offset:2}} >
                 <FooterNavigationBar/>
                 <FooterSocialMediaBar/>
