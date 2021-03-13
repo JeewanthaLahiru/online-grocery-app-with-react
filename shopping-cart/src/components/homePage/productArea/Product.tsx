@@ -16,7 +16,7 @@ const Product:React.FC = () => {
                     <p className="text-center discount" >50.00</p>
                 </Col>
                 <Col xs={6} >
-                    <p className="text-center price" >50.00</p>
+                    <p className="text-center price text-success" >Rs.50.<span className="small-text">00</span></p>
                 </Col>
 
                 <Col xs={5} className="cart-quantity" >
