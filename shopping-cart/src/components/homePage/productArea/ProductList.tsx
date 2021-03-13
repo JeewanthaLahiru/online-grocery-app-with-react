@@ -19,8 +19,8 @@ const ProductList:React.FC = () => {
     }
     const renderGroceryList = () => {
         return(
-            <React.Fragment>
-                <Row>
+            <Col xs={12} className="m-0 p-0">
+                <Row xs={12}>
                     <Col className="mt-4 ml-3">
                         <h5 className="text-left">Grocery</h5>
                     </Col>
@@ -28,12 +28,12 @@ const ProductList:React.FC = () => {
                 <Row className="m-0 p-0" >
                     {renderAllProducts('Grocery')}
                 </Row>
-            </React.Fragment>
+            </Col>
         )
     }
     const renderPharmacyList = () => {
         return(
-            <React.Fragment>
+            <Col xs={12} className="m-0 p-0">
                 <Row>
                     <Col className="mt-4 ml-3">
                         <h5 className="text-left">Pharmacy</h5>
@@ -42,12 +42,12 @@ const ProductList:React.FC = () => {
                 <Row className="m-0 p-0" >
                     {renderAllProducts('Pharmacy')}
                 </Row>
-            </React.Fragment>
+            </Col>
         )
     }
     const renderFoodList = () => {
         return(
-            <React.Fragment>
+            <Col xs={12} className="m-0 p-0">
                 <Row>
                     <Col className="mt-4 ml-3">
                         <h5 className="text-left">Food</h5>
@@ -56,26 +56,26 @@ const ProductList:React.FC = () => {
                 <Row className="m-0 p-0" >
                     {renderAllProducts('Food')}
                 </Row>
-            </React.Fragment>
+            </Col>
         )
     }
     const renderElectronicList = () => {
         return(
-            <React.Fragment>
+            <Col xs={12} className="m-0 p-0">
                 <Row>
-                    <Col className="mt-4 ml-3">
+                    <Col xs={12} className="mt-4 ml-3">
                         <h5 className="text-left">Electronic</h5>
                     </Col>
                 </Row>
                 <Row className="m-0 p-0" >
                     {renderAllProducts('Electronic')}
                 </Row>
-            </React.Fragment>
+            </Col>
         )
     }
     const renderAllCategory = () => {
         return(
-            <React.Fragment>
+            <Col xs={12} className="m-0 p-0">
                 <Row className="product-list mb-5">
                     {renderGroceryList()}
                 </Row>
@@ -88,7 +88,7 @@ const ProductList:React.FC = () => {
                 <Row className="product-list mb-5">
                     {renderElectronicList()}
                 </Row>
-            </React.Fragment>
+            </Col>
         );
     }
 
