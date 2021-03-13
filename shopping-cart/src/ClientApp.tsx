@@ -4,6 +4,7 @@ import HeaderArea from "./components/homePage/headerArea/HeaderArea";
 import BannerArea from "./components/homePage/bannerArea/BannerArea";
 import SearchArea from "./components/homePage/searchArea/SearchArea";
 import CategoryListArea from "./components/homePage/categoryListArea/CategoryListArea";
+import ProductList from "./components/homePage/productArea/ProductList";
 
 const ClientApp:React.FC = () => {
     return(
@@ -12,6 +13,7 @@ const ClientApp:React.FC = () => {
             <BannerArea/>
             <SearchArea/>
             <CategoryListArea/>
+            <ProductList/>
         </Container>
     )
 }
