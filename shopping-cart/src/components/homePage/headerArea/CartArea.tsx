@@ -1,6 +1,5 @@
 import React from "react";
-import {Dropdown, Row, Col, Image, Badge, OverlayTrigger, Popover} from "react-bootstrap";
-import {products} from "../../../repository/Products";
+import {Row, Col, Badge, OverlayTrigger, Popover} from "react-bootstrap";
 import CartProductList from "./CartProductList";
 import {ICartProduct} from "../../../types/CartProducts";
 import {useSelector} from "react-redux";
