@@ -13,6 +13,7 @@ import {
     Link
 } from 'react-router-dom';
 import HomePage from "./components/homePage/HomePage";
+import CheckoutArea from "./components/checkoutPage/CheckoutArea";
 
 const ClientApp:React.FC = () => {
     return(
@@ -21,6 +22,8 @@ const ClientApp:React.FC = () => {
                 <HeaderArea/>
                 <Switch>
                     <Route path="/" exact component={HomePage} />
+                    <Route path="/checkout" exact component={CheckoutArea} />
+                    <Route component={HomePage} />
                 </Switch>
             </Container>
         </Router>
