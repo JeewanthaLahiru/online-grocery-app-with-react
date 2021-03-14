@@ -30,7 +30,7 @@ const CartArea:React.FC = () => {
             <Row>
                 <Col className="notification-btn pt-1" >
                     <i className="feather icon-shopping-cart cart-icon">
-                        <Badge variant='light' className='item-count text-white'>0</Badge>
+                        <Badge variant='light' className='item-count text-white'>{cartProducts.length}</Badge>
                     </i>
                 </Col>
             </Row>
