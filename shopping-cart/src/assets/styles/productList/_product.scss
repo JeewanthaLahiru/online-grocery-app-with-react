@@ -1,3 +1,6 @@
+html{
+  scroll-behavior: smooth;
+}
 .product-class{
   border: 1px solid #cdcdcd;
   border-radius: 5px;
@@ -30,4 +33,71 @@
     }
   }
 
+}
+
+@media screen and (max-width: 1200px) {
+  .product-class{
+    .add-to-cart{
+      padding-left: 0;
+      .btn {
+        border-radius: 20px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .product-class{
+    .add-to-cart{
+      padding-left: 0;
+      .btn {
+        border-radius: 20px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .product-class{
+    .image-container{
+      height: 100px;
+      img{
+        height: 100%;
+        max-width: 100%;
+      }
+    }
+
+    .discount{
+      color: #8d8d8d;
+      text-decoration: line-through;
+      font-size: 0.8em;
+    }
+    .price{
+      font-weight: 600;
+      font-size: 0.8em;
+      .small-text{
+        font-size: 0.8em;
+      }
+    }
+
+    .add-to-cart{
+      padding-left: 0;
+      .btn {
+        border-radius: 20px;
+        font-size: 0.6em;
+        padding-left: 3px;
+        padding-right: 3px;
+      }
+    }
+    .cart-quantity{
+      .quantity-form{
+        padding-left: 3px;
+        padding-right: 3px;
+        font-size: 0.6em;
+      }
+    }
+    .product-name{
+      font-size: 0.9em;
+    }
+  }
 }

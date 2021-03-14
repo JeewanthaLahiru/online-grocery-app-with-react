@@ -6,17 +6,28 @@ import SearchArea from "./components/homePage/searchArea/SearchArea";
 import CategoryListArea from "./components/homePage/categoryListArea/CategoryListArea";
 import ProductList from "./components/homePage/productArea/ProductList";
 import FooterArea from "./components/homePage/footerArea/FooterArea";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from 'react-router-dom';
+import HomePage from "./components/homePage/HomePage";
+import CheckoutArea from "./components/checkoutPage/CheckoutArea";
 
 const ClientApp:React.FC = () => {
     return(
-        <Container fluid={true} className="m-0 p-0" >
-            <HeaderArea/>
-            <BannerArea/>
-            <SearchArea/>
-            <CategoryListArea/>
-            <ProductList/>
-            <FooterArea/>
-        </Container>
+        <Router>
+            <Container fluid={true} className="m-0 p-0" >
+                <HeaderArea/>
+                <Switch>
+                    <Route path="/" exact component={HomePage} />
+                    <Route path="/checkout" exact component={CheckoutArea} />
+                    <Route component={HomePage} />
+                </Switch>
+                <FooterArea/>
+            </Container>
+        </Router>
     )
 }
 

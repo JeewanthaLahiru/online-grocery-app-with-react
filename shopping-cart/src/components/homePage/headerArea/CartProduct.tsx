@@ -1,6 +1,8 @@
 import React from "react";
 import {ICartProduct} from "../../../types/CartProducts";
 import {Col, Row, Image} from "react-bootstrap";
+import {useDispatch} from "react-redux";
+import {deleteProductFromCart} from "../../../store/actions/CartProductActions";
 
 type CartProductProps = {
     cartProduct: ICartProduct,
@@ -8,6 +10,12 @@ type CartProductProps = {
 
 const CartProduct:React.FC<CartProductProps> = (props) => {
     const {cartProduct} = props;
+
+    const dispatch = useDispatch();
+
+    const handleOnDelete = () => {
+        dispatch(deleteProductFromCart(cartProduct.id))
+    }
 
     return(
         <Row className={'cart-product'}>
@@ -20,7 +28,9 @@ const CartProduct:React.FC<CartProductProps> = (props) => {
                         {cartProduct.product.name}
                     </Col>
                     <Col xs={2} className={'mb-1 mb-sm-2 text-center p-0 pr-2 m-0'}>
-                        <i className="feather icon-trash" />
+                        <i className="feather icon-trash" onClick={()=>{
+                            handleOnDelete()
+                        }} />
                     </Col>
                 </Row>
                 <Row className='mt-1 mt-sm-2'>

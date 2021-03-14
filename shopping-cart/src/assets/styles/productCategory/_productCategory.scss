@@ -44,19 +44,25 @@
       border:1px solid #b8b8b8;
       border-radius: 5px;
       .image-container{
-        min-height: 152px;
+        height: 150px;
         .category-image{
           max-height: 100%;
           padding: 15px;
-          width: 100%;
+          max-width: 100%;
         }
       }
       .category-name{
         font-size: 0.9em;
       }
     }
+
     .category-item:hover{
       cursor: pointer;
+    }
+
+    .active-category{
+      background-color: rgba(76,175,80,0.2);
+      border: 2px solid $primary-color;
     }
   }
 }
@@ -89,7 +95,7 @@
     .product-list-area{
       .category-item{
         .image-container{
-          min-height: 80px;
+          height: 90px;
           .category-image{
             padding:0;
           }
@@ -107,9 +113,9 @@
     .product-list-area{
       .category-item{
         .image-container{
-          min-height: 50px;
+          height: 100px;
           .category-image{
-            padding:0;
+
           }
         }
         .category-name{
@@ -126,7 +132,7 @@
     .product-list-area{
       .category-item{
         .image-container{
-          min-height: 50px;
+          height: 90px;
           padding:4px;
           .category-image{
             padding:0;

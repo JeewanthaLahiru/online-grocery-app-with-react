@@ -1,6 +1,5 @@
 import React from "react";
-import {Dropdown, Row, Col, Image, Badge, OverlayTrigger, Popover} from "react-bootstrap";
-import {products} from "../../../repository/Products";
+import {Row, Col, Badge, OverlayTrigger, Popover} from "react-bootstrap";
 import CartProductList from "./CartProductList";
 import {ICartProduct} from "../../../types/CartProducts";
 import {useSelector} from "react-redux";
@@ -30,7 +29,7 @@ const CartArea:React.FC = () => {
             <Row>
                 <Col className="notification-btn pt-1" >
                     <i className="feather icon-shopping-cart cart-icon">
-                        <Badge variant='light' className='item-count text-white'>0</Badge>
+                        <Badge variant='light' className='item-count text-white'>{cartProducts.length}</Badge>
                     </i>
                 </Col>
             </Row>

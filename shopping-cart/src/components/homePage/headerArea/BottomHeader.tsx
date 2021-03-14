@@ -1,6 +1,7 @@
 import React, {useState} from "react";
-import {Button, Dropdown, DropdownButton, Nav, Navbar} from "react-bootstrap";
+import {Button, Nav, Navbar} from "react-bootstrap";
 import CartArea from "./CartArea";
+import {Link} from 'react-router-dom';
 
 const BottomHeader:React.FC = () => {
 
@@ -15,9 +16,12 @@ const BottomHeader:React.FC = () => {
                 onClick={() => cartHandler()}
         >
             <div className="shadow-line" ></div>
-            <Navbar.Brand href="#home" className="text-success bottom-header-title" >
-                <span>LOGO</span>
-            </Navbar.Brand>
+            <Link to={"/"}>
+                <Navbar.Brand href="#home" className="text-success bottom-header-title" >
+                    <span>LOGO</span>
+                </Navbar.Brand>
+            </Link>
+
 
             <Nav className="ml-auto">
                 <CartArea/>
@@ -26,7 +30,9 @@ const BottomHeader:React.FC = () => {
 
             </Nav>
             <Nav.Link href="#link">
-                <Button variant="success" size="sm" className="check-out-button" >Check out</Button>
+                <Link to={"/checkout"} >
+                    <Button variant="success" size="sm" className="check-out-button" >Check out</Button>
+                </Link>
             </Nav.Link>
         </Navbar>
     )
