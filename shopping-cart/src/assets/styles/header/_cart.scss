@@ -1,10 +1,104 @@
-.cart-area{
-  z-index: 10;
-  position: absolute;
-  top: 50px;
-  right: 10px;
-  width: 400px;
-  background-color: white;
-  border: 1px solid #cacaca;
-  border-radius: 5px;
+.popover{
+  font-family: 'Montserrat', sans-serif;
+  max-width: 500px;
+  width: 340px;
+
+  .cart-product-img{
+    height: 60px;
+    width: auto;
+  }
+  .cart-product-list{
+    max-height: 30vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .cart-product-list::-webkit-scrollbar-track
+  {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+  }
+
+  .cart-product-list::-webkit-scrollbar
+  {
+    width: 6px;
+    background-color: #F5F5F5;
+  }
+
+  .cart-product-list::-webkit-scrollbar-thumb
+  {
+    background-color: $secondary-font-color;
+  }
+
+  .cart-product {
+    .cart-product-title {
+      font-size: $cart-product-title-font-size;
+      font-weight: $cart-product-font-weight;
+    }
+
+    .cart-product-qty {
+      color: $secondary-font-color;
+      font-size: $cart-product-font-size;
+      font-weight: $cart-product-font-weight;
+
+    }
+
+    .cart-product-price {
+      color: $primary-color;
+      font-size: $cart-product-font-size;
+      font-weight: $cart-product-font-weight;
+    }
+  }
+  .cart-bill-title {
+    font-size: $cart-product-font-size;
+    font-weight: $cart-product-font-weight;
+  }
+  .cart-sub-total{
+    font-size: $cart-product-font-size;
+    font-weight: $cart-bill-price-font-weight;
+    color: $warning-font-color;
+  }
+  .cart-discount{
+    font-size: $cart-product-font-size;
+    font-weight: $cart-bill-price-font-weight;
+    color: $secondary-font-color;
+  }
+  .cart-total{
+    font-size: $cart-product-font-size;
+    font-weight: $cart-bill-price-font-weight;
+    color: $warning-font-color;
+  }
+  .cart-checkout-btn{
+    font-size: $cart-product-font-size-sm;
+    border-radius: 20px;
+  }
+  .cart-del-btn{
+    cursor: pointer;
+  }
+}
+
+
+.notification-btn{
+  padding-right: 25px;
+
+  .cart-icon{
+    padding-top: 20px;
+    font-size: 1.5em;
+    color: #888888;
+    position: relative;
+  }
+  .item-count{
+    position: absolute;
+    font-size: 0.6em;
+    font-weight: 400;
+    right: -10px;
+    top: 10px;
+    background-color: $primary-color;
+    border-radius: 50%;
+  }
+}
+.notification-btn:hover{
+  cursor: pointer;
+  .cart-icon{
+    color: #666666;
+  }
 }

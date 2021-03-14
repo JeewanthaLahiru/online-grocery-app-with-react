@@ -45,6 +45,14 @@
     }
   }
 
+  #dropdown-basic{
+    background-color: transparent;
+    border: none;
+  }
+  #dropdown-basic::after{
+    display: none;
+  }
+
 }
 
 

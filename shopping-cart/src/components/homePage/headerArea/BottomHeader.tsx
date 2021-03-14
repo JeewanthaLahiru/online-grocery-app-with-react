@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, Container, Nav, Navbar} from "react-bootstrap";
+import {Button, Dropdown, DropdownButton, Nav, Navbar} from "react-bootstrap";
 import CartArea from "./CartArea";
 
 const BottomHeader:React.FC = () => {
@@ -20,11 +20,9 @@ const BottomHeader:React.FC = () => {
             </Navbar.Brand>
 
             <Nav className="ml-auto">
-                <Nav.Link href="#home" className="notification">
-                    <span><i className="feather icon-shopping-cart"/></span>
-                    <span className="badge">2</span>
-                    {isCartVisible && <CartArea/>}
-                </Nav.Link>
+                <CartArea/>
+
+
 
             </Nav>
             <Nav.Link href="#link">
