@@ -1,11 +1,13 @@
 import {categoryState} from "../types/categoryTypes";
-import {categoryActionTypes, CHANGE_CATEGORY} from "../types/categoryActionTypes";
+import {categoryActionTypes, CHANGE_CATEGORY, ChangeCategory} from "../types/categoryActionTypes";
 
 const initialState:categoryState={
     category: ""
 }
 
-export const categoryReducer = (state=initialState,action:categoryActionTypes) => {
+export const categoryReducer = (
+    state:categoryState=initialState,
+    action:categoryActionTypes):categoryState => {
     switch (action.type){
         case CHANGE_CATEGORY:{
             return {

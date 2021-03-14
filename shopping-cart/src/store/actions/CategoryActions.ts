@@ -1,6 +1,6 @@
-import {CHANGE_CATEGORY, changeCategory} from "../types/categoryActionTypes";
+import {CHANGE_CATEGORY, ChangeCategory} from "../types/categoryActionTypes";
 
-export const changeCategoryItem = (category: string):changeCategory => {
+export const changeCategory = (category: string):ChangeCategory => {
     return {
         type: CHANGE_CATEGORY,
         payload: category

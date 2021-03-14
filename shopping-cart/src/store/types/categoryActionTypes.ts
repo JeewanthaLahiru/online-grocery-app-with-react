@@ -1,8 +1,8 @@
 export const CHANGE_CATEGORY = "CHANGE_CATEGORY";
 
-export interface changeCategory{
+export interface ChangeCategory{
     type: typeof CHANGE_CATEGORY,
     payload: string
 }
 
-export type categoryActionTypes = changeCategory;
+export type categoryActionTypes = ChangeCategory;

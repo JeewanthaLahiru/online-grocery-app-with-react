@@ -55,8 +55,14 @@
         font-size: 0.9em;
       }
     }
+
     .category-item:hover{
       cursor: pointer;
+    }
+
+    .active-category{
+      background-color: rgba(76,175,80,0.2);
+      border: 2px solid $primary-color;
     }
   }
 }
