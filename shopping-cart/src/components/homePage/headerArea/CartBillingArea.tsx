@@ -3,6 +3,7 @@ import {Button, Col, Container, Row} from "react-bootstrap";
 import {useSelector} from "react-redux";
 import {AppState} from "../../../store/reducers";
 import NumberFormat from "react-number-format";
+import {Link} from 'react-router-dom';
 
 const CartBillingArea:React.FC = () => {
 
@@ -24,7 +25,14 @@ const CartBillingArea:React.FC = () => {
                     Subtotal ({cartProducts.length} items)
                 </Col>
                 <Col className={'text-right cart-sub-total'}>
-                    <NumberFormat value={calculateSubTotal()} decimalScale={2} fixedDecimalScale={true} displayType={'text'} thousandSeparator={true} prefix={'Rs. '} renderText={value => <div>{value}</div>} />
+                    <NumberFormat
+                        value={calculateSubTotal()}
+                        decimalScale={2}
+                        fixedDecimalScale={true}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        prefix={'Rs. '}
+                        renderText={value => <div>{value}</div>} />
                 </Col>
             </Row>
             <Row>
@@ -32,7 +40,14 @@ const CartBillingArea:React.FC = () => {
                     Discount
                 </Col>
                 <Col className={'text-right cart-discount'}>
-                    <NumberFormat value={isDiscountApplied? calculateSubTotal()*0.1 : 0} decimalScale={2} fixedDecimalScale={true} displayType={'text'} thousandSeparator={true} prefix={'-Rs. '} renderText={value => <div>{value}</div>} />
+                    <NumberFormat
+                        value={isDiscountApplied? calculateSubTotal()*0.1 : 0}
+                        decimalScale={2}
+                        fixedDecimalScale={true}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        prefix={'-Rs. '}
+                        renderText={value => <div>{value}</div>} />
                 </Col>
             </Row>
             <hr/>
@@ -41,10 +56,17 @@ const CartBillingArea:React.FC = () => {
                     Est. Total
                 </Col>
                 <Col className={'text-right cart-total'}>
-                    <NumberFormat value={isDiscountApplied? calculateSubTotal()*0.9 : calculateSubTotal()} decimalScale={2} fixedDecimalScale={true} displayType={'text'} thousandSeparator={true} prefix={'Rs. '} renderText={value => <div>{value}</div>} />
+                    <NumberFormat
+                        value={isDiscountApplied? calculateSubTotal()*0.9 : calculateSubTotal()}
+                        decimalScale={2} fixedDecimalScale={true}
+                        displayType={'text'} thousandSeparator={true}
+                        prefix={'Rs. '}
+                        renderText={value => <div>{value}</div>} />
                 </Col>
             </Row>
-            <Button className={'cart-checkout-btn px-3'} size='sm' variant='success'>Checkout</Button>
+            <Link to={"/checkout"}>
+                <Button className={'cart-checkout-btn px-3'} size='sm' variant='success'>Checkout</Button>
+            </Link>
         </Container>
     )
 }
