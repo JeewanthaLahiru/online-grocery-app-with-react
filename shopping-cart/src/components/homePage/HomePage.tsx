@@ -1,9 +1,18 @@
 import React from 'react';
+import BannerArea from "./bannerArea/BannerArea";
+import SearchArea from "./searchArea/SearchArea";
+import CategoryListArea from "./categoryListArea/CategoryListArea";
+import ProductListArea from "./productListArea/ProductListArea";
+import FooterArea from "./footerArea/FooterArea";
 
 const HomePage:React.FC = () => {
     return(
         <React.Fragment>
-            <div>hello world</div>
+            <BannerArea/>
+            <SearchArea/>
+            <CategoryListArea/>
+            <ProductListArea/>
+            <FooterArea/>
         </React.Fragment>
     )
 }
