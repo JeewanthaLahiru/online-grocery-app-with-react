@@ -32,22 +32,12 @@ const ProductListArea:React.FC = () => {
                         <h2 className="my-3 text-success text-center p-0">Demo Products</h2>
                     </Col>
                 </Row>
-                <Row className="justify-content-around product-list-area">
-                    <Col xs={2}>
-                        <CategoryItem image={AllCat} name={"All"}/>
-                    </Col>
-                    <Col xs={2}>
-                        <CategoryItem image={Grocery} name={"Grocery"}/>
-                    </Col>
-                    <Col xs={2}>
-                        <CategoryItem image={Pharmacy} name={"Pharmacy"}/>
-                    </Col>
-                    <Col xs={2}>
-                        <CategoryItem image={Food} name={"Food"}/>
-                    </Col>
-                    <Col xs={2}>
-                        <CategoryItem image={Electro} name={"Electronic"}/>
-                    </Col>
+                <Row className="justify-content-between product-list-area">
+                    <CategoryItem image={AllCat} name={"All"}/>
+                    <CategoryItem image={Grocery} name={"Grocery"}/>
+                    <CategoryItem image={Pharmacy} name={"Pharmacy"}/>
+                    <CategoryItem image={Food} name={"Food"}/>
+                    <CategoryItem image={Electro} name={"Electronic"}/>
                 </Row>
             </Col>
         </Row>
