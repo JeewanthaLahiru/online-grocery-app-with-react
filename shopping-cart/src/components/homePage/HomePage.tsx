@@ -12,7 +12,6 @@ const HomePage:React.FC = () => {
             <SearchArea/>
             <CategoryListArea/>
             <ProductListArea/>
-            <FooterArea/>
         </React.Fragment>
     )
 }
