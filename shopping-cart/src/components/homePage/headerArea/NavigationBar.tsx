@@ -7,9 +7,10 @@ const NavigationBar:React.FC = () => {
             <Navbar bg="white" >
 
                 <DropdownButton title="Categories" variant="outline-secondary">
-                    <Dropdown.Item className='dropdown-item' href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item className='dropdown-item' href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item className='dropdown-item' href="#/action-3">Something else</Dropdown.Item>
+                    <Dropdown.Item className='dropdown-item' href="#/action-1">Grocery</Dropdown.Item>
+                    <Dropdown.Item className='dropdown-item' href="#/action-2">Pharmacy</Dropdown.Item>
+                    <Dropdown.Item className='dropdown-item' href="#/action-3">Food</Dropdown.Item>
+                    <Dropdown.Item className='dropdown-item' href="#/action-3">Electronic</Dropdown.Item>
                 </DropdownButton>
                 <Nav.Link href="#home" className="text-secondary" >Home</Nav.Link>
                 <Nav.Link href="#link" className="text-secondary" >FAQ</Nav.Link>
