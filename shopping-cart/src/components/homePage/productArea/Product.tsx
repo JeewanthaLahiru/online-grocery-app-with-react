@@ -81,7 +81,7 @@ const Product:React.FC<ProductTypeProps> = (props) => {
                     <Image src={product_image} alt={"coconut"} />
                 </Col>
                 <Col xs={12} >
-                    <h5 className="text-center mb-5" >{product_name}</h5>
+                    <h5 className="text-center mb-5 product-name" >{product_name}</h5>
                 </Col>
                 <Col xs={6} >
                     <p className="text-center discount" >{product_price}.00</p>

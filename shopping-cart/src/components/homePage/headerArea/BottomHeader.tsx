@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, Dropdown, DropdownButton, Nav, Navbar} from "react-bootstrap";
+import {Button, Nav, Navbar} from "react-bootstrap";
 import CartArea from "./CartArea";
 import {Link} from 'react-router-dom';
 
