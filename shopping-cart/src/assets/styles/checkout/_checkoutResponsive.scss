@@ -1,0 +1,148 @@
+@media only screen and(max-width: 690px) {
+  .checkout-container{
+
+    .checkout-title{
+      h2{
+        font-size: 1.5rem !important;
+      }
+    }
+    .shopping-cart-title{
+      font-size: 1rem !important;
+    }
+
+    .product-img{
+      height: 30px !important;
+      width: auto;
+    }
+    .icons{
+      height: 10px !important;
+    }
+    .table td{
+      vertical-align: middle;
+      font-size: 0.5em !important;
+      font-weight: 400;
+    }
+    .table th{
+      font-size: 0.5em !important;
+    }
+  }
+  .table-head{
+    border-top:white 2px solid !important;
+  }
+  .delivery-row{
+    border-top:white 2px solid !important;
+  }
+  .discount-title{
+    font-size: 0.6rem !important; ;
+  }
+  .discount-input{
+    height: 23px !important;
+    width: 100% !important;
+  }
+  .discount-submit{
+    font-size: 0.5rem !important;
+    height: 22px !important;
+    width: 100% !important;
+  }
+  .pagination{
+    font-size: 0.5rem !important;
+    a{
+      padding: 6px 8px;
+    }
+  }
+
+  .btn-secondary{
+    font-size: 0.6rem !important;
+    padding: 5px 10px;
+  }
+
+  .per-page{
+    font-size: 0.4rem !important;
+  }
+  .warning {
+    p {
+      font-size: 0.5rem;
+    }
+  }
+  .bill-title {
+    font-size: 0.6rem !important;
+  }
+
+  .delivery-price{
+    font-size: 0.6rem !important;
+  }
+
+  .discount-price{
+    font-size: 0.6rem !important;
+  }
+
+  .sub-total-price{
+    font-size: 0.6rem !important;
+  }
+
+  .total-price{
+    font-size: 0.8em !important;
+  }
+  .est-bill-title{
+    font-size: 0.8em !important;
+  }
+
+}
+@media only screen and(max-width: 400px) {
+  .checkout-container{
+
+    .checkout-title{
+      h2{
+        font-size: 1.5rem !important;
+      }
+    }
+    .shopping-cart-title{
+      font-size: 1rem !important;
+    }
+
+  }
+  .discount-title{
+    font-size: 0.5rem !important;
+  }
+  .discount-input{
+    height: 18px !important;
+  }
+  .discount-submit{
+    font-size: 0.4rem !important;
+    height: 18px !important;
+  }
+  .sub-total-price{
+    padding: 0 !important;
+  }
+  .warning {
+    p {
+      font-size: 0.5rem;
+    }
+  }
+  .bill-title {
+    font-size: 0.6em !important;
+  }
+  .bill-title {
+    font-size: 0.5rem !important;
+  }
+
+  .delivery-price{
+    font-size: 0.5rem !important;
+  }
+
+  .discount-price{
+    font-size: 0.5rem !important;
+  }
+
+  .sub-total-price{
+    font-size: 0.5rem !important;
+  }
+
+  .total-price{
+    font-size: 0.7em !important;
+  }
+  .est-bill-title{
+    font-size: 0.7em !important;
+  }
+
+}

@@ -1,0 +1,24 @@
+@import "~bootstrap/scss/bootstrap";
+
+@import "variables/colors";
+@import "variables/fonts";
+
+@import "header/topHeader";
+@import "header/bottomHeader";
+@import "header/navigationBar";
+@import "header/cart";
+@import "header/cart-responsive";
+
+@import "banner/banner";
+
+@import "searchBar/searchBar";
+
+@import "productCategory/productCategory";
+
+@import "productList/productList";
+@import "productList/product";
+
+@import "footer/footer";
+
+@import "checkout/checkout";
+@import "checkout/checkoutResponsive";

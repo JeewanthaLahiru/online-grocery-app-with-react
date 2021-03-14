@@ -1,0 +1,131 @@
+.checkout-container{
+  .checkout-title{
+    h2{
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+  }
+  .shopping-cart-title{
+    font-size: 1.1rem;
+  }
+  .product-img{
+    height: 40px;
+    width: auto;
+  }
+  .icons{
+    color: $icons-color;
+    cursor: pointer;
+    height: 20px;
+  }
+  .table td{
+    vertical-align: middle;
+    font-size: 0.8em;
+    font-weight: 400;
+  }
+  .table th{
+    font-size: 0.9em;
+  }
+}
+
+.table-area{
+  border: 1px $table-border-color solid;
+  border-radius: 10px;
+  padding: 20px;
+  padding-top:10px;
+}
+.table-head{
+  border-top:white 2px solid !important;
+}
+
+.delivery-row{
+  border-top:white 2px solid !important;
+}
+
+.discount-title{
+  font-size: 0.8em;
+}
+
+.discount-input{
+  height: 30px;
+  width: 100%;
+}
+
+.discount-submit{
+  border-radius: 5px;
+  font-size: 0.65rem;
+}
+
+
+
+.pagination{
+  float: right;
+  font-size: 0.8rem;
+  .page-link{
+    color: #2e2e2e;
+  }
+  .page-item.active .page-link{
+    background-color: #4caf50;
+    border-color: #4caf50;
+    color: white;
+  }
+}
+
+.btn-secondary{
+  font-size: 0.8rem;
+}
+
+.per-page{
+  font-size: 0.8rem;
+}
+.warning {
+  p {
+    margin: 0;
+    color: #bf1650;
+    font-size: 0.7rem;
+  }
+
+  p::before {
+    display: inline;
+    content: "⚠ ";
+  }
+}
+
+.bill-title {
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.delivery-price{
+  color: red;
+  font-size: 0.9em;
+  font-weight: 500;
+
+}
+
+.discount-price{
+  color: #4caf50;
+  font-size: 0.9em;
+  font-weight: 500;
+
+}
+
+.sub-total-price{
+  font-size: 0.9em;
+  font-weight: 500;
+
+}
+
+.total-price{
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #c82333;
+}
+.est-bill-title{
+  font-size: 1.4em;
+  font-weight: 700;
+}
+
+.feather:hover{
+  cursor: pointer;
+}
