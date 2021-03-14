@@ -3,26 +3,14 @@ import {Dropdown, Row, Col, Image, Badge, OverlayTrigger, Popover} from "react-b
 import {products} from "../../../repository/Products";
 import CartProductList from "./CartProductList";
 import {ICartProduct} from "../../../types/CartProducts";
+import {useSelector} from "react-redux";
+import {AppState} from "../../../store/reducers";
 
 const CartArea:React.FC = () => {
 
-    const cartProducts: ICartProduct[] = [
-        {
-            id:1,
-            product:products[0],
-            qty:2
-        },
-        {
-            id:2,
-            product:products[1],
-            qty:2
-        },
-        {
-            id:3,
-            product:products[2],
-            qty:2
-        }
-    ]
+    const cartProducts: ICartProduct[] = useSelector(
+        (state:AppState) => state.cartProduct.cartProducts
+    );
 
     return(
         <OverlayTrigger
