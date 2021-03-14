@@ -131,7 +131,7 @@ const ProductList:React.FC = () => {
 
 
     return(
-        <Row className="product-list p-4" >
+        <Row className="product-list p-4"   id={"product-list"} >
             {renderCategory()}
         </Row>
     )

@@ -12,16 +12,16 @@ const NavigationBar:React.FC = () => {
             <Navbar bg="white" >
 
                 <DropdownButton title="Categories" variant="outline-secondary">
-                    <Dropdown.Item className='dropdown-item' href="#/action-1"
+                    <Dropdown.Item className='dropdown-item' href='#product-list'
                         onClick={()=>dispatch(changeCategory('Grocery'))}
                     >Grocery</Dropdown.Item>
-                    <Dropdown.Item className='dropdown-item' href="#/action-2"
+                    <Dropdown.Item className='dropdown-item' href='#product-list'
                                    onClick={()=>dispatch(changeCategory('Pharmacy'))}
                     >Pharmacy</Dropdown.Item>
-                    <Dropdown.Item className='dropdown-item' href="#/action-3"
+                    <Dropdown.Item className='dropdown-item' href='#product-list'
                                    onClick={()=>dispatch(changeCategory('Food'))}
                     >Food</Dropdown.Item>
-                    <Dropdown.Item className='dropdown-item' href="#/action-3"
+                    <Dropdown.Item className='dropdown-item' href='#product-list'
                                    onClick={()=>dispatch(changeCategory('Electronic'))}
                     >Electronic</Dropdown.Item>
                 </DropdownButton>
