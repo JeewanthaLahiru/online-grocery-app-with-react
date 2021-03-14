@@ -5,4 +5,4 @@ export interface changeCategory{
     payload: string
 }
 
-export type categoryTypes = changeCategory;
+export type categoryActionTypes = changeCategory;
