@@ -25,6 +25,7 @@ const ClientApp:React.FC = () => {
                     <Route path="/checkout" exact component={CheckoutArea} />
                     <Route component={HomePage} />
                 </Switch>
+                <FooterArea/>
             </Container>
         </Router>
     )
