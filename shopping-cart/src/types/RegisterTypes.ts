@@ -5,3 +5,9 @@ export type registerTypes = {
     password : string,
     confirmPassword : string
 }
+
+export type loginType = {
+    email : string,
+    password : string,
+    staySign : boolean
+}
