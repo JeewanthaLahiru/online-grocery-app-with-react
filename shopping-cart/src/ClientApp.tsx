@@ -1,10 +1,6 @@
 import React from 'react';
 import {Container} from "react-bootstrap";
 import HeaderArea from "./components/homePage/headerArea/HeaderArea";
-import BannerArea from "./components/homePage/bannerArea/BannerArea";
-import SearchArea from "./components/homePage/searchArea/SearchArea";
-import CategoryListArea from "./components/homePage/categoryListArea/CategoryListArea";
-import ProductList from "./components/homePage/productArea/ProductList";
 import FooterArea from "./components/homePage/footerArea/FooterArea";
 import {
     BrowserRouter as Router,
@@ -14,6 +10,7 @@ import {
 } from 'react-router-dom';
 import HomePage from "./components/homePage/HomePage";
 import CheckoutArea from "./components/checkoutPage/CheckoutArea";
+import Register from "./components/UserPages/Register/Register";
 
 const ClientApp:React.FC = () => {
     return(
@@ -23,7 +20,7 @@ const ClientApp:React.FC = () => {
                 <Switch>
                     <Route path="/" exact component={HomePage} />
                     <Route path="/checkout" exact component={CheckoutArea} />
-                    <Route component={HomePage} />
+                    <Route path="/register" exact component={Register} />
                 </Switch>
                 <FooterArea/>
             </Container>
