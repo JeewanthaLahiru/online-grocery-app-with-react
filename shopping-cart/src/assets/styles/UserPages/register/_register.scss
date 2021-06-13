@@ -1,6 +1,11 @@
 .register-form-root{
-  min-height: 80vh;
+  min-height: 70vh;
   .register-form{
-
+    button{
+      width: 100%;
+    }
+    .row{
+      margin-top: 30px;
+    }
   }
 }
