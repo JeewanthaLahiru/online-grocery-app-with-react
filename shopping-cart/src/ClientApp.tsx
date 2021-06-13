@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom';
 import HomePage from "./components/homePage/HomePage";
 import CheckoutArea from "./components/checkoutPage/CheckoutArea";
+import Register from "./components/UserPages/Register/Register";
 
 const ClientApp:React.FC = () => {
     return(
@@ -19,6 +20,7 @@ const ClientApp:React.FC = () => {
                 <Switch>
                     <Route path="/" exact component={HomePage} />
                     <Route path="/checkout" exact component={CheckoutArea} />
+                    <Route path="/register" exact component={Register} />
                 </Switch>
                 <FooterArea/>
             </Container>

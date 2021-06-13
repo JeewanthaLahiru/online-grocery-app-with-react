@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button, Container, Nav, Navbar} from "react-bootstrap";
+import {Link} from 'react-router-dom';
 
 const TopHeader:React.FC = () => {
     return (
@@ -11,7 +12,9 @@ const TopHeader:React.FC = () => {
                         <Nav.Link href="#home"> <i className="feather icon-truck"/> Delivery Areas</Nav.Link>
                         <Nav.Link href="#link"> <i className="feather icon-phone-call" /> +94 112 123 456</Nav.Link>
                         <Nav.Link href="#home">
-                            <Button variant="outline-success">Register</Button>
+                            <Link to={"/register"}>
+                                <Button variant="outline-success">Register</Button>
+                            </Link>
                         </Nav.Link>
                         <Nav.Link href="#home">
                             <Button variant="light" className="text-success" >Login</Button>
