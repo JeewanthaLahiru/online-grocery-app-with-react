@@ -1,6 +1,11 @@
 .register-form-root{
   min-height: 70vh;
   .register-form{
+    border: 1px solid $divider-color;
+    h1{
+      font-size: 2em;
+      color: $secondary-font-color;
+    }
     button{
       width: 100%;
     }
