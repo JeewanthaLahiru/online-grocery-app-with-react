@@ -1,10 +1,6 @@
 import React from 'react';
 import {Container} from "react-bootstrap";
 import HeaderArea from "./components/homePage/headerArea/HeaderArea";
-import BannerArea from "./components/homePage/bannerArea/BannerArea";
-import SearchArea from "./components/homePage/searchArea/SearchArea";
-import CategoryListArea from "./components/homePage/categoryListArea/CategoryListArea";
-import ProductList from "./components/homePage/productArea/ProductList";
 import FooterArea from "./components/homePage/footerArea/FooterArea";
 import {
     BrowserRouter as Router,
@@ -23,7 +19,6 @@ const ClientApp:React.FC = () => {
                 <Switch>
                     <Route path="/" exact component={HomePage} />
                     <Route path="/checkout" exact component={CheckoutArea} />
-                    <Route component={HomePage} />
                 </Switch>
                 <FooterArea/>
             </Container>
