@@ -8,8 +8,8 @@ import {Link} from 'react-router-dom';
 const Login:React.FC = () => {
 
 
-    const onSubmit = () => {
-        console.log("hello world");
+    const onSubmit = (data: loginType) => {
+        console.log(data);
     }
 
     const {handleSubmit, control, errors, reset, setValue} = useForm<loginType>();
@@ -22,8 +22,8 @@ const Login:React.FC = () => {
                         <Col xs={12} sm={12} md={6}  className="mt-5 image-col">
                             <Image src={CartImg}/>
                         </Col>
-                        <Col xs={12} sm={12} md={6}  className="mt-5 imput-col">
-                            <Form onSubmit={handleSubmit(onSubmit)} className="login-form">
+                        <Col xs={12} sm={12} md={6}  className="mt-5 input-col">
+                            <Form onSubmit={handleSubmit(onSubmit)}>
                                 <Row className="mx-0">
                                     <Col xs={12}>
                                         <h1 className="text-left" >Login</h1>
@@ -36,6 +36,7 @@ const Login:React.FC = () => {
                                             control={control}
                                             name={"email"}
                                             as={<Form.Control className="loginInput" />}
+                                            defaultValue={''}
                                             rules={{
                                                 required : true
                                             }}
@@ -50,6 +51,7 @@ const Login:React.FC = () => {
                                             control={control}
                                             name={"password"}
                                             as={<Form.Control type={"password"} className="loginInput" />}
+                                            defaultValue={''}
                                             rules={{
                                                 required : true
                                             }}
@@ -62,6 +64,7 @@ const Login:React.FC = () => {
                                         <Controller
                                             control={control}
                                             name={"staySign"}
+                                            defaultValue={false}
                                             as={<Form.Check
                                                 type={"checkbox"}
                                                 label={"Stay signed in?"}
