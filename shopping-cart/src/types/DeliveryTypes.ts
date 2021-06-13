@@ -5,6 +5,7 @@ export type deliveryTypes = {
     retypeEmail : string
     password : string
     deliveryAddress : address
+    shippingOption : string
     deliveryInstructions : string
     paymentMethod : paymentMethod
 }
