@@ -13,7 +13,7 @@ const Register:React.FC = () => {
         console.log('hello');
     }
 
-    const {handleSubmit, control, errors, reset, setValue} = useForm<registerTypes>();
+    const {handleSubmit, control, formState: { errors }, reset, setValue} = useForm<registerTypes>();
 
     return(
         <React.Fragment>
@@ -36,7 +36,9 @@ const Register:React.FC = () => {
                                 <Controller
                                     control={control}
                                     name={"firstName"}
-                                    as={<Form.Control placeholder={"First Name"} className='registerInput'/>}
+                                    render={({field})=>(
+                                        <Form.Control placeholder={"First Name"} className='registerInput'/>
+                                    )}
                                     defaultValue={''}
                                     rules={{
                                         required: true
@@ -48,7 +50,7 @@ const Register:React.FC = () => {
                                 <Controller
                                     control={control}
                                     name={"lastName"}
-                                    as={<Form.Control placeholder={"Last Name"} className="registerInput"/>}
+                                    render={()=>(<Form.Control placeholder={"Last Name"} className="registerInput"/>)}
                                     defaultValue={''}
                                     rules={{
                                         required : true
@@ -62,7 +64,7 @@ const Register:React.FC = () => {
                                 <Controller
                                     control={control}
                                     name={"email"}
-                                    as={<Form.Control placeholder={"Email"} className="registerInput" />}
+                                    render={()=>(<Form.Control placeholder={"Email"} className="registerInput" />)}
                                     defaultValue={""}
                                     rules={{
                                         required: true
@@ -76,7 +78,7 @@ const Register:React.FC = () => {
                                 <Controller
                                     control={control}
                                     name={"password"}
-                                    as={<Form.Control placeholder={"Password"} className="registerInput" />}
+                                    render={()=>(<Form.Control placeholder={"Password"} className="registerInput" />)}
                                     defaultValue={""}
                                     rules={{
                                         required: true
@@ -90,7 +92,7 @@ const Register:React.FC = () => {
                                 <Controller
                                     control={control}
                                     name={"confirmPassword"}
-                                    as={<Form.Control placeholder={"Confirm password"} className="registerInput" />}
+                                    render={()=>(<Form.Control placeholder={"Confirm password"} className="registerInput" />)}
                                     defaultValue={""}
                                     rules={{
                                         required: true

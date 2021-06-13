@@ -43,13 +43,13 @@ const Product:React.FC<ProductTypeProps> = (props) => {
         })
         return relevantCartProductId
     }
-    const getRelevantCartProductQty = ():number  => {
+    const getRelevantCartProductQty = ():string  => {
         let relevantCartProductId: number = 0;
         cartProducts.forEach((cartProduct) => {
             if(cartProduct.product.id === props.product.id)
                 relevantCartProductId = cartProduct.qty;
         })
-        return relevantCartProductId
+        return relevantCartProductId.toString()
     }
 
     const handleOnAddProductToCart = (data:FormData) => {
@@ -96,7 +96,7 @@ const Product:React.FC<ProductTypeProps> = (props) => {
                             <Col xs={5} className="cart-quantity m-0" >
 
                                 <Form.Group>
-                                    <Controller as={<Form.Control className={'quantity-form'} type="number" placeholder="1" min={0}/>}
+                                    <Controller render={()=>(<Form.Control className={'quantity-form'} type="number" placeholder="1" min={0}/>)}
                                                 name={'productQty'}
                                                 defaultValue='1'
                                                 control={control}
