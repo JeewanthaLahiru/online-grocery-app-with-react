@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import {Button, Col, Form, Image, Row} from "react-bootstrap";
 import Add001 from "../../assets/images/ads/ad001.png";
 import {Controller, useForm, useFormState} from 'react-hook-form';
-import {deliveryTypes} from "../../types/DeliveryTypes";
+import {deliveryTypes, paymentMethod} from "../../types/DeliveryTypes";
+import CartImg from "../../assets/images/product_category/allcategories.jpg";
 
 const DeliveryArea:React.FC = () => {
 
@@ -11,6 +12,20 @@ const DeliveryArea:React.FC = () => {
     const handleOnSubmit = (data:deliveryTypes) => {
         console.log(data);
     }
+
+    const paymentName = "paymentMethod";
+    const paymentOptions = [
+        {
+            label:"Credit/Debit Card",
+            id: paymentMethod.card,
+            img : CartImg
+        },
+        {
+            label:"Cash on Delivery",
+            id: paymentMethod.cash,
+            img: CartImg
+        }
+    ]
 
     const name="shippingOption"
     const shippingOptions = [
@@ -23,7 +38,15 @@ const DeliveryArea:React.FC = () => {
             id: "change"
         }
         ];
+
+    const [paymentRadio, setPaymentRadio] = useState(paymentOptions[0].id);
     const [radio, setRadio] = useState(shippingOptions[0].id);
+    const changePaymentRadio = (e:any) => {
+        let id = e.target.id.replace(paymentName, "");
+        console.log(id);
+        setPaymentRadio(id);
+        setValue(paymentName, id);
+    };
     const changeRadio = (e:any) => {
         let id = e.target.id.replace(name, "");
         console.log(id);
@@ -232,8 +255,32 @@ const DeliveryArea:React.FC = () => {
                             <Form.Control as="textarea" rows={3} />
                         </Form.Group>
 
-
                         <Form.Label className="text-left m-0">Payment method</Form.Label>
+
+                        <Controller
+                            render={()=>(
+                                <Row className="mx-0" >
+                                    {paymentOptions.map((opt) => {
+                                        return (
+                                            <Col xs={5}>
+                                                <Form.Check
+                                                    key={paymentName + opt.id}
+                                                    checked={paymentRadio === opt.id}
+                                                    label={opt.label}
+                                                    id={paymentName + opt.id}
+                                                    onChange={(e:React.FormEvent<HTMLInputElement>) => {changePaymentRadio(e)}}
+                                                />
+                                            </Col>
+
+                                        );
+                                    })}
+                                </Row>
+                            )
+                            }
+                            control={control}
+                            name={"paymentMethod"}
+                            defaultValue={paymentOptions[0].id}
+                        />
 
                         <Button type={"submit"}>Submit</Button>
                     </Form>
