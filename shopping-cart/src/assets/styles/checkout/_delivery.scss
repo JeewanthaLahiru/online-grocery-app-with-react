@@ -1,0 +1,18 @@
+.delivery-area{
+
+  .border-round{
+    border: 1px solid $divider-color;
+    border-radius: 7px;
+  }
+
+  .adver-area{
+    border: 1px solid $divider-color;
+    border-radius: 7px;
+    img{
+      width: 100%;
+    }
+  }
+  .address-area{
+
+  }
+}
