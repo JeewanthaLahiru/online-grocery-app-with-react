@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Col, Form, Image, Row} from "react-bootstrap";
 import CartImg from "../../../assets/images/login/cart.png";
-import { Controller, useForm } from 'react-hook-form';
+import {Controller, useForm, useFormState} from 'react-hook-form';
 import {loginType} from "../../../types/RegisterTypes";
 import {Link} from 'react-router-dom';
 
@@ -12,7 +12,7 @@ const Login:React.FC = () => {
         console.log(data);
     }
 
-    const {handleSubmit, control, errors, reset, setValue} = useForm<loginType>();
+    const {handleSubmit, control, formState: { errors }, reset, setValue} = useForm<loginType>();
 
     return(
         <React.Fragment>
@@ -23,7 +23,7 @@ const Login:React.FC = () => {
                             <Image src={CartImg}/>
                         </Col>
                         <Col xs={12} sm={12} md={6}  className="mt-5 input-col">
-                            <Form onSubmit={handleSubmit(onSubmit)}>
+                            <Form onSubmit={handleSubmit(onSubmit)} className={"login-form"}>
                                 <Row className="mx-0">
                                     <Col xs={12}>
                                         <h1 className="text-left" >Login</h1>
@@ -35,10 +35,12 @@ const Login:React.FC = () => {
                                         <Controller
                                             control={control}
                                             name={"email"}
-                                            as={<Form.Control className="loginInput" />}
+                                            render={({field})=>(
+                                                <Form.Control className="loginInput" {...field}/>
+                                            )}
                                             defaultValue={''}
                                             rules={{
-                                                required : true
+                                                required: true
                                             }}
                                         />
                                         {errors.email && <span className="text-danger" >*This field is required</span>}
@@ -50,11 +52,10 @@ const Login:React.FC = () => {
                                         <Controller
                                             control={control}
                                             name={"password"}
-                                            as={<Form.Control type={"password"} className="loginInput" />}
+                                            render={({field})=>(
+                                                <Form.Control type={"password"} className="loginInput" {...field}/>
+                                            )}
                                             defaultValue={''}
-                                            rules={{
-                                                required : true
-                                            }}
                                         />
                                         {errors.password && <span className="text-danger" >*This field is required</span>}
                                     </Col>
@@ -65,10 +66,12 @@ const Login:React.FC = () => {
                                             control={control}
                                             name={"staySign"}
                                             defaultValue={false}
-                                            as={<Form.Check
-                                                type={"checkbox"}
-                                                label={"Stay signed in?"}
-                                                className="text-left" />}
+                                            render={({ field}) => (
+                                                <Form.Check
+                                                    onChange={(e) => field.onChange(e.target.checked)}
+                                                    checked={field.value}
+                                                />
+                                            )}
                                         />
                                     </Col>
                                 </Row>

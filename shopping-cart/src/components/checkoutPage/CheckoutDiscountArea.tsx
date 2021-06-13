@@ -10,7 +10,7 @@ type FormData = {
 
 const CheckoutDiscountArea: React.FC = () => {
     const dispatch = useDispatch();
-    const {handleSubmit, control, errors, setValue} = useForm<FormData>();
+    const {handleSubmit, control, formState: { errors }, setValue} = useForm<FormData>();
 
     return (
         <Form >
@@ -20,10 +20,9 @@ const CheckoutDiscountArea: React.FC = () => {
                 </Form.Label>
                 <Col sm='2' className='px-md-0'>
                     <Controller
-                        autoFocus={true}
                         control={control}
                         name={"couponCode"}
-                        as={<Form.Control size='sm' type="text" className='discount-submit' />}
+                        render={()=>(<Form.Control size='sm' type="text" className='discount-submit' />)}
                         defaultValue=""
                         rules={{
                             required: true,
