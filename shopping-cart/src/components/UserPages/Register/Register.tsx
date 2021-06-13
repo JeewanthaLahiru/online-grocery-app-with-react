@@ -18,7 +18,7 @@ const Register:React.FC = () => {
     return(
         <React.Fragment>
             <Row className="mx-0 justify-content-center register-form-root">
-                <Col lg={4} className="shadow register-form my-4" >
+                <Col lg={5} md={6} className="shadow register-form my-4" >
                     <Row className="mx-0 align-items-center " >
                         <Col xs={4}>
                             <hr/>
