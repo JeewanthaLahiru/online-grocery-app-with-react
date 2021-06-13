@@ -17,7 +17,9 @@ const TopHeader:React.FC = () => {
                             </Link>
                         </Nav.Link>
                         <Nav.Link href="#home">
-                            <Button variant="light" className="text-success" >Login</Button>
+                            <Link to={"/login"}>
+                                <Button variant="light" className="text-success" >Login</Button>
+                            </Link>
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
