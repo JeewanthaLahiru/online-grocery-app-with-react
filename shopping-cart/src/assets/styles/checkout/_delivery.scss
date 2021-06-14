@@ -14,12 +14,34 @@
     label{
       width: 100%;
     }
+    .payment-method{
+      .payment-col{
+        .payment-container{
+          border: 1px solid $divider-color;
+          border-radius: 7px;
+        }
+
+      }
+      input[type='checkbox']{
+        display: none;
+      }
+      img{
+        height: 100px;
+      }
+      label{
+        color: $primary-font-color;
+      }
+    }
   }
 
   .testing{
     input[type='checkbox']{
 
     }
+  }
+
+  .checked{
+    background-color: $checked-color;
   }
 
 }

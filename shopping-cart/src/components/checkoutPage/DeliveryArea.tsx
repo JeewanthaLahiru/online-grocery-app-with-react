@@ -261,14 +261,21 @@ const DeliveryArea:React.FC = () => {
 
                         <Controller
                             render={()=>(
-                                <Row className="mx-0" >
+                                <Row className="mx-0 payment-method" >
                                     {paymentOptions.map((opt) => {
                                         return (
-                                            <Col xs={5}>
+                                            <Col xs={6} className="mt-3 payment-col">
                                                 <Form.Check
                                                     key={paymentName + opt.id}
                                                     checked={paymentRadio === opt.id}
-                                                    label={<Image src={opt.img}/>}
+                                                    label={
+                                                        <div className={"payment-container pt-3 " + (paymentRadio == opt.id? "checked" : "")}>
+                                                            <Image src={opt.img}/>
+                                                            <Form.Label className="payment-label mt-2">
+                                                                {opt.label}
+                                                            </Form.Label>
+                                                        </div>
+                                                    }
                                                     id={paymentName + opt.id}
                                                     onChange={(e:React.FormEvent<HTMLInputElement>) => {changePaymentRadio(e)}}
                                                 />
