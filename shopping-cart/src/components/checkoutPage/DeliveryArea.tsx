@@ -4,6 +4,8 @@ import Add001 from "../../assets/images/ads/ad001.png";
 import {Controller, useForm, useFormState} from 'react-hook-form';
 import {deliveryTypes, paymentMethod} from "../../types/DeliveryTypes";
 import CartImg from "../../assets/images/product_category/allcategories.jpg";
+import CardImg from "../../assets/images/checkout/credit.webp";
+import CashImg from "../../assets/images/checkout/money.webp";
 
 const DeliveryArea:React.FC = () => {
 
@@ -18,12 +20,12 @@ const DeliveryArea:React.FC = () => {
         {
             label:"Credit/Debit Card",
             id: paymentMethod.card,
-            img : CartImg
+            img : CardImg
         },
         {
             label:"Cash on Delivery",
             id: paymentMethod.cash,
-            img: CartImg
+            img: CashImg
         }
     ]
 
@@ -266,7 +268,7 @@ const DeliveryArea:React.FC = () => {
                                                 <Form.Check
                                                     key={paymentName + opt.id}
                                                     checked={paymentRadio === opt.id}
-                                                    label={opt.label}
+                                                    label={<Image src={opt.img}/>}
                                                     id={paymentName + opt.id}
                                                     onChange={(e:React.FormEvent<HTMLInputElement>) => {changePaymentRadio(e)}}
                                                 />
