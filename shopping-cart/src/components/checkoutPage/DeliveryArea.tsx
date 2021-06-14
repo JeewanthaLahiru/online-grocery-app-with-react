@@ -69,13 +69,13 @@ const DeliveryArea:React.FC = () => {
                 </Col>
                 <Col xs={7} className="address-area ">
                     <Row className="mx-0 py-3 border-round">
-                        <Col xs={6}>Already have an account?</Col>
+                        <Col xs={6} className="text-left">Already have an account?</Col>
                         <Col xs={6}>
                             <Button variant={"success"} size={"sm"} className="px-5" >Sign in</Button>
                         </Col>
                     </Row>
-                    <Form onSubmit={handleSubmit(handleOnSubmit)}>
-                        <Row className="mx-0 mt-1 py-2 border-round">
+                    <Form onSubmit={handleSubmit(handleOnSubmit)} className="payment-form">
+                        <Row className="mx-0 mt-1 py-2 border-round small-label">
                             <Col xs={12}>
                                 <Row className="m-0">
                                     <Col xs={12}>
@@ -83,7 +83,7 @@ const DeliveryArea:React.FC = () => {
                                     </Col>
                                 </Row>
                             </Col>
-                            <Col xs={12} className="mt-2">
+                            <Col xs={12} className="mt-2 ">
                                 <Form.Label className="text-left m-0">Full name*</Form.Label>
                                 <Controller
                                     control={control}
@@ -178,7 +178,7 @@ const DeliveryArea:React.FC = () => {
                         <Form.Label className="text-left m-0">Change Shipping address</Form.Label>
                         <Controller
                             render={()=>(
-                                <Row className="mx-0" >
+                                <Row className="mx-0 small-label" >
                                     {shippingOptions.map((opt) => {
                                         return (
                                             <Col xs={5}>
@@ -200,7 +200,7 @@ const DeliveryArea:React.FC = () => {
                             name={name}
                             defaultValue={shippingOptions[0].id}
                         />
-                        <Row className="mx-0 px-0">
+                        <Row className="mx-0 px-0 small-label">
                             <Col xs={12} className="mt-2 px-0">
                                 <Form.Label className="text-left m-0">Billing Address*</Form.Label>
                                 <Controller
