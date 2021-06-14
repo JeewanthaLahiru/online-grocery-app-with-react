@@ -291,7 +291,7 @@ const DeliveryArea:React.FC = () => {
                             defaultValue={paymentOptions[0].id}
                         />
 
-                        <Button type={"submit"}>Submit</Button>
+                        <Button type={"submit"} variant={"success"} className="mt-4 px-5">Order</Button>
                     </Form>
                 </Col>
             </Row>
