@@ -59,7 +59,7 @@ const DeliveryArea:React.FC = () => {
     return(
         <React.Fragment>
             <Row className="mx-0 mt-3 delivery-area">
-                <Col xs={5} className="adver-area p-0">
+                <Col xs={12} lg={5} className="adver-area p-0">
                     <Row className="mx-0 px-0">
                         <Col xs={12} className="mx-0 border-round">
                             <Image src={Add001} />
@@ -67,7 +67,7 @@ const DeliveryArea:React.FC = () => {
                     </Row>
 
                 </Col>
-                <Col xs={7} className="address-area ">
+                <Col xs={12} lg={7} className="address-area ">
                     <Row className="mx-0 py-3 border-round">
                         <Col xs={6} className="text-left">Already have an account?</Col>
                         <Col xs={6}>
@@ -75,14 +75,16 @@ const DeliveryArea:React.FC = () => {
                         </Col>
                     </Row>
                     <Form onSubmit={handleSubmit(handleOnSubmit)} className="payment-form">
-                        <Row className="mx-0 mt-1 py-2 border-round small-label">
-                            <Col xs={12}>
+                        <Row className="mx-0 mt-1 pb-4 border-round small-label">
+                            <Col xs={12} className="px-0 title-area">
                                 <Row className="m-0">
                                     <Col xs={12}>
-                                        <h5>Shipping and Billing Address</h5>
+                                        <h5 className="text-left mt-2">Shipping and Billing Address</h5>
                                     </Col>
                                 </Row>
+                                <hr className="m-0 p-0" />
                             </Col>
+                            <hr/>
                             <Col xs={12} className="mt-2 ">
                                 <Form.Label className="text-left m-0">Full name*</Form.Label>
                                 <Controller
@@ -175,7 +177,7 @@ const DeliveryArea:React.FC = () => {
                                 />
                             </Col>
                         </Row>
-                        <Form.Label className="text-left m-0">Change Shipping address</Form.Label>
+                        <Form.Label className="text-left mx-0 mt-4">Change Shipping address</Form.Label>
                         <Controller
                             render={()=>(
                                 <Row className="mx-0 small-label" >
@@ -252,7 +254,7 @@ const DeliveryArea:React.FC = () => {
                                 />
                             </Col>
                         </Row>
-                        <Form.Group controlId="exampleForm.ControlTextarea1">
+                        <Form.Group controlId="exampleForm.ControlTextarea1" className={"instruction mt-4"}>
                             <Form.Label className="text-left m-0">Add delivery instructions (Optional)</Form.Label>
                             <Form.Control as="textarea" rows={3} />
                         </Form.Group>
