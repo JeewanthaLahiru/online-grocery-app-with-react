@@ -1,6 +1,7 @@
 import React from 'react';
 import CheckoutProductList from "./CheckoutProductList";
 import {Col, Container, Row} from "react-bootstrap";
+import DeliveryArea from "./DeliveryArea";
 
 const CheckoutArea:React.FC = () => {
     return(
@@ -14,6 +15,7 @@ const CheckoutArea:React.FC = () => {
                 <h5 className='text-center text-md-left shopping-cart-title'>Shopping Cart</h5>
                 <CheckoutProductList/>
             </div>
+            <DeliveryArea/>
         </Container>
     )
 }

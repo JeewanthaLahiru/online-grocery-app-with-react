@@ -1,0 +1,71 @@
+.delivery-area{
+  font-family: 'Roboto', sans-serif;;
+
+  .border-round{
+    border: 1px solid $divider-color;
+    border-radius: 7px;
+  }
+
+  .adver-area{
+    img{
+      width: 100%;
+    }
+  }
+  .address-area{
+    label{
+      width: 100%;
+    }
+
+    .payment-form{
+      .title-area{
+        h5{
+          font-size: 1.1em;
+          font-weight: 500;
+        }
+      }
+      .small-label{
+        label{
+          font-size: 0.9em;
+          color: $secondary-font-color;
+        }
+
+      }
+      .instruction{
+        font-size: 1em;
+      }
+    }
+
+    .payment-method{
+      .payment-col{
+        .payment-container{
+          border: 1px solid $divider-color;
+          border-radius: 7px;
+        }
+        .payment-container:hover{
+          cursor: pointer;
+        }
+
+      }
+      input[type='checkbox']{
+        display: none;
+      }
+      img{
+        height: 100px;
+      }
+      label{
+        color: $primary-font-color;
+      }
+    }
+  }
+
+  .testing{
+    input[type='checkbox']{
+
+    }
+  }
+
+  .checked{
+    background-color: $checked-color;
+  }
+
+}
