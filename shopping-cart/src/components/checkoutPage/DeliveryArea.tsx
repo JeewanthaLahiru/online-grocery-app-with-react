@@ -59,7 +59,7 @@ const DeliveryArea:React.FC = () => {
     return(
         <React.Fragment>
             <Row className="mx-0 mt-3 delivery-area">
-                <Col xs={12} lg={5} className="adver-area p-0">
+                <Col xs={12} lg={5} className="adver-area p-0 mb-2">
                     <Row className="mx-0 px-0">
                         <Col xs={12} className="mx-0 border-round">
                             <Image src={Add001} />
@@ -67,7 +67,7 @@ const DeliveryArea:React.FC = () => {
                     </Row>
 
                 </Col>
-                <Col xs={12} lg={7} className="address-area ">
+                <Col xs={12} lg={7} className="address-area pr-0 pl-0 pl-lg-4">
                     <Row className="mx-0 py-3 border-round">
                         <Col xs={6} className="text-left">Already have an account?</Col>
                         <Col xs={6}>
@@ -183,7 +183,7 @@ const DeliveryArea:React.FC = () => {
                                 <Row className="mx-0 small-label" >
                                     {shippingOptions.map((opt) => {
                                         return (
-                                            <Col xs={5}>
+                                            <Col xs={12} sm={5}>
                                                 <Form.Check
                                                     key={name + opt.id}
                                                     checked={radio === opt.id}
