@@ -1,17 +1,21 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Col, Form, Image, Row} from "react-bootstrap";
 import Add001 from "../../assets/images/ads/ad001.png";
 import {Controller, useForm, useFormState} from 'react-hook-form';
 import {deliveryTypes, paymentMethod} from "../../types/DeliveryTypes";
-import CartImg from "../../assets/images/product_category/allcategories.jpg";
 import CardImg from "../../assets/images/checkout/credit.webp";
 import CashImg from "../../assets/images/checkout/money.webp";
 
 const DeliveryArea:React.FC = () => {
 
+    const [deliveryAddress, setDeliveryAddress] = useState(false);
+
     const {handleSubmit, control, formState: { errors }, reset, setValue} = useForm<deliveryTypes>();
 
     const handleOnSubmit = (data:deliveryTypes) => {
+        if(!deliveryAddress){
+            data.deliveryAddress = data.userAddress
+        }
         console.log(data);
     }
 
@@ -54,6 +58,11 @@ const DeliveryArea:React.FC = () => {
         console.log(id);
         setRadio(id);
         setValue(name, id);
+        if(id === "change"){
+         setDeliveryAddress(true);
+        }else{
+            setDeliveryAddress(false);
+        }
     };
 
     return(
@@ -97,20 +106,22 @@ const DeliveryArea:React.FC = () => {
                                 />
                             </Col>
                             <Col xs={12} className="mt-2">
-                                <Form.Label className="text-left m-0">Billing Address*</Form.Label>
+                                <Form.Label className="text-left m-0">Address*</Form.Label>
                                 <Controller
                                     control={control}
-                                    render={(field)=>(
+                                    defaultValue={''}
+                                    name={'userAddress.address'}
+                                    render={({field})=>(
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
-                                    name={'userAddress.address'}
                                 />
                             </Col>
                             <Col xs={4} className="mt-2">
                                 <Form.Label className="text-left m-0">City/suburb*</Form.Label>
                                 <Controller
                                     control={control}
-                                    render={(field)=>(
+                                    defaultValue={""}
+                                    render={({field})=>(
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
                                     name={'userAddress.city'}
@@ -120,7 +131,8 @@ const DeliveryArea:React.FC = () => {
                                 <Form.Label className="text-left m-0">Postal code*</Form.Label>
                                 <Controller
                                     control={control}
-                                    render={(field)=>(
+                                    defaultValue={""}
+                                    render={({field})=>(
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
                                     name={'userAddress.postalCode'}
@@ -130,7 +142,8 @@ const DeliveryArea:React.FC = () => {
                                 <Form.Label className="text-left m-0">Country*</Form.Label>
                                 <Controller
                                     control={control}
-                                    render={(field)=>(
+                                    defaultValue={""}
+                                    render={({field})=>(
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
                                     name={'userAddress.country'}
@@ -140,37 +153,41 @@ const DeliveryArea:React.FC = () => {
                                 <Form.Label className="text-left m-0">Contact Number*</Form.Label>
                                 <Controller
                                     control={control}
-                                    render={(field)=>(
+                                    defaultValue={""}
+                                    render={({field})=>(
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
-                                    name={'userAddress.address'}
+                                    name={'userAddress.contactNumber'}
                                 />
                             </Col>
                             <Col xs={6} className="mt-2">
                                 <Form.Label className="text-left m-0">Email*</Form.Label>
                                 <Controller
                                     control={control}
-                                    render={(field)=>(
+                                    defaultValue={""}
+                                    name={'email'}
+                                    render={({field})=>(
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
-                                    name={'email'}
                                 />
                             </Col>
                             <Col xs={6} className="mt-2">
                                 <Form.Label className="text-left m-0">Retype Email*</Form.Label>
                                 <Controller
                                     control={control}
-                                    render={(field)=>(
+                                    defaultValue={""}
+                                    name={'retypeEmail'}
+                                    render={({field})=>(
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
-                                    name={'retypeEmail'}
                                 />
                             </Col>
                             <Col xs={12} className="mt-2">
                                 <Form.Label className="text-left m-0">Choose your password*</Form.Label>
                                 <Controller
                                     control={control}
-                                    render={(field)=>(
+                                    defaultValue={""}
+                                    render={({field})=>(
                                         <Form.Control size={"sm"} className="deliveryInput pr-5" {...field} />
                                     )}
                                     name={'password'}
@@ -185,6 +202,7 @@ const DeliveryArea:React.FC = () => {
                                         return (
                                             <Col xs={12} sm={5}>
                                                 <Form.Check
+                                                    className="text-left"
                                                     key={name + opt.id}
                                                     checked={radio === opt.id}
                                                     label={opt.label}
@@ -202,61 +220,78 @@ const DeliveryArea:React.FC = () => {
                             name={name}
                             defaultValue={shippingOptions[0].id}
                         />
-                        <Row className="mx-0 px-0 small-label">
-                            <Col xs={12} className="mt-2 px-0">
-                                <Form.Label className="text-left m-0">Billing Address*</Form.Label>
-                                <Controller
-                                    control={control}
-                                    render={(field)=>(
-                                        <Form.Control size={"sm"} className="deliveryInput" {...field} />
-                                    )}
-                                    name={'userAddress.address'}
-                                />
-                            </Col>
-                            <Col xs={4} className="mt-2 pl-0">
-                                <Form.Label className="text-left m-0">City/suburb*</Form.Label>
-                                <Controller
-                                    control={control}
-                                    render={(field)=>(
-                                        <Form.Control size={"sm"} className="deliveryInput" {...field} />
-                                    )}
-                                    name={'userAddress.city'}
-                                />
-                            </Col>
-                            <Col xs={4} className="mt-2 px-0">
-                                <Form.Label className="text-left m-0">Postal code*</Form.Label>
-                                <Controller
-                                    control={control}
-                                    render={(field)=>(
-                                        <Form.Control size={"sm"} className="deliveryInput" {...field} />
-                                    )}
-                                    name={'userAddress.postalCode'}
-                                />
-                            </Col>
-                            <Col xs={4} className="mt-2 pr-0">
-                                <Form.Label className="text-left m-0">Country*</Form.Label>
-                                <Controller
-                                    control={control}
-                                    render={(field)=>(
-                                        <Form.Control size={"sm"} className="deliveryInput" {...field} />
-                                    )}
-                                    name={'userAddress.country'}
-                                />
-                            </Col>
-                            <Col xs={12} className="mt-2 px-0">
-                                <Form.Label className="text-left m-0">Contact Number*</Form.Label>
-                                <Controller
-                                    control={control}
-                                    render={(field)=>(
-                                        <Form.Control size={"sm"} className="deliveryInput" {...field} />
-                                    )}
-                                    name={'userAddress.address'}
-                                />
-                            </Col>
-                        </Row>
+                        {
+                            deliveryAddress &&
+                            <Row className="mx-0 px-0 small-label">
+                                <Col xs={12} className="mt-2 px-0">
+                                    <Form.Label className="text-left m-0">Delivery Address*</Form.Label>
+                                    <Controller
+                                        control={control}
+                                        render={(field)=>(
+                                            <Form.Control size={"sm"} className="deliveryInput" {...field} />
+                                        )}
+                                        name={'userAddress.address'}
+                                        defaultValue={""}
+                                    />
+                                </Col>
+                                <Col xs={4} className="mt-2 pl-0">
+                                    <Form.Label className="text-left m-0">City/suburb*</Form.Label>
+                                    <Controller
+                                        control={control}
+                                        render={({field})=>(
+                                            <Form.Control size={"sm"} className="deliveryInput" {...field} />
+                                        )}
+                                        name={'deliveryAddress.city'}
+                                        defaultValue={""}
+                                    />
+                                </Col>
+                                <Col xs={4} className="mt-2 px-0">
+                                    <Form.Label className="text-left m-0">Postal code*</Form.Label>
+                                    <Controller
+                                        control={control}
+                                        render={({field})=>(
+                                            <Form.Control size={"sm"} className="deliveryInput" {...field} />
+                                        )}
+                                        name={'deliveryAddress.postalCode'}
+                                        defaultValue={""}
+                                    />
+                                </Col>
+                                <Col xs={4} className="mt-2 pr-0">
+                                    <Form.Label className="text-left m-0">Country*</Form.Label>
+                                    <Controller
+                                        control={control}
+                                        render={({field})=>(
+                                            <Form.Control size={"sm"} className="deliveryInput" {...field} />
+                                        )}
+                                        name={'deliveryAddress.country'}
+                                        defaultValue={""}
+                                    />
+                                </Col>
+                                <Col xs={12} className="mt-2 px-0">
+                                    <Form.Label className="text-left m-0">Contact Number*</Form.Label>
+                                    <Controller
+                                        control={control}
+                                        defaultValue={""}
+                                        render={({field})=>(
+                                            <Form.Control size={"sm"} className="deliveryInput" {...field} />
+                                        )}
+                                        name={'deliveryAddress.contactNumber'}
+                                    />
+                                </Col>
+                            </Row>
+                        }
+
                         <Form.Group controlId="exampleForm.ControlTextarea1" className={"instruction mt-4"}>
                             <Form.Label className="text-left m-0">Add delivery instructions (Optional)</Form.Label>
-                            <Form.Control as="textarea" rows={3} />
+                            <Controller
+                                control={control}
+                                defaultValue={""}
+                                name={'deliveryInstructions'}
+                                render={({field})=>(
+                                    <Form.Control as="textarea" size={"sm"} rows={3} {...field} />
+                                )}
+                            />
+
                         </Form.Group>
 
                         <Form.Label className="text-left m-0">Payment method</Form.Label>
