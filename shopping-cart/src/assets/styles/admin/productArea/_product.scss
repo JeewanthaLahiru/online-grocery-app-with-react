@@ -11,6 +11,9 @@
     }
 
     .react-bootstrap-table{
+      border: 1px solid $divider-color;
+      border-radius: 7px;
+      padding: 15px 10px;
       .image-container{
         img{
           width: 70px;
