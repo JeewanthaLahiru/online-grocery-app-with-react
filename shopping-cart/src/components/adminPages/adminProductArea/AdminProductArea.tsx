@@ -49,8 +49,13 @@ const AdminProductArea:React.FC = () => {
                         </Col>
                     </Row>
                     <Row className="mx-0">
-                        <ProductTable category={adminCategory} />
+                        <Col xs={12}>
+                            <Row className="mx-0 mb-5 admin-product-table-row">
+                                <ProductTable category={adminCategory} />
+                            </Row>
+                        </Col>
                     </Row>
+
                 </Col>
             </Row>
         </React.Fragment>
