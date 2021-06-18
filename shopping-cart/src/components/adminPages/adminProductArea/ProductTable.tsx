@@ -91,11 +91,11 @@ const ProductTable:React.FC = () => {
                 price: product.price,
                 edit:
                     <React.Fragment>
-                        <Button variant={"secondary"}><i className="feather icon-edit" ></i></Button>
+                        <Button variant={"light"} size={"sm"}><i className="feather icon-edit-2" ></i></Button>
                     </React.Fragment>,
                 delete:
                     <React.Fragment>
-                        <Button variant={"danger"}><i className="feather icon-delete" ></i></Button>
+                        <Button variant={"light"} size={"sm"}><i className="feather icon-trash" ></i></Button>
                     </React.Fragment>,
             })
         })
