@@ -1,0 +1,14 @@
+.admin-product-row{
+  .admin-product-body{
+    background-color: $primary-color;
+    min-height: 68vh;
+
+    .header-area{
+      img{
+        width: 100%;
+        height: 100px;
+        object-fit: cover;
+      }
+    }
+  }
+}
