@@ -5,8 +5,24 @@ import { products } from "../../../repository/Products";
 import {IProduct} from "../../../types/Products";
 import paginationFactory from "react-bootstrap-table2-paginator";
 
-const ProductTable:React.FC = () => {
+type ProductTableProps = {
+    category: string
+}
 
+const ProductTable:React.FC<ProductTableProps> = (props) => {
+
+    const productToRender:IProduct[] = [];
+    if(props.category == "All"){
+        products.map((productItem) => {
+            productToRender.push(productItem);
+        })
+    }else{
+        products.map((productItem)=>{
+            if(productItem.category === props.category){
+                productToRender.push(productItem);
+            }
+        })
+    }
     const columns = [
         {
             dataField: "id",
@@ -89,7 +105,7 @@ const ProductTable:React.FC = () => {
     const productGenerator = (products:IProduct[]): any[] => {
         const checkList : any[] = [];
 
-        products.map((product, i: number) => {
+        productToRender.map((product, i: number) => {
             checkList.push({
                 id:
                     <Form.Label>{i+1}</Form.Label>,

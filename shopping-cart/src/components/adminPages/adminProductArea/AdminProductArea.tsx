@@ -39,7 +39,7 @@ const AdminProductArea:React.FC = () => {
                                 <option key={"2"} value={"Grocery"} >Grocery</option>
                                 <option key={"3"} value={"Pharmacy"}>Pharmacy</option>
                                 <option key={"4"} value={"Food"} >Food</option>
-                                <option key={"5"} value={"Electronics"} >Electronic</option>
+                                <option key={"5"} value={"Electronic"} >Electronic</option>
                             </Form.Control>
                         </Col>
                         <Col lg={2} xs={4}>
@@ -49,7 +49,7 @@ const AdminProductArea:React.FC = () => {
                         </Col>
                     </Row>
                     <Row className="mx-0">
-                        <ProductTable/>
+                        <ProductTable category={adminCategory} />
                     </Row>
                 </Col>
             </Row>
