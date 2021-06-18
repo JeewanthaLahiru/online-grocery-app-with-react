@@ -3,6 +3,7 @@ import {Button, Col} from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import { products } from "../../../repository/Products";
 import {IProduct} from "../../../types/Products";
+import paginationFactory from "react-bootstrap-table2-paginator";
 
 const ProductTable:React.FC = () => {
 
@@ -46,6 +47,36 @@ const ProductTable:React.FC = () => {
             text: ""
         }
         ];
+    const customTotal = (from:number, to:number, size:number) => (
+        <span className="react-bootstrap-table-pagination-total per-page pl-2 pl-md-3">
+            Showing { from } to { to } of { size } Results
+        </span>
+    );
+
+    const options = {
+        paginationSize: 5,
+        pageStartIndex: 1,
+        firstPageText: 'First',
+        prePageText: 'Back',
+        nextPageText: 'Next',
+        lastPageText: 'Last',
+        nextPageTitle: 'First page',
+        prePageTitle: 'Pre page',
+        firstPageTitle: 'Next page',
+        lastPageTitle: 'Last page',
+        showTotal: true,
+        paginationTotalRenderer: customTotal,
+        disablePageTitle: true,
+        sizePerPageList: [{
+            text: '5', value: 5
+        }, {
+            text: '10', value: 10
+        },{
+            text: '50', value: 50
+        },{
+            text: 'All', value: 1000
+        }]
+    };
 
     const productGenerator = (products:IProduct[]): any[] => {
         const checkList : any[] = [];
@@ -77,10 +108,12 @@ const ProductTable:React.FC = () => {
         <React.Fragment>
             <Col xs={12}>
                 <BootstrapTable
+                    bootstrap4
                     keyField={"id"}
                     data={productGenerator(products)}
                     columns={columns}
                     bordered={false}
+                    pagination={paginationFactory(options)}
                 />
             </Col>
         </React.Fragment>
