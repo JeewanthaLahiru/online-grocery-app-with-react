@@ -9,5 +9,22 @@
         object-fit: cover;
       }
     }
+
+    .react-bootstrap-table{
+      .image-container{
+        img{
+          width: 70px;
+          height: 50px;
+          object-fit: cover;
+        }
+
+      }
+      .product-icon{
+        color: $secondary-font-color;
+      }
+      .product-icon:hover{
+        color: $primary-font-color;
+      }
+    }
   }
 }

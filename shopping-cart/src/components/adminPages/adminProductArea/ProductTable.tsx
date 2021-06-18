@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col} from "react-bootstrap";
+import {Button, Col, Image, Form} from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import { products } from "../../../repository/Products";
 import {IProduct} from "../../../types/Products";
@@ -78,24 +78,46 @@ const ProductTable:React.FC = () => {
         }]
     };
 
+    const HandleOnEdit = (id:number) => {
+        console.log("hello world" + id);
+    }
+
+    const HandleOnDelete = (id: number) => {
+        console.log("hello delete" + id);
+    }
+
     const productGenerator = (products:IProduct[]): any[] => {
         const checkList : any[] = [];
 
         products.map((product, i: number) => {
             checkList.push({
-                id: i+1,
-                item: product.category,
-                name: product.name,
-                description: product.name,
-                prevprice: product.price,
-                price: product.price,
+                id:
+                    <Form.Label>{i+1}</Form.Label>,
+                item:
+                    <div className="image-container">
+                        <Image src={product.image} />
+                    </div>,
+                name:
+                    <Form.Label className="text-left">{product.name}</Form.Label>,
+                description:
+                    <Form.Label className="text-left" >{product.category}</Form.Label>,
+                prevprice:
+                    <Form.Label>{product.price }</Form.Label>,
+                price:
+                    <Form.Label>{product.price}</Form.Label>,
                 edit:
                     <React.Fragment>
-                        <Button variant={"light"} size={"sm"}><i className="feather icon-edit-2" ></i></Button>
+                        <i
+                            className="feather icon-edit-2 product-icon"
+                            onClick={() => HandleOnEdit(product.id)}
+                        />
                     </React.Fragment>,
                 delete:
                     <React.Fragment>
-                        <Button variant={"light"} size={"sm"}><i className="feather icon-trash" ></i></Button>
+                        <i
+                            className="feather icon-trash product-icon"
+                            onClick={() => HandleOnDelete(product.id)}
+                        />
                     </React.Fragment>,
             })
         })
