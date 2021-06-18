@@ -1,20 +1,32 @@
 import React from "react";
 import {Button, Form, FormControl, Nav, Navbar} from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const AdminHeader:React.FC = () => {
     return(
         <React.Fragment>
-            <Navbar bg="light" variant="light">
-                <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-                <Nav className="mr-auto">
-                    <Nav.Link href="#home">Home</Nav.Link>
-                    <Nav.Link href="#features">Features</Nav.Link>
-                    <Nav.Link href="#pricing">Pricing</Nav.Link>
-                </Nav>
-                <Form inline>
-                    <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                    <Button variant="outline-primary">Search</Button>
-                </Form>
+            <Navbar bg="dark" variant="dark" expand={"sm"}>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse>
+                    <Nav className="mr-auto">
+                        <Link to={"admin/"}>
+                            <Nav.Link href="#home" className="px-lg-5">Profile</Nav.Link>
+                        </Link>
+                        <Link to={"admin/Products"}>
+                            <Nav.Link href="#home" className="px-lg-5" >Products</Nav.Link>
+                        </Link>
+                        <Link to={"admin/Orders"}>
+                            <Nav.Link href="#home" className="px-lg-5" >Orders</Nav.Link>
+                        </Link>
+                        <Link to={"admin/Delivery"}>
+                            <Nav.Link href="#home" className="px-lg-5">Delivery</Nav.Link>
+                        </Link>
+                        <Link to={"admin/Settings"}>
+                            <Nav.Link href="#home" className="px-lg-5">Settings</Nav.Link>
+                        </Link>
+                    </Nav>
+                </Navbar.Collapse>
+
             </Navbar>
         </React.Fragment>
     )

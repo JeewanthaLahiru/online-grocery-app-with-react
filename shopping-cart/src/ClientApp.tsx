@@ -12,9 +12,7 @@ import HomePage from "./components/homePage/HomePage";
 import CheckoutArea from "./components/checkoutPage/CheckoutArea";
 import Register from "./components/UserPages/Register/Register";
 import Login from "./components/UserPages/login/Login";
-import AdminApp from "./components/adminPages/AdminApp";
 import AdminProfile from "./components/adminPages/adminProfile/AdminProfile";
-import AdminHeader from "./components/adminPages/adminHeader/AdminHeader";
 
 const ClientApp:React.FC = () => {
     return(
@@ -26,8 +24,7 @@ const ClientApp:React.FC = () => {
                     <Route path="/checkout" exact component={CheckoutArea} />
                     <Route path="/register" exact component={Register} />
                     <Route path="/login" exact component={Login}/>
-                    <Route path="/admin" exact component={AdminApp}/>
-                    <Route path="/admin/profile" exact component={AdminProfile}/>
+                    <Route path="/admin" exact component={AdminProfile}/>
                 </Switch>
                 <FooterArea/>
             </Container>

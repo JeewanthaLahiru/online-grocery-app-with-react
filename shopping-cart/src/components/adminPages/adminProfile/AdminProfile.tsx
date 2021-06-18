@@ -1,9 +1,10 @@
 import React from "react";
+import AdminHeader from "../adminHeader/AdminHeader";
 
 const AdminProfile:React.FC = () => {
     return(
         <React.Fragment>
-            profile
+            <AdminHeader/>
         </React.Fragment>
     )
 }
