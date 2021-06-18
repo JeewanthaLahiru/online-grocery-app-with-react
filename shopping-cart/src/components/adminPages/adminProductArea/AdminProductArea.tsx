@@ -7,7 +7,7 @@ const AdminProductArea:React.FC = () => {
     return(
         <React.Fragment>
             <Row className="admin-product-row justify-content-center mx-0 mt-3">
-                <Col xs={7} className="admin-product-body">
+                <Col xs={12} md={10} xl={7} className="admin-product-body">
                     <Row className="mx-0">
                         <Col xs={12} className="header-area">
                             <Image src={CoverIMG} />

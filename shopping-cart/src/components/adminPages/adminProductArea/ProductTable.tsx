@@ -136,6 +136,8 @@ const ProductTable:React.FC = () => {
                     columns={columns}
                     bordered={false}
                     pagination={paginationFactory(options)}
+                    wrapperClasses="table-responsive"
+                    rowClasses="text-nowrap"
                 />
             </Col>
         </React.Fragment>
