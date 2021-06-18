@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Image, Form} from "react-bootstrap";
+import {Col, Image, Form} from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import { products } from "../../../repository/Products";
 import {IProduct} from "../../../types/Products";
@@ -25,7 +25,7 @@ const ProductTable:React.FC = () => {
         },
         {
             dataField: "description",
-            text: "Descritption",
+            text: "Description",
             sort: true
         },
         {
