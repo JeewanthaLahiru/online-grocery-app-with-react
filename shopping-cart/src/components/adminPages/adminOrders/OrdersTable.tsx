@@ -89,12 +89,19 @@ const OrdersTable:React.FC<OrdersTableProps> = (props) => {
                 value : orderItem.subTotal,
                 actions :
                     <React.Fragment>
-                        <i className="feather icon-edit-2" ></i>
+                        <i
+                            className="feather icon-edit-2"
+                            onClick={() =>  handleOnEditClick(orderItem.orderId)}
+                        ></i>
                     </React.Fragment>
             })
         })
 
         return generatedOrderList;
+    }
+
+    const handleOnEditClick = (id:string) => {
+        console.log(id);
     }
 
     return(
