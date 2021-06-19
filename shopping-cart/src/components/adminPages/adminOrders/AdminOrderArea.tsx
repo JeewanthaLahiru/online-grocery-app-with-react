@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Col, Form, Image, Row} from "react-bootstrap";
 import CoverImg from "../../../assets/images/banner_images/banner.jpg";
+import OrdersTable from "./OrdersTable";
 
 const AdminOrderArea:React.FC = () => {
 
@@ -43,6 +44,9 @@ const AdminOrderArea:React.FC = () => {
                         <Col xs={12}>
                             <Image src={CoverImg} />
                         </Col>
+                    </Row>
+                    <Row className="mx-0 order-table-area">
+                        <OrdersTable isPending={isPending}/>
                     </Row>
                 </Col>
             </Row>
