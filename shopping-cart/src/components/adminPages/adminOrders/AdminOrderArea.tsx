@@ -53,7 +53,11 @@ const AdminOrderArea:React.FC = () => {
                         </Col>
                     </Row>
                     <Row className="mx-0 order-table-area">
-                        <OrdersTable isPending={isPending}/>
+                        <Col xs={12} className="m-0 ">
+                            <Row className="m-0 pt-3 pb-3 order-table-row">
+                                <OrdersTable isPending={isPending}/>
+                            </Row>
+                        </Col>
                     </Row>
                 </Col>
             </Row>

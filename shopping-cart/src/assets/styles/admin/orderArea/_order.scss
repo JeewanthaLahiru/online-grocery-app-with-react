@@ -1,5 +1,6 @@
 .admin-order-row{
   .admin-order-body{
+    min-height: 65vh;
     .nav-area{
       ul{
         list-style-type: none;
@@ -30,6 +31,12 @@
         height: 100px;
         object-fit: cover;
       }
+    }
+  }
+  .order-table-area{
+    .order-table-row{
+      border: 1px solid $divider-color;
+      border-radius: 7px;
     }
   }
 }
