@@ -1,4 +1,5 @@
 import React from "react";
+import {Col} from "react-bootstrap";
 
 type OrdersTableProps = {
     isPending: boolean
@@ -6,8 +7,9 @@ type OrdersTableProps = {
 const OrdersTable:React.FC<OrdersTableProps> = (props) => {
     return(
         <React.Fragment>
-            Pending orders
-            {props.isPending? "pending orders" : "Accepted orders"}
+            <Col xs={12}>
+                {props.isPending && "hello"}
+            </Col>
         </React.Fragment>
     )
 }
