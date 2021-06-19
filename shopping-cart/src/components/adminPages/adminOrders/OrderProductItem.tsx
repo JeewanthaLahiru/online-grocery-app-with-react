@@ -10,7 +10,7 @@ type OrderProductItemProps = {
 const OrderProductItem:React.FC<OrderProductItemProps> = (props) => {
     return(
         <React.Fragment>
-            <Col xs={12} className="order-product-item">
+            <Col xs={12} className="order-product-item mt-2">
                 <Row className="m-0 p-0 item-id">
                     <Col xs={12}>
                         <h6 className="text-left">Product id: {props.product.itemId}</h6>
@@ -25,10 +25,10 @@ const OrderProductItem:React.FC<OrderProductItemProps> = (props) => {
                         <table>
                             <tr>
                                 <td className="text-left name">{props.product.itemName}</td>
-                                <td className="text-right price" >Qty: {props.product.itemQty}</td>
+                                <td className="text-right qty" >Qty: {props.product.itemQty}</td>
                             </tr>
                             <tr>
-                                <td className="text-left qty" >price: Rs.{props.product.itemPrice}</td>
+                                <td className="text-left price" >price: Rs.{props.product.itemPrice}</td>
                                 <td className="text-right total" >Total: Rs.
                                     {
                                         parseFloat(

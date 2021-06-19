@@ -59,6 +59,26 @@
     img{
       width: 100%;
     }
+    table{
+      .name, .qty{
+        font-size: 0.9em;
+        font-weight: 600;
+      }
+      .qty{
+        color: $secondary-font-color;
+        font-size: 0.9em;
+        font-weight: 600;
+      }
+      .price{
+        color: $secondary-font-color;
+        font-size: 0.9em;
+      }
+      .total{
+        color: $danger;
+        font-weight: 600;
+      }
+
+    }
 
   }
   .item-id{
