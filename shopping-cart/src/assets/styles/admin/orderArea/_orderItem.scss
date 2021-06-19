@@ -1,0 +1,26 @@
+.order-view{
+  font-family: 'Quicksand', sans-serif;
+
+  .order-body{
+    label{
+      font-weight: 400;
+    }
+    textarea{
+      font-weight: 500;
+      resize: none;
+      border-radius: 0;
+    }
+
+    .order-body-right{
+      .order-products{
+        height: 350px;
+        border: 1px solid $divider-color;
+        overflow-y: scroll;
+      }
+
+      table{
+        width: 100%;
+      }
+    }
+  }
+}

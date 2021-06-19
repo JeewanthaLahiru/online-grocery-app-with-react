@@ -47,7 +47,7 @@ const AdminOrder:React.FC = () => {
                     <Row className="order-body mx-0 my-5">
                         <Col xs={6} className="order-body-left">
                             <Form.Group >
-                                <Form.Label>Customer</Form.Label>
+                                <Form.Label className="float-left">Customer</Form.Label>
                                 <Form.Control
                                     as="textarea"
                                     rows={2}
@@ -56,7 +56,7 @@ const AdminOrder:React.FC = () => {
                                 />
                             </Form.Group>
                             <Form.Group >
-                                <Form.Label>Contact Details</Form.Label>
+                                <Form.Label className="float-left" >Contact Details</Form.Label>
                                 <Form.Control
                                     as="textarea"
                                     rows={2}
@@ -66,7 +66,7 @@ const AdminOrder:React.FC = () => {
                                 />
                             </Form.Group>
                             <Form.Group >
-                                <Form.Label>Delivery Address</Form.Label>
+                                <Form.Label className="float-left" >Delivery Address</Form.Label>
                                 <Form.Control
                                     as="textarea"
                                     rows={4}
@@ -79,7 +79,7 @@ const AdminOrder:React.FC = () => {
                                 />
                             </Form.Group>
                             <Form.Group >
-                                <Form.Label>Instructions</Form.Label>
+                                <Form.Label className="float-left">Instructions</Form.Label>
                                 <Form.Control
                                     as="textarea"
                                     rows={4}
@@ -90,7 +90,35 @@ const AdminOrder:React.FC = () => {
 
                         </Col>
                         <Col xs={6} className="order-body-right" >
+                            <Row className="mx-0 mt-4 p-0">
+                                <Col xs={12} className="order-products m-0 p-0">
 
+                                </Col>
+                                <Col xs={12} className="order-price mx-0 mt-3 p-0">
+                                    <table>
+                                        <tr>
+                                            <td className="text-left">Payment Status</td>
+                                            <td className="text-right text-success">{SelectedOrder.orderStatus}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="text-left">Delivery Charge</td>
+                                            <td className="text-right">Rs.100</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="text-left">Discount</td>
+                                            <td className="text-right">Rs.200</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="text-left">Subtotal</td>
+                                            <td className="text-right">Rs.{SelectedOrder.subTotal}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="text-left">Total</td>
+                                            <td className="text-right" >Rs.{ Number(SelectedOrder.subTotal)  +100 - 200}</td>
+                                        </tr>
+                                    </table>
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
                 </Col>
