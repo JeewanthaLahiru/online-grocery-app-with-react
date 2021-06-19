@@ -16,6 +16,7 @@ import AdminProfile from "./components/adminPages/adminProfile/AdminProfile";
 import AdminProductArea from "./components/adminPages/adminProductArea/AdminProductArea";
 import AdminOrderArea from "./components/adminPages/adminOrders/AdminOrderArea";
 import AdminOrder from "./components/adminPages/adminOrders/AdminOrder";
+import AddProduct from "./components/adminPages/adminProductArea/AddProduct";
 
 const ClientApp:React.FC = () => {
     return(
@@ -29,6 +30,8 @@ const ClientApp:React.FC = () => {
                     <Route path="/login" exact component={Login}/>
                     <Route path="/admin" exact component={AdminProfile}/>
                     <Route path="/admin/product" exact component={AdminProductArea}/>
+                    <Route path="/admin/product/addproduct" exact component={AddProduct}/>
+
                     <Route path="/admin/orders" exact component={AdminOrderArea} />
                     <Route path={"/admin/orders/:orderid"} exact component={AdminOrder}/>
                 </Switch>
