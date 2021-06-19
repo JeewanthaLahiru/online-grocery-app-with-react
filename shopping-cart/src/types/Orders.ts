@@ -1,6 +1,6 @@
 export type IAddressDetails = {
     name : string,
-    streenAddress : string,
+    streetAddress : string,
     city : string,
     postalCode : string,
     contact : string
@@ -30,6 +30,7 @@ export type IOrder = {
     billingDetails : IAddressDetails,
     deliveryDetails : IAddressDetails,
     instructions : string,
+    purchasedItems : IPurchasedItems[],
     paymentMethod : EPaymentMethod,
     subTotal : string,
     discount : string,
