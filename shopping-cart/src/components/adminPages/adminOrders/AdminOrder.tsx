@@ -16,11 +16,11 @@ const AdminOrder:React.FC = () => {
         <React.Fragment>
             <Row className="mx-0 order-view justify-content-center">
                 <Col xs={12} md={10} xl={7}>
-                    <Row className="mx-0 back-row">
+                    <Row className="mx-0 back-row my-3">
                         <Col xs={12}>
                             <h1 className="text-left">
-                                <i className="feather icon-arrow-left" />
-                                Back to orders
+                                <i className="feather icon-chevron-left" />
+                                &nbsp;&nbsp;Back to orders
                             </h1>
                         </Col>
                     </Row>

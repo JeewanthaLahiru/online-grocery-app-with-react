@@ -1,6 +1,35 @@
 .order-view{
   font-family: 'Quicksand', sans-serif;
 
+  .back-row{
+    h1{
+      font-size: 1.6em;
+      i{
+        border: 1px solid $primary-color;
+        color: $primary-color;
+        border-radius: 4px;
+      }
+    }
+    h1:hover{
+      cursor: pointer;
+      i{
+        background-color: $primary-color;
+        color: white;
+      }
+    }
+  }
+  .title-row{
+    h5{
+      font-weight: 600;
+    }
+    h6{
+      color: $secondary-font-color;
+    }
+    button{
+      font-weight: 600;
+    }
+  }
+
   .order-body{
     label{
       font-weight: 400;
