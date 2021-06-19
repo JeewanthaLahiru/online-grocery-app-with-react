@@ -17,17 +17,11 @@ const AdminOrder:React.FC = () => {
     const showOrders = () => {
         console.log(orderedProducts);
     }
-    const renderProducts = () => {
-        orderedProducts.map((orderItem, index:number) => {
-            console.log(orderItem.itemName);
-            return <OrderProductItem key={index} product={orderItem}/>;
-        })
-    }
 
     return(
         <React.Fragment>
             <Row className="mx-0 order-view justify-content-center">
-                <Col xs={12} md={10} xl={7}>
+                <Col xs={12} md={10} xl={8}>
                     <Row className="mx-0 back-row my-3">
                         <Col xs={12}>
                             <h1 className="text-left">
@@ -37,28 +31,28 @@ const AdminOrder:React.FC = () => {
                         </Col>
                     </Row>
                     <Row className="mx-0 title-row">
-                        <Col xs={6}>
+                        <Col xs={12} md={5}>
                             <h5 className="text-left" >Order {SelectedOrder.orderId}</h5>
                             <h6 className="text-left" >Order created at 6/1/2021, 6:42:24</h6>
                         </Col>
-                        <Col xs={6}>
+                        <Col xs={12} md={7}>
                             <Button
                                 onClick={showOrders}
-                                variant={"success"}
-                                className="float-right px-5"
+                                variant={"outline-success"}
+                                className="float-md-right mr-3 mr-md-0 float-left px-5"
                             >
                                 Accept
                             </Button>
                             <Button
-                                variant={"success"}
-                                className="mr-3 float-right px-5"
+                                variant={"outline-danger"}
+                                className="mr-3 float-md-right float-left px-5"
                             >
                                 Reject
                             </Button>
                         </Col>
                     </Row>
                     <Row className="order-body mx-0 my-5">
-                        <Col xs={6} className="order-body-left">
+                        <Col xs={12} lg={6} className="order-body-left">
                             <Form.Group >
                                 <Form.Label className="float-left">Customer</Form.Label>
                                 <Form.Control
@@ -102,7 +96,7 @@ const AdminOrder:React.FC = () => {
                             </Form.Group>
 
                         </Col>
-                        <Col xs={6} className="order-body-right" >
+                        <Col xs={12} lg={6} className="order-body-right" >
                             <Row className="mx-0 mt-4 p-0">
                                 <Col xs={12} className="order-products m-0 p-0">
                                     <Row className="mx-0">
