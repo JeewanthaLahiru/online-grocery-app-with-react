@@ -45,6 +45,13 @@ const AdminOrderArea:React.FC = () => {
                             <Image src={CoverImg} />
                         </Col>
                     </Row>
+                    <Row className="mx-0 my-4 admin-order-title-row ">
+                        <Col xs={12}>
+                            <h2 className="text-left" >
+                                {isPending?"Pending orders" : "Accepted orders"}
+                            </h2>
+                        </Col>
+                    </Row>
                     <Row className="mx-0 order-table-area">
                         <OrdersTable isPending={isPending}/>
                     </Row>
