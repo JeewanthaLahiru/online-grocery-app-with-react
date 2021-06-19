@@ -9,13 +9,13 @@ const AdminHeader:React.FC = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse>
                     <Nav className="mr-auto">
-                        <Link to={"admin/"}>
+                        <Link to={"admin"}>
                             <Nav.Link href="#home" className="px-lg-5">Profile</Nav.Link>
                         </Link>
-                        <Link to={"admin/Products"}>
+                        <Link to={"admin/product"}>
                             <Nav.Link href="#home" className="px-lg-5" >Products</Nav.Link>
                         </Link>
-                        <Link to={"admin/Orders"}>
+                        <Link to={"admin/orders"}>
                             <Nav.Link href="#home" className="px-lg-5" >Orders</Nav.Link>
                         </Link>
                         <Link to={"admin/Delivery"}>

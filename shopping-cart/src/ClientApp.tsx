@@ -14,6 +14,7 @@ import Register from "./components/UserPages/Register/Register";
 import Login from "./components/UserPages/login/Login";
 import AdminProfile from "./components/adminPages/adminProfile/AdminProfile";
 import AdminProductArea from "./components/adminPages/adminProductArea/AdminProductArea";
+import AdminOrderArea from "./components/adminPages/adminOrders/AdminOrderArea";
 
 const ClientApp:React.FC = () => {
     return(
@@ -27,6 +28,7 @@ const ClientApp:React.FC = () => {
                     <Route path="/login" exact component={Login}/>
                     <Route path="/admin" exact component={AdminProfile}/>
                     <Route path="/admin/product" exact component={AdminProductArea}/>
+                    <Route path="/admin/orders" exact component={AdminOrderArea} />
                 </Switch>
                 <FooterArea/>
             </Container>
