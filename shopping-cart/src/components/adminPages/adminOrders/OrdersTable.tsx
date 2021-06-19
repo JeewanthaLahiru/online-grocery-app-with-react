@@ -85,7 +85,10 @@ const OrdersTable:React.FC<OrdersTableProps> = (props) => {
             generatedOrderList.push({
                 id : index+1,
                 invoiceNumber : orderItem.orderId,
-                area : orderItem.deliveryDetails.city,
+                area :
+                    <React.Fragment>
+                        {orderItem.deliveryDetails.city + "," + orderItem.deliveryDetails.postalCode}
+                    </React.Fragment>,
                 value : orderItem.subTotal,
                 actions :
                     <React.Fragment>
