@@ -2,6 +2,7 @@ export type IAddressDetails = {
     name : string,
     streetAddress : string,
     city : string,
+    country:string,
     postalCode : string,
     contact : string
 }
