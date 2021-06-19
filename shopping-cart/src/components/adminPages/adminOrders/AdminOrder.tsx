@@ -2,6 +2,8 @@ import React from "react";
 import {useParams} from "react-router-dom";
 import {orders} from "../../../repository/Orders";
 import {Button, Col, Row, Form} from "react-bootstrap";
+import {IPurchasedItems} from "../../../types/Orders";
+import OrderProductItem from "./OrderProductItem";
 
 interface ParamTypes{
     orderid:string
@@ -11,6 +13,16 @@ const AdminOrder:React.FC = () => {
     const {orderid} = useParams<ParamTypes>();
 
     const SelectedOrder:any = orders.find(({orderId}) => orderId == orderid);
+    const orderedProducts: IPurchasedItems[] = SelectedOrder.purchasedItems;
+    const showOrders = () => {
+        console.log(orderedProducts);
+    }
+    const renderProducts = () => {
+        orderedProducts.map((orderItem, index:number) => {
+            console.log(orderItem.itemName);
+            return <OrderProductItem key={index} product={orderItem}/>;
+        })
+    }
 
     return(
         <React.Fragment>
@@ -31,6 +43,7 @@ const AdminOrder:React.FC = () => {
                         </Col>
                         <Col xs={6}>
                             <Button
+                                onClick={showOrders}
                                 variant={"success"}
                                 className="float-right px-5"
                             >
@@ -92,7 +105,12 @@ const AdminOrder:React.FC = () => {
                         <Col xs={6} className="order-body-right" >
                             <Row className="mx-0 mt-4 p-0">
                                 <Col xs={12} className="order-products m-0 p-0">
-
+                                    <Row className="mx-0">
+                                        {orderedProducts.map((orderItem, index:number) => {
+                                            console.log(orderItem.itemName);
+                                            return <OrderProductItem key={index} product={orderItem}/>;
+                                        })}
+                                    </Row>
                                 </Col>
                                 <Col xs={12} className="order-price mx-0 mt-3 p-0">
                                     <table>
