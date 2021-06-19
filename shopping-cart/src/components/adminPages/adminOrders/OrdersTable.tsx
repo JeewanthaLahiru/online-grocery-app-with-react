@@ -1,6 +1,6 @@
 import React from "react";
 import {Col} from "react-bootstrap";
-import {IOrder} from "../../../types/Orders";
+import {EOrderStatus, IOrder} from "../../../types/Orders";
 import {orders} from "../../../repository/Orders";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
@@ -10,7 +10,20 @@ type OrdersTableProps = {
 }
 const OrdersTable:React.FC<OrdersTableProps> = (props) => {
 
-    const orderData:IOrder[] = orders;
+    const orderData:IOrder[] = [];
+    if(props.isPending){
+        orders.map((orderitem) => {
+            if(orderitem.orderStatus === EOrderStatus.PENDING){
+                orderData.push(orderitem);
+            }
+        })
+    }else{
+        orders.map((orderitem) => {
+            if(orderitem.orderStatus !== EOrderStatus.PENDING){
+                orderData.push(orderitem);
+            }
+        })
+    }
     const columns = [
         {
             dataField : "id",
