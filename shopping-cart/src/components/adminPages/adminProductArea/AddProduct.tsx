@@ -5,17 +5,20 @@ import {Controller, useForm} from "react-hook-form";
 import {IAddProductForm} from "../../../types/admin/AddProduct";
 import Select from 'react-select';
 
+interface ICategory {
+    value: string;
+    label: string;
+}
+
 const AddProduct:React.FC = () => {
 
     const { handleSubmit, control, formState:{errors}, reset, setValue} = useForm<IAddProductForm>();
 
-    const [selectedOption, setSelectedOption] = useState(null);
-
-    const handleOnSubmit = (data:IAddProductForm) => {
+    const handleOnSubmit = (data:any) => {
         console.log(data);
     }
 
-    const categoryOptions = [
+    const categoryOptions: ICategory[] = [
         {value:"Grocery", label:"Grocery"},
         {value:"Pharmacy", label:"Pharmacy"},
         {value:"Electronic", label:"Electronic"},
@@ -47,6 +50,7 @@ const AddProduct:React.FC = () => {
                                     <Col xs={12}>
                                         <Form.Label className="float-left m-0">Title</Form.Label>
                                         <Controller
+                                            defaultValue={""}
                                             control={control}
                                             render={({field})=>(
                                                 <Form.Control size={"sm"} type="text" {...field}/>
@@ -57,6 +61,7 @@ const AddProduct:React.FC = () => {
                                     <Col xs={12}>
                                         <Form.Label className="float-left" >Previous price</Form.Label>
                                         <Controller
+                                            defaultValue={""}
                                             render={({field}) => (
                                                 <Form.Control size={"sm"} {...field}/>
                                             )}
@@ -67,6 +72,7 @@ const AddProduct:React.FC = () => {
                                     <Col xs={12}>
                                         <Form.Label className="float-left" >Price</Form.Label>
                                         <Controller
+                                            defaultValue={""}
                                             render={({field}) => (
                                                 <Form.Control size={"sm"} {...field}/>
                                             )}
@@ -78,14 +84,32 @@ const AddProduct:React.FC = () => {
                                         <Form.Label className="float-left">Category</Form.Label>
                                         <br/>
                                         <Controller
+                                            defaultValue={""}
                                             control={control}
-                                            render={() => (
+                                            render={({field:{onChange, value, name, ref}}) => (
+
                                                 <Select
+                                                    inputRef={ref}
+                                                    value={categoryOptions.find(c => c.value === value)}
                                                     options={categoryOptions}
+                                                    onChange={(selected:any)=>{
+                                                        onChange(selected.value)
+                                                    }}
                                                     size={"sm"}
                                                 />
                                             )}
                                             name={"category"}
+                                        />
+                                    </Col>
+                                    <Col xs={12}>
+                                        <Form.Label className="float-left" >Description</Form.Label>
+                                        <Controller
+                                            control={control}
+                                            defaultValue={''}
+                                            render={({field}) => (
+                                                <Form.Control as="textarea" rows={5} size={"sm"} {...field} />
+                                            )}
+                                            name={"description"}
                                         />
                                     </Col>
                                 </Row>
