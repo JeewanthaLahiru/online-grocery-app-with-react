@@ -12,7 +12,7 @@ interface ICategory {
 
 const AddProduct:React.FC = () => {
 
-    const { handleSubmit, control, formState:{errors}, reset, setValue} = useForm<IAddProductForm>();
+    const { handleSubmit, control, formState:{errors}, reset, setValue, register} = useForm<IAddProductForm>();
     const [productImage, setProductImage] = useState<File[]>([]);
 
     const onDrop = (acceptedFiles: File[]) => {
@@ -108,17 +108,33 @@ const AddProduct:React.FC = () => {
                                                 <Form.Control size={"sm"} type="text" {...field}/>
                                             )}
                                             name={"title"}
+                                            rules={{
+                                                required: true,
+                                                minLength: 5
+                                            }}
                                         />
+                                        {errors.title && errors.title.type === "required" &&
+                                            <span className="text-left text-danger">*This field is required</span>}
+                                        {errors.title && errors.title.type === "minLength" &&
+                                            <span className="text-left text-danger">
+                                                * Minimum charactors should be 5
+                                            </span>}
                                     </Col>
                                     <Col xs={12} className="mt-2">
                                         <Form.Label className="float-left m-0" >Previous price</Form.Label>
                                         <Controller
                                             defaultValue={""}
                                             render={({field}) => (
-                                                <Form.Control size={"sm"} {...field}/>
+                                                <Form.Control
+                                                    size={"sm"}
+                                                    type={"number"}
+                                                    {...field}/>
                                             )}
                                             name={"previousPrice"}
-                                            control={control}
+                                            control= {control}
+                                            rules={{
+                                                required: true
+                                            }}
                                         />
                                     </Col>
                                     <Col xs={12} className="mt-2">
@@ -171,8 +187,7 @@ const AddProduct:React.FC = () => {
                                         >
                                             Add
                                         </Button>
-                                        <Button type={"submit"}
-                                                className="float-left px-4"
+                                        <Button className="float-left px-4"
                                                 variant="dark"
                                         >
                                             Cancel
