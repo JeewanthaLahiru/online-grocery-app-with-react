@@ -1,11 +1,10 @@
-import React, {useState} from "react";
-import {Col, Row, Image, Form, FormControl, Button} from "react-bootstrap";
+import React, {useEffect, useState} from "react";
+import {Col, Row, Image, Form, FormControl, Button, Container} from "react-bootstrap";
 import DefaultImg from "../../../assets/images/default/default.jpg";
 import {Controller, useForm} from "react-hook-form";
 import {IAddProductForm} from "../../../types/admin/AddProduct";
 import Dropzone, { useDropzone, DropzoneProps } from "react-dropzone";
 import Select from 'react-select';
-
 interface ICategory {
     value: string;
     label: string;
@@ -15,6 +14,39 @@ const AddProduct:React.FC = () => {
 
     const { handleSubmit, control, formState:{errors}, reset, setValue} = useForm<IAddProductForm>();
     const [productImage, setProductImage] = useState<File[]>([]);
+
+    const onDrop = (acceptedFiles: File[]) => {
+        setProductImage(
+            acceptedFiles.map(
+                file => Object.assign(file, {
+                    preview: URL.createObjectURL(file)
+                })
+            )
+        );
+    }
+    const {
+        getRootProps,
+        getInputProps,
+        isDragActive,
+        isDragAccept,
+        isDragReject
+    } = useDropzone({ accept: "image/*", onDrop: onDrop, multiple: false });
+
+    useEffect(
+        () => () => {
+            productImage.forEach((file:any) => URL.revokeObjectURL(file.preview));
+        },
+        [productImage]
+    );
+
+    const thumbs = productImage.map((file: any) => (
+        <div key={file.name}>
+            {/* <div style={thumbInner}> */}
+            <img alt={file.name} src={file.preview} />
+            {/* </div> */}
+        </div>
+    ));
+
 
     const handleOnSubmit = (data:any) => {
         console.log(data);
@@ -43,8 +75,18 @@ const AddProduct:React.FC = () => {
                         </Col>
                     </Row>
                     <Row className="mx-0 add-product-body-row">
-                        <Col xs={12} sm={6}>
-                            <Image src={DefaultImg}/>
+                        <Col
+                            xs={12}
+                            sm={6}
+                        >
+                            <Container
+                                {...getRootProps({ isDragActive, isDragAccept, isDragReject })}
+                            >
+                                <input {...getInputProps()} />
+                                {thumbs}
+                                {productImage.length == 0 && <Image src={DefaultImg}/>}
+                            </Container>
+
                         </Col>
                         <Col xs={12} sm={6}>
                             <Form onSubmit={handleSubmit(handleOnSubmit)} className="add-product-form">
