@@ -49,7 +49,9 @@ const AddProduct:React.FC = () => {
 
 
     const handleOnSubmit = (data:any) => {
-        console.log(data);
+        console.log(data, productImage.map((file:any)=>{
+            return (file.preview);
+        }));
     }
 
     const categoryOptions: ICategory[] = [
