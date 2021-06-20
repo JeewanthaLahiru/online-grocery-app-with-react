@@ -3,6 +3,7 @@ import {Col, Row, Image, Form, FormControl, Button} from "react-bootstrap";
 import DefaultImg from "../../../assets/images/default/default.jpg";
 import {Controller, useForm} from "react-hook-form";
 import {IAddProductForm} from "../../../types/admin/AddProduct";
+import Dropzone, { useDropzone, DropzoneProps } from "react-dropzone";
 import Select from 'react-select';
 
 interface ICategory {
@@ -13,6 +14,7 @@ interface ICategory {
 const AddProduct:React.FC = () => {
 
     const { handleSubmit, control, formState:{errors}, reset, setValue} = useForm<IAddProductForm>();
+    const [productImage, setProductImage] = useState<File[]>([]);
 
     const handleOnSubmit = (data:any) => {
         console.log(data);
