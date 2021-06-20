@@ -35,7 +35,7 @@ const AddProduct:React.FC = () => {
                                 <i className="feather icon-chevron-left"/>
                                 back to products
                             </h6>
-                            <h3 className="text-left" >
+                            <h3 className="text-left my-4" >
                                 Add new Product
                             </h3>
                         </Col>
