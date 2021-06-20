@@ -114,9 +114,11 @@ const AddProduct:React.FC = () => {
                                             }}
                                         />
                                         {errors.title && errors.title.type === "required" &&
-                                            <span className="text-left text-danger">*This field is required</span>}
+                                            <span className="text-left text-danger  float-left">
+                                                *This field is required
+                                            </span>}
                                         {errors.title && errors.title.type === "minLength" &&
-                                            <span className="text-left text-danger">
+                                            <span className="text-left text-danger float-left">
                                                 * Minimum charactors should be 5
                                             </span>}
                                     </Col>
@@ -128,6 +130,7 @@ const AddProduct:React.FC = () => {
                                                 <Form.Control
                                                     size={"sm"}
                                                     type={"number"}
+                                                    min={0}
                                                     {...field}/>
                                             )}
                                             name={"previousPrice"}
@@ -136,17 +139,33 @@ const AddProduct:React.FC = () => {
                                                 required: true
                                             }}
                                         />
+                                        {errors.previousPrice &&
+                                        errors.previousPrice.type === "required" &&
+                                        <span className="text-danger float-left" >
+                                            * This field is required
+                                        </span>}
                                     </Col>
                                     <Col xs={12} className="mt-2">
                                         <Form.Label className="float-left m-0" >Price</Form.Label>
                                         <Controller
                                             defaultValue={""}
                                             render={({field}) => (
-                                                <Form.Control size={"sm"} {...field}/>
+                                                <Form.Control
+                                                    size={"sm"}
+                                                    type={"number"}
+                                                    {...field}/>
                                             )}
                                             name={"price"}
                                             control={control}
+                                            rules={{
+                                                required: true
+                                            }}
                                         />
+                                        {errors.price &&
+                                        errors.price.type === "required" &&
+                                        <span className="text-danger float-left" >
+                                            * This field is required
+                                        </span>}
                                     </Col>
                                     <Col xs={12} className="mt-2">
                                         <Form.Label className="float-left m-0">Category</Form.Label>
@@ -167,7 +186,15 @@ const AddProduct:React.FC = () => {
                                                 />
                                             )}
                                             name={"category"}
+                                            rules={{
+                                                required: true
+                                            }}
                                         />
+                                        {errors.category &&
+                                        errors.category.type === "required" &&
+                                        <span className="text-danger float-left" >
+                                            * This field is required
+                                        </span>}
                                     </Col>
                                     <Col xs={12} className="mt-2">
                                         <Form.Label className="float-left m-0" >Description</Form.Label>
@@ -178,7 +205,21 @@ const AddProduct:React.FC = () => {
                                                 <Form.Control as="textarea" rows={5} size={"sm"} {...field} />
                                             )}
                                             name={"description"}
+                                            rules={{
+                                                required: true,
+                                                minLength: 10
+                                            }}
                                         />
+                                        {errors.previousPrice &&
+                                        errors.previousPrice.type === "required" &&
+                                        <span className="text-danger float-left" >
+                                            * This field is required
+                                        </span>}
+                                        {errors.previousPrice &&
+                                        errors.previousPrice.type === "minLength" &&
+                                        <span className="text-danger float-left" >
+                                            * minimum characters should be 10
+                                        </span>}
                                     </Col>
                                     <Col xs={12} className="mt-2">
                                         <Button type={"submit"}
