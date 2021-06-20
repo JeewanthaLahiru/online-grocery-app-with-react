@@ -28,7 +28,7 @@ const AddProduct:React.FC = () => {
     return(
         <React.Fragment>
             <Row className="mx-0 justify-content-center add-product">
-                <Col xs={12} md={10} xl={8}>
+                <Col xs={12} xl={8}>
                     <Row className="mx-0 mx-0 add-product-title-row">
                         <Col xs={12}>
                             <h6 className="text-left" >
@@ -41,13 +41,13 @@ const AddProduct:React.FC = () => {
                         </Col>
                     </Row>
                     <Row className="mx-0 add-product-body-row">
-                        <Col xs={6}>
+                        <Col xs={12} sm={6}>
                             <Image src={DefaultImg}/>
                         </Col>
-                        <Col xs={6}>
+                        <Col xs={12} sm={6}>
                             <Form onSubmit={handleSubmit(handleOnSubmit)} className="add-product-form">
                                 <Row className="mx-0">
-                                    <Col xs={12}>
+                                    <Col xs={12} className="mt-0">
                                         <Form.Label className="float-left m-0">Title</Form.Label>
                                         <Controller
                                             defaultValue={""}
@@ -58,8 +58,8 @@ const AddProduct:React.FC = () => {
                                             name={"title"}
                                         />
                                     </Col>
-                                    <Col xs={12}>
-                                        <Form.Label className="float-left" >Previous price</Form.Label>
+                                    <Col xs={12} className="mt-2">
+                                        <Form.Label className="float-left m-0" >Previous price</Form.Label>
                                         <Controller
                                             defaultValue={""}
                                             render={({field}) => (
@@ -69,8 +69,8 @@ const AddProduct:React.FC = () => {
                                             control={control}
                                         />
                                     </Col>
-                                    <Col xs={12}>
-                                        <Form.Label className="float-left" >Price</Form.Label>
+                                    <Col xs={12} className="mt-2">
+                                        <Form.Label className="float-left m-0" >Price</Form.Label>
                                         <Controller
                                             defaultValue={""}
                                             render={({field}) => (
@@ -80,8 +80,8 @@ const AddProduct:React.FC = () => {
                                             control={control}
                                         />
                                     </Col>
-                                    <Col xs={12}>
-                                        <Form.Label className="float-left">Category</Form.Label>
+                                    <Col xs={12} className="mt-2">
+                                        <Form.Label className="float-left m-0">Category</Form.Label>
                                         <br/>
                                         <Controller
                                             defaultValue={""}
@@ -101,8 +101,8 @@ const AddProduct:React.FC = () => {
                                             name={"category"}
                                         />
                                     </Col>
-                                    <Col xs={12}>
-                                        <Form.Label className="float-left" >Description</Form.Label>
+                                    <Col xs={12} className="mt-2">
+                                        <Form.Label className="float-left m-0" >Description</Form.Label>
                                         <Controller
                                             control={control}
                                             defaultValue={''}
@@ -112,8 +112,21 @@ const AddProduct:React.FC = () => {
                                             name={"description"}
                                         />
                                     </Col>
+                                    <Col xs={12} className="mt-2">
+                                        <Button type={"submit"}
+                                                className="float-left px-4 mr-2"
+                                                variant="success"
+                                        >
+                                            Add
+                                        </Button>
+                                        <Button type={"submit"}
+                                                className="float-left px-4"
+                                                variant="dark"
+                                        >
+                                            Cancel
+                                        </Button>
+                                    </Col>
                                 </Row>
-                                <Button type={"submit"}>submit</Button>
                             </Form>
                         </Col>
                     </Row>
