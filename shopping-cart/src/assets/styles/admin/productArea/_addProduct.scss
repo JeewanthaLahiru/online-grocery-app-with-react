@@ -7,6 +7,27 @@
     }
   }
   .add-product-body-row{
+    .add-product-image-col{
+      position: relative;
+      .add-product-text{
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        transition: 0.2s;
+        color: rgba(0, 0, 0, 0.2);
+        h1{
+          font-size: 1.5em;
+        }
+      }
+    }
+    .add-product-image-col:hover{
+      cursor: pointer;
+      .add-product-text{
+        background-color: rgba(255, 255, 255, 0.38);
+        color: $primary-font-color;
+      }
+    }
     img{
       width: 100%;
       height: 450px;

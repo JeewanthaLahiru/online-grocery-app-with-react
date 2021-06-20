@@ -78,13 +78,21 @@ const AddProduct:React.FC = () => {
                         <Col
                             xs={12}
                             sm={6}
+                            className="add-product-image-col"
                         >
+
                             <Container
                                 {...getRootProps({ isDragActive, isDragAccept, isDragReject })}
                             >
                                 <input {...getInputProps()} />
                                 {thumbs}
                                 {productImage.length == 0 && <Image src={DefaultImg}/>}
+                                <Row className="add-product-text align-items-center">
+                                    <Col xs={12}>
+                                        <h1>Drop image here or click to upload</h1>
+                                    </Col>
+
+                                </Row>
                             </Container>
 
                         </Col>
