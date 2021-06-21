@@ -5,12 +5,30 @@ import {Controller, useForm} from "react-hook-form";
 import {IAddProductForm} from "../../../types/admin/AddProduct";
 import Dropzone, { useDropzone, DropzoneProps } from "react-dropzone";
 import Select from 'react-select';
+import {useParams} from "react-router-dom";
+import {products} from "../../../repository/Products";
+import {IProduct} from "../../../types/Products";
 interface ICategory {
     value: string;
     label: string;
 }
 
+interface ParamTypes {
+    productid: string;
+}
+
 const AddProduct:React.FC = () => {
+    const [updateProduct, setUpdateProduct] = useState(false);
+
+    const {productid} = useParams<ParamTypes>();
+    const handleOnCheckButton = () => {
+        if(productid){
+            setUpdateProduct(true);
+            const productToChange : any = products.find(({id})=> productid === id.toString());
+        }else{
+            setUpdateProduct(false);
+        }
+    }
 
     const { handleSubmit, control, formState:{errors}, reset, setValue, register} = useForm<IAddProductForm>();
     const [productImage, setProductImage] = useState<File[]>([]);
@@ -232,6 +250,7 @@ const AddProduct:React.FC = () => {
                                         </Button>
                                         <Button className="float-left px-4"
                                                 variant="dark"
+                                                onClick={handleOnCheckButton}
                                         >
                                             Cancel
                                         </Button>
