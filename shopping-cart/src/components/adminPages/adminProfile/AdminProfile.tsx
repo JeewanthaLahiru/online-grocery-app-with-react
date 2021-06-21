@@ -33,7 +33,7 @@ const AdminProfile:React.FC = () => {
             <Row className="mx-0 profile-page" >
 
                 <Col xs={12} className="profile-right">
-                    <Row className="mx-0" >
+                    <Row className="mx-0 py-5" >
                         <Col xs={4} className="profile-left">
                             <Row className="mx-0 profile-image justify-content-center">
                                 <Col xs={9}>
@@ -86,7 +86,7 @@ const AdminProfile:React.FC = () => {
                     </Row>
 
                     <hr className="mt-4" />
-                    <Row className="mx-0 px-xl-5">
+                    <Row className="mx-0 product-list-profile">
                         {renderProducts()}
                     </Row>
                 </Col>
