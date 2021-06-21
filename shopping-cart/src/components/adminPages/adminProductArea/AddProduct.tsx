@@ -114,7 +114,8 @@ const AddProduct:React.FC = () => {
                             >
                                 <input {...getInputProps()} />
                                 {thumbs}
-                                {productImage.length == 0 && <Image src={DefaultImg}/>}
+                                {productImage.length == 0 && <Image src={
+                                    productToUpdateState? productToUpdateState.image : DefaultImg}/>}
                                 <Row className="add-product-text align-items-center">
                                     <Col xs={12}>
                                         <h1>Drop image here or click to upload</h1>
