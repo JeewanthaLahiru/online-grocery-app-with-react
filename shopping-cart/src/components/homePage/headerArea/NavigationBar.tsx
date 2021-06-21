@@ -45,15 +45,15 @@ const NavigationBar:React.FC = () => {
                 <Nav.Link href="#link" className="text-secondary" >Contact Us</Nav.Link>
                 {logedState &&
                     <div className="ml-auto" >
-                        <Button variant={"light"} onClick={handleOnProfileClick} >
+                        <Button variant={"light"} onClick={handleOnProfileClick} className="admin-nav" >
                             <i className="feather icon-user" />
                             &nbsp;profile
                         </Button>
-                        <Button variant={"light"} onClick={handleOnProductClick} >
+                        <Button variant={"light"} onClick={handleOnProductClick} className="admin-nav">
                             <i className="feather icon-shopping-bag" />
                             &nbsp;Product
                         </Button>
-                        <Button variant={"light"} onClick={handleOnOrderClick} >
+                        <Button variant={"light"} onClick={handleOnOrderClick} className="admin-nav">
                             <i className="feather icon-list" />
                             &nbsp;Orders
                         </Button>

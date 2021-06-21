@@ -1,3 +1,13 @@
+.navBar{
+  .admin-nav{
+    color: $secondary-font-color;
+  }
+  .admin-nav:hover{
+    background-color: transparent;
+    color: $primary-font-color;
+  }
+}
+
 @media screen and (max-width: 600px) {
 
   .navBar{
