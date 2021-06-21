@@ -2,6 +2,7 @@ import React, {ChangeEvent, useState} from "react";
 import {Col, Row, Image, Button, Form} from "react-bootstrap";
 import CoverIMG from "../../../assets/images/banner_images/banner.jpg";
 import ProductTable from "./ProductTable";
+import { useHistory } from 'react-router-dom';
 
 const AdminProductArea:React.FC = () => {
 
@@ -9,6 +10,11 @@ const AdminProductArea:React.FC = () => {
     const handleOnCategoryChange = (event:any) => {
         setAdminCategory(event.target.value);
         console.log(event.target.value);
+    }
+
+    const histrory = useHistory();
+    const handleOnAddProductClick = () => {
+        histrory.push("/admin/product/addproduct");
     }
 
     return(
@@ -43,7 +49,11 @@ const AdminProductArea:React.FC = () => {
                             </Form.Control>
                         </Col>
                         <Col lg={2} xs={4}>
-                            <Button variant="outline-success" size={"sm"}>
+                            <Button
+                                variant="outline-success"
+                                size={"sm"}
+                                onClick={handleOnAddProductClick}
+                            >
                                 + Add Product
                             </Button>
                         </Col>
