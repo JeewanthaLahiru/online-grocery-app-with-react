@@ -1,5 +1,5 @@
 import React from "react";
-import {useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import {orders} from "../../../repository/Orders";
 import {Button, Col, Row, Form} from "react-bootstrap";
 import {IPurchasedItems} from "../../../types/Orders";
@@ -11,11 +11,16 @@ interface ParamTypes{
 
 const AdminOrder:React.FC = () => {
     const {orderid} = useParams<ParamTypes>();
+    const history = useHistory();
 
     const SelectedOrder:any = orders.find(({orderId}) => orderId == orderid);
     const orderedProducts: IPurchasedItems[] = SelectedOrder.purchasedItems;
     const showOrders = () => {
         console.log(orderedProducts);
+    }
+
+    const handleOnBackToOrders = () => {
+        history.push("/admin/orders");
     }
 
     return(
@@ -24,7 +29,7 @@ const AdminOrder:React.FC = () => {
                 <Col xs={12} md={10} xl={8}>
                     <Row className="mx-0 back-row my-3">
                         <Col xs={12}>
-                            <h1 className="text-left">
+                            <h1 className="text-left" onClick={handleOnBackToOrders}>
                                 <i className="feather icon-chevron-left" />
                                 &nbsp;&nbsp;Back to orders
                             </h1>
