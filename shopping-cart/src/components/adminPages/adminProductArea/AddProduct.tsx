@@ -18,13 +18,21 @@ interface ParamTypes {
 }
 
 const AddProduct:React.FC = () => {
-    const [updateProduct, setUpdateProduct] = useState(false);
+    const [updateProduct, setUpdateProduct] = useState(true);
+
+    var productToChange: any = [];
 
     const {productid} = useParams<ParamTypes>();
+
+    const [productToUpdateState, setProductToUpdateState] = useState(
+        products.find(({id})=> productid === id.toString())
+    );
+
     const handleOnCheckButton = () => {
         if(productid){
             setUpdateProduct(true);
-            const productToChange : any = products.find(({id})=> productid === id.toString());
+            productToChange  = products.find(({id})=> productid === id.toString());
+            console.log(productToChange.name);
         }else{
             setUpdateProduct(false);
         }
@@ -122,7 +130,7 @@ const AddProduct:React.FC = () => {
                                     <Col xs={12} className="mt-0">
                                         <Form.Label className="float-left m-0">Title</Form.Label>
                                         <Controller
-                                            defaultValue={""}
+                                            defaultValue={productToUpdateState? productToUpdateState.name : ""}
                                             control={control}
                                             render={({field})=>(
                                                 <Form.Control size={"sm"} type="text" {...field}/>
@@ -145,7 +153,7 @@ const AddProduct:React.FC = () => {
                                     <Col xs={12} className="mt-2">
                                         <Form.Label className="float-left m-0" >Previous price</Form.Label>
                                         <Controller
-                                            defaultValue={""}
+                                            defaultValue={productToUpdateState? String(productToUpdateState.price) : ""}
                                             render={({field}) => (
                                                 <Form.Control
                                                     size={"sm"}
@@ -168,7 +176,9 @@ const AddProduct:React.FC = () => {
                                     <Col xs={12} className="mt-2">
                                         <Form.Label className="float-left m-0" >Price</Form.Label>
                                         <Controller
-                                            defaultValue={""}
+                                            defaultValue={
+                                                productToUpdateState ? String(productToUpdateState.price) : ""
+                                            }
                                             render={({field}) => (
                                                 <Form.Control
                                                     size={"sm"}
@@ -191,7 +201,7 @@ const AddProduct:React.FC = () => {
                                         <Form.Label className="float-left m-0">Category</Form.Label>
                                         <br/>
                                         <Controller
-                                            defaultValue={""}
+                                            defaultValue={productToUpdateState ? productToUpdateState.category : ""}
                                             control={control}
                                             render={({field:{onChange, value, name, ref}}) => (
 
