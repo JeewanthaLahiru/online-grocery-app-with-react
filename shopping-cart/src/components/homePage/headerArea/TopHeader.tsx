@@ -1,16 +1,18 @@
 import React from 'react';
 import {Button, Container, Nav, Navbar} from "react-bootstrap";
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {AppState} from "../../../store/reducers";
 import {logout} from "../../../store/actions/AuthActions";
 
 const TopHeader:React.FC = () => {
+    const history = useHistory();
     const loggedState = useSelector((state:AppState) => state.auth.logged);
     const dispatch = useDispatch();
 
     const handleOnLogOutClick = () => {
         dispatch(logout(false));
+        history.push("/");
     }
 
     return (
