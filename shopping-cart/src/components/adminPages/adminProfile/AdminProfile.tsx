@@ -2,6 +2,9 @@ import React from "react";
 import Profile from "../../../assets/images/default/default.jpg";
 import {Col, Row, Image, Form, Button} from "react-bootstrap";
 import {UserTypes} from "../../../types/admin/UserTypes";
+import {products} from "../../../repository/Products";
+import {IProduct} from "../../../types/Products";
+import Product from "../../homePage/productArea/Product";
 
 const AdminProfile:React.FC = () => {
 
@@ -15,23 +18,31 @@ const AdminProfile:React.FC = () => {
         image: Profile
     }
 
+    const renderProducts = () => {
+        return(
+            products.slice(0,5).map((product:IProduct, index:number) => {
+                return(
+                    <Product index={index} product={product}/>
+                )
+            })
+        )
+    }
+
     return(
         <React.Fragment>
             <Row className="mx-0 profile-page" >
-                <Col xs={4} className="profile-left">
-                    <Row className="mx-0 mt-5 profile-image justify-content-center">
-                        <Col xs={9}>
-                            <Image src={defaultUser.image} />
-                        </Col>
-                        <Col xs={5} className="mx-0 mt-5">
-                            <span className="float-left text-left">{defaultUser.description}<br/></span>
-                            <span className="float-left text-left mt-4" >Phone: <br/>{defaultUser.phone}</span>
-                        </Col>
-                    </Row>
-                </Col>
-                <Col xs={8} className="profile-right">
+
+                <Col xs={12} className="profile-right">
                     <Row className="mx-0" >
-                        <Col xs={12}>
+                        <Col xs={4} className="profile-left">
+                            <Row className="mx-0 profile-image justify-content-center">
+                                <Col xs={9}>
+                                    <Image src={defaultUser.image} />
+                                </Col>
+
+                            </Row>
+                        </Col>
+                        <Col xs={8}>
                             <h1 className="text-left" >{defaultUser.name}</h1>
                             <h5 className={"text-left"} >{defaultUser.status}</h5>
                             <h4 className="text-left" >
@@ -52,13 +63,31 @@ const AdminProfile:React.FC = () => {
                                     <i className={"feather icon-star"}/>
                                 </span>
                             </h4>
+                            <Row className="mx-0">
+                                <Col xs={12} className="p-0 mt-3">
+                                    <span className="text-left float-left">
+                                        {defaultUser.description}
+                                    </span>
+                                    <br/>
+                                    <span className="text-left float-left">
+                                        Phone: &nbsp;
+                                        {defaultUser.phone}
+                                    </span>
+                                </Col>
+                                <Col xs={12} className="mt-4 p-0" >
+                                    <Button variant="info" className="px-3 mr-2 float-left">Send message</Button>
+                                    <Button variant="info" className="px-3 mr-2 float-left">Contact Us</Button>
+                                    <Button variant="info" className="px-3 float-left">Report User</Button><br/>
+                                </Col>
+
+                            </Row>
                         </Col>
-                        <Col xs={12} className="mt-4" >
-                            <Button variant="info" className="px-3 mr-2 float-left">Send message</Button>
-                            <Button variant="info" className="px-3 mr-2 float-left">Contact Us</Button>
-                            <Button variant="info" className="px-3 float-left">Report User</Button><br/>
-                            <hr className="mt-4" />
-                        </Col>
+
+                    </Row>
+
+                    <hr className="mt-4" />
+                    <Row className="mx-0 px-xl-5">
+                        {renderProducts()}
                     </Row>
                 </Col>
             </Row>
