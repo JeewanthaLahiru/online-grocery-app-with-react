@@ -154,7 +154,8 @@ const AddProduct:React.FC = () => {
                                     <Col xs={12} className="mt-2">
                                         <Form.Label className="float-left m-0" >Previous price</Form.Label>
                                         <Controller
-                                            defaultValue={productToUpdateState? String(productToUpdateState.price) : ""}
+                                            defaultValue={
+                                                productToUpdateState? String(productToUpdateState.previousPrice) : ""}
                                             render={({field}) => (
                                                 <Form.Control
                                                     size={"sm"}
@@ -231,7 +232,9 @@ const AddProduct:React.FC = () => {
                                         <Form.Label className="float-left m-0" >Description</Form.Label>
                                         <Controller
                                             control={control}
-                                            defaultValue={''}
+                                            defaultValue={
+                                                productToUpdateState? productToUpdateState.description : ""
+                                            }
                                             render={({field}) => (
                                                 <Form.Control as="textarea" rows={5} size={"sm"} {...field} />
                                             )}
