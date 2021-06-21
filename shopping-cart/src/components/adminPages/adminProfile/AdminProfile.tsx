@@ -34,7 +34,7 @@ const AdminProfile:React.FC = () => {
 
                 <Col xs={12} className="profile-right">
                     <Row className="mx-0 py-5" >
-                        <Col xs={4} className="profile-left">
+                        <Col xs={12} lg={4} className="profile-left">
                             <Row className="mx-0 profile-image justify-content-center">
                                 <Col xs={9}>
                                     <Image src={defaultUser.image} />
@@ -42,10 +42,10 @@ const AdminProfile:React.FC = () => {
 
                             </Row>
                         </Col>
-                        <Col xs={8}>
-                            <h1 className="text-left" >{defaultUser.name}</h1>
-                            <h5 className={"text-left"} >{defaultUser.status}</h5>
-                            <h4 className="text-left" >
+                        <Col xs={12} lg={8}>
+                            <h1 className="text-lg-left" >{defaultUser.name}</h1>
+                            <h5 className={"text-lg-left"} >{defaultUser.status}</h5>
+                            <h4 className="text-lg-left" >
                                 {defaultUser.rating}&nbsp;&nbsp;&nbsp;
                                 <span className={Number(defaultUser.rating)>=0.0 ? "text-warning" : "text-divider"} >
                                     <i className={"feather icon-star"}/>
@@ -65,19 +65,19 @@ const AdminProfile:React.FC = () => {
                             </h4>
                             <Row className="mx-0">
                                 <Col xs={12} className="p-0 mt-3">
-                                    <span className="text-left float-left">
+                                    <span className="text-lg-left float-lg-left">
                                         {defaultUser.description}
                                     </span>
                                     <br/>
-                                    <span className="text-left float-left">
+                                    <span className="text-lg-left float-lg-left">
                                         Phone: &nbsp;
                                         {defaultUser.phone}
                                     </span>
                                 </Col>
                                 <Col xs={12} className="mt-4 p-0" >
-                                    <Button variant="info" className="px-3 mr-2 float-left">Send message</Button>
-                                    <Button variant="info" className="px-3 mr-2 float-left">Contact Us</Button>
-                                    <Button variant="info" className="px-3 float-left">Report User</Button><br/>
+                                    <Button variant="info" className="px-3 mr-2 float-lg-left">Send message</Button>
+                                    <Button variant="info" className="px-3 mr-2 float-lg-left">Contact Us</Button>
+                                    <Button variant="info" className="px-3 float-lg-left">Report User</Button><br/>
                                 </Col>
 
                             </Row>
