@@ -4,11 +4,16 @@ import CartImg from "../../../assets/images/login/cart.png";
 import {Controller, useForm, useFormState} from 'react-hook-form';
 import {loginType} from "../../../types/RegisterTypes";
 import {Link} from 'react-router-dom';
+import {useDispatch, useSelector} from "react-redux";
+import {login} from "../../../store/actions/AuthActions";
+import {AppState} from "../../../store/reducers";
 
 const Login:React.FC = () => {
-
+    const dispatch = useDispatch();
+    const authState = useSelector((state:AppState) => state.auth.logged);
 
     const onSubmit = (data: loginType) => {
+        dispatch(login(true));
         console.log(data);
     }
 
