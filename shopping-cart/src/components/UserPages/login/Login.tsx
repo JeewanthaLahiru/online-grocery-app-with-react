@@ -75,9 +75,11 @@ const Login:React.FC = () => {
                                                 <Form.Check
                                                     onChange={(e) => field.onChange(e.target.checked)}
                                                     checked={field.value}
+                                                    label={"Remember username?"}
                                                 />
                                             )}
                                         />
+
                                     </Col>
                                 </Row>
                                 <Row className="mx-0 mt-3" >
