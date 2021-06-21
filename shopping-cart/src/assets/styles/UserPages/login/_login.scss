@@ -1,0 +1,39 @@
+.login-page{
+  min-height: 63vh;
+
+  .login-row{
+    img{
+      width: 400px;
+    }
+
+    .login-form{
+      label{
+        width: 100%;
+      }
+      .form-check{
+        label{
+          width: auto;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px){
+  .login-page{
+    .login-row{
+      img{
+        display: none;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 992px){
+  .login-page{
+    .login-row{
+      img{
+        width: 100%;
+      }
+    }
+  }
+}

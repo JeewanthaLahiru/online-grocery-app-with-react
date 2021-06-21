@@ -43,13 +43,13 @@ const Product:React.FC<ProductTypeProps> = (props) => {
         })
         return relevantCartProductId
     }
-    const getRelevantCartProductQty = ():number  => {
-        let relevantCartProductId: number = 0;
+    const getRelevantCartProductQty = ():string  => {
+        let relevantCartProductQty: number = 0;
         cartProducts.forEach((cartProduct) => {
             if(cartProduct.product.id === props.product.id)
-                relevantCartProductId = cartProduct.qty;
+                relevantCartProductQty = cartProduct.qty;
         })
-        return relevantCartProductId
+        return relevantCartProductQty.toString()
     }
 
     const handleOnAddProductToCart = (data:FormData) => {
@@ -58,7 +58,8 @@ const Product:React.FC<ProductTypeProps> = (props) => {
             return;
         }
 
-        if(!getRelevantCartProductQty()){
+        console.log(data)
+        if(getRelevantCartProductQty() === '0'){
             const newCartProduct: ICartProduct = {
                 id: props.product.id,
                 product: props.product,
@@ -96,10 +97,18 @@ const Product:React.FC<ProductTypeProps> = (props) => {
                             <Col xs={5} className="cart-quantity m-0" >
 
                                 <Form.Group>
-                                    <Controller as={<Form.Control className={'quantity-form'} type="number" placeholder="1" min={0}/>}
-                                                name={'productQty'}
-                                                defaultValue='1'
-                                                control={control}
+                                    <Controller
+                                        render={({field})=>
+                                            (
+                                                <Form.Control
+                                                    className={'quantity-form'}
+                                                    type="number"
+                                                    {...field}
+                                                    min={1}
+                                                />
+                                            )}
+                                        name={'productQty'}
+                                        control={control}
                                     />
                                 </Form.Group>
                             </Col>

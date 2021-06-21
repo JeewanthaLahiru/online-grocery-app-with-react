@@ -1,0 +1,89 @@
+.order-view{
+  font-family: 'Quicksand', sans-serif;
+
+  .back-row{
+    h1{
+      font-size: 1.6em;
+      i{
+        border: 1px solid $primary-color;
+        color: $primary-color;
+        border-radius: 4px;
+      }
+    }
+    h1:hover{
+      cursor: pointer;
+      i{
+        background-color: $primary-color;
+        color: white;
+      }
+    }
+  }
+  .title-row{
+    h5{
+      font-weight: 600;
+    }
+    h6{
+      color: $secondary-font-color;
+    }
+    button{
+      font-weight: 600;
+    }
+  }
+
+  .order-body{
+    label{
+      font-weight: 400;
+    }
+    textarea{
+      font-weight: 500;
+      resize: none;
+      border-radius: 0;
+    }
+
+    .order-body-right{
+      .order-products{
+        height: 350px;
+        border: 1px solid $divider-color;
+        overflow-y: scroll;
+      }
+
+      table{
+        width: 100%;
+      }
+    }
+  }
+}
+
+.order-product-item{
+  .item-body{
+    img{
+      width: 100%;
+    }
+    table{
+      .name, .qty{
+        font-size: 0.9em;
+        font-weight: 600;
+      }
+      .qty{
+        color: $secondary-font-color;
+        font-size: 0.9em;
+        font-weight: 600;
+      }
+      .price{
+        color: $secondary-font-color;
+        font-size: 0.9em;
+      }
+      .total{
+        color: $danger;
+        font-weight: 600;
+      }
+
+    }
+
+  }
+  .item-id{
+    h6{
+      font-size: 0.8em;
+    }
+  }
+}
