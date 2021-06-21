@@ -8,6 +8,7 @@
   }
   .add-product-body-row{
     .add-product-image-col{
+      border: 1px solid transparent;
       position: relative;
       .add-product-text{
         position: absolute;
@@ -22,6 +23,7 @@
       }
     }
     .add-product-image-col:hover{
+      border: 1px dashed $divider-color;
       cursor: pointer;
       .add-product-text{
         background-color: rgba(255, 255, 255, 0.38);

@@ -36,6 +36,8 @@ export const products : IProduct[] = [
         price: 100,
         image:Avocado,
         category:'Grocery',
+        previousPrice: 150,
+        description: 'Avacado is a fruit'
     },
     {
         id: 2,
@@ -43,6 +45,8 @@ export const products : IProduct[] = [
         price: 120,
         image:Beetroot,
         category:'Grocery',
+        previousPrice: 150,
+        description: 'Beet Root is a fruit'
     },
     {
         id: 3,
@@ -50,6 +54,8 @@ export const products : IProduct[] = [
         price: 150,
         image:Carrot,
         category:'Grocery',
+        previousPrice: 160,
+        description: 'Carrot is a Vegetable'
     },
     {
         id: 4,
@@ -57,6 +63,8 @@ export const products : IProduct[] = [
         price: 80,
         image:Chickpea,
         category:'Grocery',
+        previousPrice: 100,
+        description: 'Chickpea is a fruit'
     },
     {
         id: 5,
@@ -64,6 +72,8 @@ export const products : IProduct[] = [
         price: 90,
         image:Coconut,
         category:'Grocery',
+        previousPrice: 110,
+        description: 'Coconut is a fruit'
     },
     {
         id: 6,
@@ -71,6 +81,8 @@ export const products : IProduct[] = [
         price: 30,
         image:Corn,
         category:'Grocery',
+        previousPrice: 50,
+        description: 'Corn is a fruit'
     },
     {
         id: 7,
@@ -78,6 +90,8 @@ export const products : IProduct[] = [
         price: 180,
         image:Dhal,
         category:'Grocery',
+        previousPrice: 190,
+        description: 'Dhal is a fruit'
     },
     {
         id: 8,
@@ -85,6 +99,8 @@ export const products : IProduct[] = [
         price: 70,
         image:Grapes,
         category:'Grocery',
+        previousPrice: 80,
+        description: 'Grapes is a fruit'
     },
     {
         id: 9,
@@ -92,6 +108,8 @@ export const products : IProduct[] = [
         price: 110,
         image:Lime,
         category:'Grocery',
+        previousPrice: 140,
+        description: 'Lime is a fruit'
     },
     {
         id: 10,
@@ -99,6 +117,8 @@ export const products : IProduct[] = [
         price: 160,
         image:Onions,
         category:'Grocery',
+        previousPrice: 170,
+        description: 'Onions is a fruit'
     },
     {
         id: 11,
@@ -106,6 +126,8 @@ export const products : IProduct[] = [
         price: 200,
         image:RedChilli,
         category:'spices',
+        previousPrice: 210,
+        description: 'Red chili is a fruit'
     },
     {
         id: 12,
@@ -113,6 +135,8 @@ export const products : IProduct[] = [
         price: 50,
         image:Tomato,
         category:'Grocery',
+        previousPrice: 60,
+        description: 'Tomato is a vegetable'
     },
     {
         id: 13,
@@ -120,6 +144,8 @@ export const products : IProduct[] = [
         price: 50,
         image:dettol,
         category:'Pharmacy',
+        previousPrice: 60,
+        description: 'Dettol is a medicine'
     },
     {
         id: 14,
@@ -127,13 +153,17 @@ export const products : IProduct[] = [
         price: 200,
         image:HandWash,
         category:'Pharmacy',
+        previousPrice: 210,
+        description: 'hand wash is a pharmacy'
     },
     {
         id: 15,
         name: 'Baby Diapers',
-        price: 300.00,
+        price: 300,
         image:Diaper,
         category:'Pharmacy',
+        previousPrice: 310,
+        description: 'Baby diapers are wearing babies'
     },
     {
         id: 16,
@@ -141,6 +171,8 @@ export const products : IProduct[] = [
         price: 100,
         image:Cod_liver_oil,
         category:'Pharmacy',
+        previousPrice: 150,
+        description: 'Codliver is a an oil'
     },
     {
         id: 17,
@@ -148,6 +180,8 @@ export const products : IProduct[] = [
         price: 30,
         image:Mask,
         category:'Pharmacy',
+        previousPrice: 50,
+        description: 'use face mask to protect from COVID'
     },
     {
         id: 18,
@@ -155,6 +189,8 @@ export const products : IProduct[] = [
         price: 50,
         image:dettol,
         category:'Pharmacy',
+        previousPrice: 60,
+        description: 'dettol is a fruit'
     },
     {
         id: 19,
@@ -162,6 +198,8 @@ export const products : IProduct[] = [
         price: 200,
         image:HandWash,
         category:'Pharmacy',
+        previousPrice: 150,
+        description: 'Avacado is a fruit'
     },
     {
         id: 20,
@@ -169,6 +207,8 @@ export const products : IProduct[] = [
         price: 100,
         image:Cod_liver_oil,
         category:'Pharmacy',
+        previousPrice: 150,
+        description: 'Avacado is a fruit'
     },
     {
         id: 21,
@@ -176,6 +216,8 @@ export const products : IProduct[] = [
         price: 50,
         image:Biriyani,
         category:'Food',
+        previousPrice: 150,
+        description: 'Avacado is a fruit'
     },
     {
         id: 22,
@@ -183,6 +225,8 @@ export const products : IProduct[] = [
         price: 50.00,
         image:Mushroom,
         category:'Food',
+        previousPrice: 150,
+        description: 'Avacado is a fruit'
     },
     {
         id: 23,
@@ -190,6 +234,8 @@ export const products : IProduct[] = [
         price: 50,
         image:SmokedFish,
         category:'Food',
+        previousPrice: 150,
+        description: 'Avacado is a fruit'
     },
     {
         id: 24,
@@ -197,6 +243,8 @@ export const products : IProduct[] = [
         price: 50.00,
         image:Burger,
         category:'Food',
+        previousPrice: 150,
+        description: 'Avacado is a fruit'
     },
     {
         id: 25,
@@ -204,6 +252,8 @@ export const products : IProduct[] = [
         price: 50,
         image:Sousage,
         category:'Food',
+        previousPrice: 150,
+        description: 'Avacado is a fruit'
     },
     {
         id: 26,
@@ -211,6 +261,8 @@ export const products : IProduct[] = [
         price: 50,
         image:Burger,
         category:'Food',
+        previousPrice: 150,
+        description: 'Avacado is a fruit'
     },
     {
         id: 27,
@@ -218,6 +270,8 @@ export const products : IProduct[] = [
         price: 50,
         image:pizza,
         category:'Food',
+        previousPrice: 150,
+        description: 'Avacado is a fruit'
     },
     {
         id: 28,
@@ -225,6 +279,8 @@ export const products : IProduct[] = [
         price: 50,
         image:GasBurner,
         category:'Electronic',
+        previousPrice: 150,
+        description: 'Avacado is a fruit'
     },
     {
         id: 29,
@@ -232,6 +288,8 @@ export const products : IProduct[] = [
         price: 50,
         image:FloorPolish,
         category:'Electronic',
+        previousPrice: 150,
+        description: 'Avacado is a fruit'
     },
     {
         id: 30,
@@ -239,6 +297,8 @@ export const products : IProduct[] = [
         price: 50,
         image:Oven,
         category:'Electronic',
+        previousPrice: 150,
+        description: 'Avacado is a fruit'
     },
     {
         id: 31,
@@ -246,6 +306,8 @@ export const products : IProduct[] = [
         price: 50,
         image:DonutMaker,
         category:'Electronic',
+        previousPrice: 150,
+        description: 'Avacado is a fruit'
     },
     {
         id: 32,
@@ -253,6 +315,8 @@ export const products : IProduct[] = [
         price: 50,
         image:AirConditioner,
         category:'Electronic',
+        previousPrice: 150,
+        description: 'Avacado is a fruit'
     },
     {
         id: 33,
@@ -260,6 +324,8 @@ export const products : IProduct[] = [
         price: 50,
         image:CeilingFan,
         category:'Electronic',
+        previousPrice: 150,
+        description: 'Avacado is a fruit'
     },
     {
         id: 34,
@@ -267,6 +333,8 @@ export const products : IProduct[] = [
         price: 50,
         image:Oven,
         category:'Electronic',
+        previousPrice: 150,
+        description: 'Avacado is a fruit'
     },
     {
         id: 35,
@@ -274,6 +342,8 @@ export const products : IProduct[] = [
         price: 50,
         image:FloorPolish,
         category:'Electronic',
+        previousPrice: 150,
+        description: 'Avacado is a fruit'
     }
 ]
 

@@ -4,12 +4,14 @@ import BootstrapTable from "react-bootstrap-table-next";
 import { products } from "../../../repository/Products";
 import {IProduct} from "../../../types/Products";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import {useHistory} from 'react-router-dom';
 
 type ProductTableProps = {
     category: string
 }
 
 const ProductTable:React.FC<ProductTableProps> = (props) => {
+    const history = useHistory();
 
     const productToRender:IProduct[] = [];
     if(props.category == "All"){
@@ -95,7 +97,7 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
     };
 
     const HandleOnEdit = (id:number) => {
-        console.log("hello world" + id);
+        history.push(`/admin/product/addproduct/${id}`);
     }
 
     const HandleOnDelete = (id: number) => {

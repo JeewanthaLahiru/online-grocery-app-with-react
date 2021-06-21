@@ -31,6 +31,7 @@ const ClientApp:React.FC = () => {
                     <Route path="/admin" exact component={AdminProfile}/>
                     <Route path="/admin/product" exact component={AdminProductArea}/>
                     <Route path="/admin/product/addproduct" exact component={AddProduct}/>
+                    <Route path="/admin/product/addproduct/:productid" exact component={AddProduct}/>
 
                     <Route path="/admin/orders" exact component={AdminOrderArea} />
                     <Route path={"/admin/orders/:orderid"} exact component={AdminOrder}/>

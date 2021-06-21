@@ -5,12 +5,39 @@ import {Controller, useForm} from "react-hook-form";
 import {IAddProductForm} from "../../../types/admin/AddProduct";
 import Dropzone, { useDropzone, DropzoneProps } from "react-dropzone";
 import Select from 'react-select';
+import {useParams} from "react-router-dom";
+import {products} from "../../../repository/Products";
+import { useHistory } from 'react-router-dom';
 interface ICategory {
     value: string;
     label: string;
 }
 
+interface ParamTypes {
+    productid: string;
+}
+
 const AddProduct:React.FC = () => {
+    const [updateProduct, setUpdateProduct] = useState(true);
+    const history = useHistory();
+
+    var productToChange: any = [];
+
+    const {productid} = useParams<ParamTypes>();
+
+    const [productToUpdateState, setProductToUpdateState] = useState(
+        products.find(({id})=> productid === id.toString())
+    );
+
+    const handleOnCheckButton = () => {
+        if(productid){
+            setUpdateProduct(true);
+            productToChange  = products.find(({id})=> productid === id.toString());
+            history.push("/admin/product");
+        }else{
+            setUpdateProduct(false);
+        }
+    }
 
     const { handleSubmit, control, formState:{errors}, reset, setValue, register} = useForm<IAddProductForm>();
     const [productImage, setProductImage] = useState<File[]>([]);
@@ -72,7 +99,7 @@ const AddProduct:React.FC = () => {
                                 back to products
                             </h6>
                             <h3 className="text-left my-4" >
-                                Add new Product
+                                {productToUpdateState ? "Update product" : "Add new Product"}
                             </h3>
                         </Col>
                     </Row>
@@ -88,7 +115,8 @@ const AddProduct:React.FC = () => {
                             >
                                 <input {...getInputProps()} />
                                 {thumbs}
-                                {productImage.length == 0 && <Image src={DefaultImg}/>}
+                                {productImage.length == 0 && <Image src={
+                                    productToUpdateState? productToUpdateState.image : DefaultImg}/>}
                                 <Row className="add-product-text align-items-center">
                                     <Col xs={12}>
                                         <h1>Drop image here or click to upload</h1>
@@ -104,7 +132,7 @@ const AddProduct:React.FC = () => {
                                     <Col xs={12} className="mt-0">
                                         <Form.Label className="float-left m-0">Title</Form.Label>
                                         <Controller
-                                            defaultValue={""}
+                                            defaultValue={productToUpdateState? productToUpdateState.name : ""}
                                             control={control}
                                             render={({field})=>(
                                                 <Form.Control size={"sm"} type="text" {...field}/>
@@ -127,7 +155,8 @@ const AddProduct:React.FC = () => {
                                     <Col xs={12} className="mt-2">
                                         <Form.Label className="float-left m-0" >Previous price</Form.Label>
                                         <Controller
-                                            defaultValue={""}
+                                            defaultValue={
+                                                productToUpdateState? String(productToUpdateState.previousPrice) : ""}
                                             render={({field}) => (
                                                 <Form.Control
                                                     size={"sm"}
@@ -150,7 +179,9 @@ const AddProduct:React.FC = () => {
                                     <Col xs={12} className="mt-2">
                                         <Form.Label className="float-left m-0" >Price</Form.Label>
                                         <Controller
-                                            defaultValue={""}
+                                            defaultValue={
+                                                productToUpdateState ? String(productToUpdateState.price) : ""
+                                            }
                                             render={({field}) => (
                                                 <Form.Control
                                                     size={"sm"}
@@ -173,7 +204,7 @@ const AddProduct:React.FC = () => {
                                         <Form.Label className="float-left m-0">Category</Form.Label>
                                         <br/>
                                         <Controller
-                                            defaultValue={""}
+                                            defaultValue={productToUpdateState ? productToUpdateState.category : ""}
                                             control={control}
                                             render={({field:{onChange, value, name, ref}}) => (
 
@@ -202,7 +233,9 @@ const AddProduct:React.FC = () => {
                                         <Form.Label className="float-left m-0" >Description</Form.Label>
                                         <Controller
                                             control={control}
-                                            defaultValue={''}
+                                            defaultValue={
+                                                productToUpdateState? productToUpdateState.description : ""
+                                            }
                                             render={({field}) => (
                                                 <Form.Control as="textarea" rows={5} size={"sm"} {...field} />
                                             )}
@@ -224,14 +257,25 @@ const AddProduct:React.FC = () => {
                                         </span>}
                                     </Col>
                                     <Col xs={12} className="mt-2">
-                                        <Button type={"submit"}
-                                                className="float-left px-4 mr-2"
-                                                variant="success"
-                                        >
-                                            Add
-                                        </Button>
+                                        {productToUpdateState &&
+                                            <Button type={"submit"}
+                                                    className="float-left px-4 mr-2"
+                                                    variant="warning"
+                                            >
+                                                Update
+                                            </Button>
+                                        }
+                                        {!productToUpdateState &&
+                                            <Button type={"submit"}
+                                                    className="float-left px-4 mr-2"
+                                                    variant="success"
+                                            >
+                                                Add
+                                            </Button>
+                                        }
                                         <Button className="float-left px-4"
                                                 variant="dark"
+                                                onClick={handleOnCheckButton}
                                         >
                                             Cancel
                                         </Button>
