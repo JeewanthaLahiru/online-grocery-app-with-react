@@ -33,10 +33,11 @@ const AddProduct:React.FC = () => {
         if(productid){
             setUpdateProduct(true);
             productToChange  = products.find(({id})=> productid === id.toString());
-            history.push("/admin/product");
+
         }else{
             setUpdateProduct(false);
         }
+        history.push("/admin/product");
     }
 
     const { handleSubmit, control, formState:{errors}, reset, setValue, register} = useForm<IAddProductForm>();

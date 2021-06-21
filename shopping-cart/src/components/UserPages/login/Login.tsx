@@ -3,12 +3,20 @@ import {Button, Col, Form, Image, Row} from "react-bootstrap";
 import CartImg from "../../../assets/images/login/cart.png";
 import {Controller, useForm, useFormState} from 'react-hook-form';
 import {loginType} from "../../../types/RegisterTypes";
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
+import {useDispatch, useSelector} from "react-redux";
+import {login} from "../../../store/actions/AuthActions";
+import {AppState} from "../../../store/reducers";
 
 const Login:React.FC = () => {
+    const dispatch = useDispatch();
+    const authState = useSelector((state:AppState) => state.auth.logged);
 
+    const history = useHistory();
 
     const onSubmit = (data: loginType) => {
+        dispatch(login(true));
+        history.push("/admin");
         console.log(data);
     }
 
@@ -70,9 +78,11 @@ const Login:React.FC = () => {
                                                 <Form.Check
                                                     onChange={(e) => field.onChange(e.target.checked)}
                                                     checked={field.value}
+                                                    label={"Remember username?"}
                                                 />
                                             )}
                                         />
+
                                     </Col>
                                 </Row>
                                 <Row className="mx-0 mt-3" >

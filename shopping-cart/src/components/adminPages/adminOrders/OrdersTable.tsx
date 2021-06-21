@@ -4,12 +4,13 @@ import {EOrderStatus, IOrder} from "../../../types/Orders";
 import {orders} from "../../../repository/Orders";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import {useHistory} from "react-router-dom";
 
 type OrdersTableProps = {
     isPending: boolean
 }
 const OrdersTable:React.FC<OrdersTableProps> = (props) => {
-
+    const history = useHistory();
     const orderData:IOrder[] = [];
     if(props.isPending){
         orders.map((orderitem) => {
@@ -104,7 +105,7 @@ const OrdersTable:React.FC<OrdersTableProps> = (props) => {
     }
 
     const handleOnEditClick = (id:string) => {
-        console.log(id);
+        history.push(`/admin/orders/${id}`);
     }
 
     return(

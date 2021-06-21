@@ -1,0 +1,34 @@
+.profile-page{
+  font-family: 'Quicksand', sans-serif;
+  min-height: 67vh;
+  .profile-left{
+    .profile-image{
+      img{
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+  }
+
+}
+
+.text-divider{
+  color: $divider-color;
+}
+
+@media only screen and (min-width: 1650px) {
+    .profile-page{
+      .product-list-profile{
+        padding: 0 280px;
+      }
+    }
+}
+@media only screen and (min-width: 1310px) and (max-width: 1650px) {
+  .profile-page{
+    .product-list-profile{
+      padding: 0 100px;
+    }
+  }
+}
