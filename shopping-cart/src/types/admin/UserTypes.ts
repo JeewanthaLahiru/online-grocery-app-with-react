@@ -4,5 +4,6 @@ export interface UserTypes  {
     rating: number,
     description: string,
     email: string,
-    phone: string
+    phone: string,
+    image : string
 }
