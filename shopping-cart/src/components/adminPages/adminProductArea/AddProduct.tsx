@@ -7,7 +7,7 @@ import Dropzone, { useDropzone, DropzoneProps } from "react-dropzone";
 import Select from 'react-select';
 import {useParams} from "react-router-dom";
 import {products} from "../../../repository/Products";
-import {IProduct} from "../../../types/Products";
+import { useHistory } from 'react-router-dom';
 interface ICategory {
     value: string;
     label: string;
@@ -19,6 +19,7 @@ interface ParamTypes {
 
 const AddProduct:React.FC = () => {
     const [updateProduct, setUpdateProduct] = useState(true);
+    const history = useHistory();
 
     var productToChange: any = [];
 
@@ -32,7 +33,7 @@ const AddProduct:React.FC = () => {
         if(productid){
             setUpdateProduct(true);
             productToChange  = products.find(({id})=> productid === id.toString());
-            console.log(productToChange.name);
+            history.push("/admin/product");
         }else{
             setUpdateProduct(false);
         }
@@ -98,7 +99,7 @@ const AddProduct:React.FC = () => {
                                 back to products
                             </h6>
                             <h3 className="text-left my-4" >
-                                Add new Product
+                                {productToUpdateState ? "Update product" : "Add new Product"}
                             </h3>
                         </Col>
                     </Row>
@@ -256,12 +257,22 @@ const AddProduct:React.FC = () => {
                                         </span>}
                                     </Col>
                                     <Col xs={12} className="mt-2">
-                                        <Button type={"submit"}
-                                                className="float-left px-4 mr-2"
-                                                variant="success"
-                                        >
-                                            Add
-                                        </Button>
+                                        {productToUpdateState &&
+                                            <Button type={"submit"}
+                                                    className="float-left px-4 mr-2"
+                                                    variant="warning"
+                                            >
+                                                Update
+                                            </Button>
+                                        }
+                                        {!productToUpdateState &&
+                                            <Button type={"submit"}
+                                                    className="float-left px-4 mr-2"
+                                                    variant="success"
+                                            >
+                                                Add
+                                            </Button>
+                                        }
                                         <Button className="float-left px-4"
                                                 variant="dark"
                                                 onClick={handleOnCheckButton}

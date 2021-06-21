@@ -97,7 +97,7 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
     };
 
     const HandleOnEdit = (id:number) => {
-        history.push(`addproduct/${id}`);
+        history.push(`/admin/product/addproduct/${id}`);
     }
 
     const HandleOnDelete = (id: number) => {
