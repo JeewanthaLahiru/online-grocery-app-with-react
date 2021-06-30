@@ -1,27 +1,47 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Col, Image, Form} from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import { products } from "../../../repository/Products";
 import {IProduct} from "../../../types/Products";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import {useHistory} from 'react-router-dom';
+import {useQuery} from "@apollo/client";
+import {GET_PRODUCTS} from "../../../graphql/queries/Product";
+import axios from "axios";
 
 type ProductTableProps = {
     category: string
 }
 
 const ProductTable:React.FC<ProductTableProps> = (props) => {
+
+    const {loading, error, data, refetch} = useQuery(GET_PRODUCTS);
+    const [productsFromServer, setProductsFromServer] = useState([]);
+
+    useEffect(() => {
+        refetch();
+
+    }, []);
+
+    useEffect(() => {
+        if(data){
+            setProductsFromServer(data.getproducts);
+        }
+    }, [data]);
+
+
     const history = useHistory();
 
-    const productToRender:IProduct[] = [];
+    const productToRender:any = [];
     if(props.category == "All"){
-        products.map((productItem) => {
+
+        productsFromServer.map((productItem, index) => {
             productToRender.push(productItem);
         })
     }else{
-        products.map((productItem)=>{
+        productsFromServer.map((productItem: any,index)=>{
             if(productItem.category === props.category){
-                productToRender.push(productItem);
+                productToRender.push({key:index, value: productItem});
             }
         })
     }
@@ -107,18 +127,18 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
     const productGenerator = (products:IProduct[]): any[] => {
         const checkList : any[] = [];
 
-        productToRender.map((product, i: number) => {
+        productToRender.map((product:any, i: number) => {
             checkList.push({
                 id:
                     <Form.Label>{i+1}</Form.Label>,
                 item:
                     <div className="image-container">
-                        <Image src={product.image} />
+                        <Image src={""} />
                     </div>,
                 name:
                     <Form.Label className="text-left">{product.name}</Form.Label>,
                 description:
-                    <Form.Label className="text-left" >{product.category}</Form.Label>,
+                    <Form.Label className="text-left" >{product.description}</Form.Label>,
                 prevprice:
                     <Form.Label>{product.price }</Form.Label>,
                 price:

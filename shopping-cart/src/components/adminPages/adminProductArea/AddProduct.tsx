@@ -126,16 +126,17 @@ const AddProduct:React.FC = () => {
                 .put(putURL, file[0], options)
                 .then(res => {
                     console.log(res);
-                    axios
+                    setImageUrl(key);
+                    /*axios
                         .get(generateGetUrl, getOptions)
                         .then(res => {
-                            console.log(res.data);
+                            console.log("getUrl :" + res.data);
                             setImageUrl(res.data);
                             handleOnGrapqlImageAdding(data);
                         })
                         .catch(err => {
                             console.log("error in generateGet Url : \n"+ err);
-                        })
+                        })*/
                 })
                 .catch(err => {
                     console.log("error in putting file : \n"+ err);
