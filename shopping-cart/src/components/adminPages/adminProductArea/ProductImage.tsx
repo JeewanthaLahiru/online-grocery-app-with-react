@@ -10,28 +10,24 @@ type productImageProps = {
 const ProductImage:React.FC<productImageProps> = (props) => {
 
     const [imageUrl , setImageUrl] = useState();
+    const generateGetUrl = 'http://localhost:4000/generate-get-url';
 
-    useEffect( () => {
-        console.log("hello");
-        const generateGetUrl = 'http://localhost:4000/generate-get-url';
+    const getOptions = {
+        params: {
+            Key: props.imageName,
+            ContentType: props.imageName.split(/[.]/)[1]
+        }
+    };
 
-        const getOptions = {
-            params: {
-                Key: props.imageName,
-                ContentType: props.imageName.split(/[.]/)[1]
-            }
-        };
-
-        axios
-            .get(generateGetUrl, getOptions)
-            .then(res => {
-                console.log("getUrl :" + res.data);
-                setImageUrl(res.data);
-            })
-            .catch(err => {
-                console.log("error in generateGet Url : \n"+ err);
-            })
-    },[props.data, imageUrl])
+    axios
+        .get(generateGetUrl, getOptions)
+        .then(res => {
+            console.log("getUrl :" + res.data);
+            setImageUrl(res.data);
+        })
+        .catch(err => {
+            console.log("error in generateGet Url : \n"+ err);
+        })
 
     return(
         <React.Fragment>
