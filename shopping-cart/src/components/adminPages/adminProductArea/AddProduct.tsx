@@ -9,6 +9,7 @@ import {useParams} from "react-router-dom";
 import {products} from "../../../repository/Products";
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
+import {IProduct, IProductUpload} from "../../../types/Products";
 interface ICategory {
     value: string;
     label: string;
@@ -20,6 +21,7 @@ interface ParamTypes {
 
 const AddProduct:React.FC = () => {
     const [updateProduct, setUpdateProduct] = useState(true);
+    const [imageUrl, setImageUrl] = useState("");
     const history = useHistory();
 
     var productToChange: any = [];
@@ -113,6 +115,8 @@ const AddProduct:React.FC = () => {
                         .get(generateGetUrl, getOptions)
                         .then(res => {
                             console.log(res.data);
+                            setImageUrl(res.data);
+                            handleOnGrapqlImageAdding(data);
                         })
                         .catch(err => {
                             console.log("error in generateGet Url : \n"+ err);
@@ -124,6 +128,19 @@ const AddProduct:React.FC = () => {
         }).catch(err => {
             console.log("erron in generate put url : \n" + err);
         })
+
+
+    }
+    const handleOnGrapqlImageAdding = (data:any) => {
+        const newProduct: IProductUpload = {
+            name: data.title,
+            price: data.price,
+            previousPrice: data.previousPrice,
+            image: imageUrl,
+            description: data.description,
+            category: data.category
+        }
+        console.log(newProduct);
     }
 
     const categoryOptions: ICategory[] = [
