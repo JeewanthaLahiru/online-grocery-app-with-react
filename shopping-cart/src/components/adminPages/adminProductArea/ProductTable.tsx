@@ -19,12 +19,13 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
 
     const {loading, error, data, refetch} = useQuery(GET_PRODUCTS);
     const [productsFromServer, setProductsFromServer] = useState([]);
+    const [delProdId, setDelProdId] = useState<string>("");
     const [deleteProduct] = useMutation(DELETE_PRODUCT_MUTATION);
 
     useEffect(() => {
         refetch();
 
-    }, []);
+    }, [delProdId]);
 
     useEffect(() => {
         if(data){
@@ -147,6 +148,7 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
 
     const HandleOnDelete = (id: string) => {
         console.log(id);
+        setDelProdId(id);
         deleteProduct({variables: {
             input: {
                 id: id

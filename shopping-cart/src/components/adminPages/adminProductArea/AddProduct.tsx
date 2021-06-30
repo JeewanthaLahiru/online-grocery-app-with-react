@@ -95,8 +95,6 @@ const AddProduct:React.FC = () => {
 
 
     const handleOnSubmit = async (data:any) => {
-        console.log(data);
-        console.log(productImage[0]);
         const file = productImage;
         const key = productImage[0].name;
         const contentType = productImage[0].type;
@@ -121,23 +119,11 @@ const AddProduct:React.FC = () => {
 
         await axios.get(generatePutUrl, options).then(res => {
             const putURL = res.data;
-            console.log("success getting putURL");
             axios
                 .put(putURL, file[0], options)
                 .then(res => {
-                    console.log(res);
-                    setImageUrl(key);
-                    handleOnGrapqlImageAdding(data);
-                    /*axios
-                        .get(generateGetUrl, getOptions)
-                        .then(res => {
-                            console.log("getUrl :" + res.data);
-                            setImageUrl(res.data);
-                            handleOnGrapqlImageAdding(data);
-                        })
-                        .catch(err => {
-                            console.log("error in generateGet Url : \n"+ err);
-                        })*/
+                    setImageUrl(productImage[0].name);
+                    handleOnGrapqlImageAdding(data, key);
                 })
                 .catch(err => {
                     console.log("error in putting file : \n"+ err);
@@ -148,17 +134,7 @@ const AddProduct:React.FC = () => {
 
 
     }
-    const handleOnGrapqlImageAdding = (data:any) => {
-        const newProduct: any = {
-            input:{
-                name: data.title,
-                price: data.price,
-                previousPrice: data.previousPrice,
-                image: imageUrl,
-                description: data.description,
-                category: data.category
-            }
-        }
+    const handleOnGrapqlImageAdding = (data:any, key: string) => {
         if(productToUpdateState){
             updateProductMutation({variables:{
                 input:{
@@ -181,7 +157,7 @@ const AddProduct:React.FC = () => {
                         category: data.category,
                         price: data.price,
                         previousPrice: data.previousPrice,
-                        image: imageUrl,
+                        image: key,
                         description: data.description
                     }
                 }}).then(() => {
@@ -192,7 +168,6 @@ const AddProduct:React.FC = () => {
         }
 
 
-        console.log(newProduct);
     }
 
     const categoryOptions: ICategory[] = [
