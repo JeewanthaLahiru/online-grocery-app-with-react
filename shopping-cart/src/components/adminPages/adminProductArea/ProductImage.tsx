@@ -31,7 +31,7 @@ const ProductImage:React.FC<productImageProps> = (props) => {
             .catch(err => {
                 console.log("error in generateGet Url : \n"+ err);
             })
-    },[props.data])
+    },[props.data, imageUrl])
 
     return(
         <React.Fragment>

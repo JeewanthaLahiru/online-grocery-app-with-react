@@ -5,10 +5,11 @@ import { products } from "../../../repository/Products";
 import {IProduct} from "../../../types/Products";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import {useHistory} from 'react-router-dom';
-import {useQuery} from "@apollo/client";
+import {useMutation, useQuery} from "@apollo/client";
 import {GET_PRODUCTS} from "../../../graphql/queries/Product";
 import axios from "axios";
 import ProductImage from "./ProductImage";
+import {DELETE_PRODUCT_MUTATION} from "../../../graphql/mutations/Product";
 
 type ProductTableProps = {
     category: string
@@ -18,6 +19,7 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
 
     const {loading, error, data, refetch} = useQuery(GET_PRODUCTS);
     const [productsFromServer, setProductsFromServer] = useState([]);
+    const [deleteProduct] = useMutation(DELETE_PRODUCT_MUTATION);
 
     useEffect(() => {
         refetch();
@@ -143,8 +145,17 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
         history.push(`/admin/product/addproduct/${id}`);
     }
 
-    const HandleOnDelete = (id: number) => {
-        console.log("hello delete" + id);
+    const HandleOnDelete = (id: string) => {
+        console.log(id);
+        deleteProduct({variables: {
+            input: {
+                id: id
+            }
+            }}).then(()=> {
+                console.log("product was deleted successfully");
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
     const productGenerator = (products:IProduct[]): any[] => {
