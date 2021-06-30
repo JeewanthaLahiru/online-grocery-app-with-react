@@ -11,8 +11,8 @@ export interface IProduct{
 export interface IProductUpload{
     name: string
     category: string
-    price: number
-    previousPrice: number
+    price: string
+    previousPrice: string
     image: string
     description: string
 }
