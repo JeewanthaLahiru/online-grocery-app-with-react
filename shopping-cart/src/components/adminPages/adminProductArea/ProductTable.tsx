@@ -8,6 +8,7 @@ import {useHistory} from 'react-router-dom';
 import {useQuery} from "@apollo/client";
 import {GET_PRODUCTS} from "../../../graphql/queries/Product";
 import axios from "axios";
+import ProductImage from "./ProductImage";
 
 type ProductTableProps = {
     category: string
@@ -45,6 +46,28 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
             }
         })
     }
+
+    const renderImage = async (image: string) => {
+        console.log(image + " : " + image.split(/[.]/)[1]);
+        const generateGetUrl = 'http://localhost:4000/generate-get-url';
+        const getOptions = {
+            params: {
+                Key: image,
+                ContentType: image.split(/[.]/)[1]
+            }
+        };
+
+        axios
+            .get(generateGetUrl, getOptions)
+            .then(res => {
+                console.log("getUrl :" + res.data);
+                return <Image src={res.data} />
+            })
+            .catch(err => {
+                console.log("error in generateGet Url : \n"+ err);
+            })
+    }
+
     const columns = [
         {
             dataField: "id",
@@ -133,7 +156,7 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
                     <Form.Label>{i+1}</Form.Label>,
                 item:
                     <div className="image-container">
-                        <Image src={""} />
+                        <ProductImage imageName={product.image} data={data}/>
                     </div>,
                 name:
                     <Form.Label className="text-left">{product.name}</Form.Label>,

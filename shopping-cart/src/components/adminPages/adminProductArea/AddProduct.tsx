@@ -127,6 +127,7 @@ const AddProduct:React.FC = () => {
                 .then(res => {
                     console.log(res);
                     setImageUrl(key);
+                    handleOnGrapqlImageAdding(data);
                     /*axios
                         .get(generateGetUrl, getOptions)
                         .then(res => {
