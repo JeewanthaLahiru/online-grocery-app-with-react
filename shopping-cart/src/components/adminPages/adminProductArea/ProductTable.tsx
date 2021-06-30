@@ -50,27 +50,6 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
         })
     }
 
-    const renderImage = async (image: string) => {
-        console.log(image + " : " + image.split(/[.]/)[1]);
-        const generateGetUrl = 'http://localhost:4000/generate-get-url';
-        const getOptions = {
-            params: {
-                Key: image,
-                ContentType: image.split(/[.]/)[1]
-            }
-        };
-
-        axios
-            .get(generateGetUrl, getOptions)
-            .then(res => {
-                console.log("getUrl :" + res.data);
-                return <Image src={res.data} />
-            })
-            .catch(err => {
-                console.log("error in generateGet Url : \n"+ err);
-            })
-    }
-
     const columns = [
         {
             dataField: "id",

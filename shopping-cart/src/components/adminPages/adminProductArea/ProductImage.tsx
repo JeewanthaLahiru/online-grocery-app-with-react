@@ -22,7 +22,6 @@ const ProductImage:React.FC<productImageProps> = (props) => {
     axios
         .get(generateGetUrl, getOptions)
         .then(res => {
-            console.log("getUrl :" + res.data);
             setImageUrl(res.data);
         })
         .catch(err => {
