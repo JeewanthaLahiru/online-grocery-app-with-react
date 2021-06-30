@@ -8,6 +8,12 @@ import Select from 'react-select';
 import {useParams} from "react-router-dom";
 import {products} from "../../../repository/Products";
 import { useHistory } from 'react-router-dom';
+import axios from "axios";
+import {IProduct, IProductUpload} from "../../../types/Products";
+import {ApolloClient, gql, InMemoryCache, useMutation, useQuery} from '@apollo/client';
+import { RestLink } from 'apollo-link-rest';
+import Testing from "../../testing";
+import {UPDATE_PRODUCT_MUTATION} from "../../../graphql/mutations/Product";
 interface ICategory {
     value: string;
     label: string;
@@ -19,7 +25,19 @@ interface ParamTypes {
 
 const AddProduct:React.FC = () => {
     const [updateProduct, setUpdateProduct] = useState(true);
+    const [imageUrl, setImageUrl] = useState("");
     const history = useHistory();
+
+    const CreateProduct = gql`
+	mutation createproduct($input: CreateProductInput){
+		createproduct(input: $input){
+			id
+		}
+	}
+`;
+
+    const [createProduct] = useMutation(CreateProduct);
+    const [updateProductMutation] = useMutation(UPDATE_PRODUCT_MUTATION);
 
     var productToChange: any = [];
 
@@ -76,10 +94,103 @@ const AddProduct:React.FC = () => {
     ));
 
 
-    const handleOnSubmit = (data:any) => {
-        console.log(data, productImage.map((file:any)=>{
-            return (file.preview);
-        }));
+    const handleOnSubmit = async (data:any) => {
+        console.log(data);
+        console.log(productImage[0]);
+        const file = productImage;
+        const key = productImage[0].name;
+        const contentType = productImage[0].type;
+        const generatePutUrl = 'http://localhost:4000/generate-put-url';
+        const generateGetUrl = 'http://localhost:4000/generate-get-url';
+        const options = {
+            params: {
+                Key: key,
+                ContentType: contentType
+            },
+            headers: {
+                'Content-Type':contentType
+            }
+        };
+
+        const getOptions = {
+            params: {
+                Key: key,
+                ContentType: contentType
+            }
+        };
+
+        await axios.get(generatePutUrl, options).then(res => {
+            const putURL = res.data;
+            console.log("success getting putURL");
+            axios
+                .put(putURL, file[0], options)
+                .then(res => {
+                    console.log(res);
+                    axios
+                        .get(generateGetUrl, getOptions)
+                        .then(res => {
+                            console.log(res.data);
+                            setImageUrl(res.data);
+                            handleOnGrapqlImageAdding(data);
+                        })
+                        .catch(err => {
+                            console.log("error in generateGet Url : \n"+ err);
+                        })
+                })
+                .catch(err => {
+                    console.log("error in putting file : \n"+ err);
+                })
+        }).catch(err => {
+            console.log("erron in generate put url : \n" + err);
+        })
+
+
+    }
+    const handleOnGrapqlImageAdding = (data:any) => {
+        const newProduct: any = {
+            input:{
+                name: data.title,
+                price: data.price,
+                previousPrice: data.previousPrice,
+                image: imageUrl,
+                description: data.description,
+                category: data.category
+            }
+        }
+        if(productToUpdateState){
+            updateProductMutation({variables:{
+                input:{
+                    id: productToUpdateState.id,
+                    name: productToUpdateState.name,
+                    category: productToUpdateState.category,
+                    price: productToUpdateState.price,
+                    previousPrice: productToUpdateState.previousPrice,
+                    description: productToUpdateState.description
+                }
+                }}).then(()=>{
+                    console.log("product updating success");
+            }).catch((err) => {
+                console.log("Product update error: \n" + err);
+            })
+        }else{
+            createProduct({variables:{
+                    input:{
+                        name: data.title,
+                        category: data.category,
+                        price: data.price,
+                        previousPrice: data.previousPrice,
+                        image: imageUrl,
+                        description: data.description
+                    }
+                }}).then(() => {
+                console.log("product adding is success");
+            }).catch(err => {
+                console.log("product adding error" + err);
+            });
+        }
+
+
+        console.log(newProduct);
     }
 
     const categoryOptions: ICategory[] = [
@@ -91,6 +202,7 @@ const AddProduct:React.FC = () => {
 
     return(
         <React.Fragment>
+            <Testing/>
             <Row className="mx-0 justify-content-center add-product">
                 <Col xs={12} xl={8}>
                     <Row className="mx-0 mx-0 add-product-title-row">
