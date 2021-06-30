@@ -8,6 +8,7 @@ import Select from 'react-select';
 import {useParams} from "react-router-dom";
 import {products} from "../../../repository/Products";
 import { useHistory } from 'react-router-dom';
+import axios from "axios";
 interface ICategory {
     value: string;
     label: string;
@@ -76,10 +77,53 @@ const AddProduct:React.FC = () => {
     ));
 
 
-    const handleOnSubmit = (data:any) => {
-        console.log(data, productImage.map((file:any)=>{
-            return (file.preview);
-        }));
+    const handleOnSubmit = async (data:any) => {
+        console.log(data);
+        console.log(productImage[0]);
+        const file = productImage;
+        const key = productImage[0].name;
+        const contentType = productImage[0].type;
+        const generatePutUrl = 'http://localhost:4000/generate-put-url';
+        const generateGetUrl = 'http://localhost:4000/generate-get-url';
+        const options = {
+            params: {
+                Key: key,
+                ContentType: contentType
+            },
+            headers: {
+                'Content-Type':contentType
+            }
+        };
+
+        const getOptions = {
+            params: {
+                Key: key,
+                ContentType: contentType
+            }
+        };
+
+        await axios.get(generatePutUrl, options).then(res => {
+            const putURL = res.data;
+            console.log("success getting putURL");
+            axios
+                .put(putURL, file[0], options)
+                .then(res => {
+                    console.log(res);
+                    axios
+                        .get(generateGetUrl, getOptions)
+                        .then(res => {
+                            console.log(res.data);
+                        })
+                        .catch(err => {
+                            console.log("error in generateGet Url : \n"+ err);
+                        })
+                })
+                .catch(err => {
+                    console.log("error in putting file : \n"+ err);
+                })
+        }).catch(err => {
+            console.log("erron in generate put url : \n" + err);
+        })
     }
 
     const categoryOptions: ICategory[] = [
