@@ -13,6 +13,7 @@ import {IProduct, IProductUpload} from "../../../types/Products";
 import {ApolloClient, gql, InMemoryCache, useMutation, useQuery} from '@apollo/client';
 import { RestLink } from 'apollo-link-rest';
 import Testing from "../../testing";
+import {UPDATE_PRODUCT_MUTATION} from "../../../graphql/mutations/Product";
 interface ICategory {
     value: string;
     label: string;
@@ -36,6 +37,7 @@ const AddProduct:React.FC = () => {
 `;
 
     const [createProduct] = useMutation(CreateProduct);
+    const [updateProductMutation] = useMutation(UPDATE_PRODUCT_MUTATION);
 
     var productToChange: any = [];
 
@@ -155,21 +157,39 @@ const AddProduct:React.FC = () => {
                 category: data.category
             }
         }
-
-        createProduct({variables:{
+        if(productToUpdateState){
+            updateProductMutation({variables:{
                 input:{
-                    name: data.title,
-                    category: data.category,
-                    price: data.price,
-                    previousPrice: data.previousPrice,
-                    image: imageUrl,
-                    description: data.description
+                    id: productToUpdateState.id,
+                    name: productToUpdateState.name,
+                    category: productToUpdateState.category,
+                    price: productToUpdateState.price,
+                    previousPrice: productToUpdateState.previousPrice,
+                    description: productToUpdateState.description
                 }
-            }}).then(() => {
-            console.log("product adding is success");
-        }).catch(err => {
-            console.log("product adding error" + err);
-        });
+                }}).then(()=>{
+                    console.log("product updating success");
+            }).catch((err) => {
+                console.log("Product update error: \n" + err);
+            })
+        }else{
+            createProduct({variables:{
+                    input:{
+                        name: data.title,
+                        category: data.category,
+                        price: data.price,
+                        previousPrice: data.previousPrice,
+                        image: imageUrl,
+                        description: data.description
+                    }
+                }}).then(() => {
+                console.log("product adding is success");
+            }).catch(err => {
+                console.log("product adding error" + err);
+            });
+        }
+
+
         console.log(newProduct);
     }
 
