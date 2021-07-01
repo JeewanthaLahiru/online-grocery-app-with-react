@@ -45,7 +45,11 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
             })
             console.log(productToRender);
         }else{
-            console.log(props.category);
+            productsFromServer.map((productItem:any, index) => {
+                if(productItem.category == props.category){
+                    productToRender.push({key: index , value: productItem});
+                }
+            })
         }
     }
     renderProducts();
