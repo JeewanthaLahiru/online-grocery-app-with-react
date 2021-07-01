@@ -11,6 +11,7 @@ import axios from "axios";
 import ProductImage from "./ProductImage";
 import {DELETE_PRODUCT_MUTATION} from "../../../graphql/mutations/Product";
 import LoadingScreen from "../../homePage/LoadingScreen";
+import ConfirmationMessage from "../../homePage/ConfirmationMessage";
 
 type ProductTableProps = {
     category: string
@@ -201,6 +202,7 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
     return(
         <React.Fragment>
             {loading && <LoadingScreen/>}
+            <ConfirmationMessage/>
             <Col xs={12}>
                 <BootstrapTable
                     bootstrap4
