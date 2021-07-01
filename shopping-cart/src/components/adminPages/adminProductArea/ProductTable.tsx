@@ -10,6 +10,7 @@ import {GET_PRODUCTS} from "../../../graphql/queries/Product";
 import axios from "axios";
 import ProductImage from "./ProductImage";
 import {DELETE_PRODUCT_MUTATION} from "../../../graphql/mutations/Product";
+import LoadingScreen from "../../homePage/LoadingScreen";
 
 type ProductTableProps = {
     category: string
@@ -21,6 +22,7 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
     const [productsFromServer, setProductsFromServer] = useState([]);
     const [delProdId, setDelProdId] = useState<string>("");
     const [deleteProduct] = useMutation(DELETE_PRODUCT_MUTATION);
+
 
     useEffect(() => {
         refetch();
@@ -198,6 +200,7 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
 
     return(
         <React.Fragment>
+            {loading && <LoadingScreen/>}
             <Col xs={12}>
                 <BootstrapTable
                     bootstrap4

@@ -20,7 +20,7 @@ const AdminProductArea:React.FC = () => {
 
     return(
         <React.Fragment>
-            <LoadingScreen/>
+
             <Row className="admin-product-row justify-content-center mx-0 mt-3">
                 <Col xs={12} md={10} xl={7} className="admin-product-body">
                     <Row className="mx-0">
