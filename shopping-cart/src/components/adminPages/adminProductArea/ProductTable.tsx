@@ -1,30 +1,74 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Col, Image, Form} from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import { products } from "../../../repository/Products";
 import {IProduct} from "../../../types/Products";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import {useHistory} from 'react-router-dom';
+import {useMutation, useQuery} from "@apollo/client";
+import {GET_PRODUCTS} from "../../../graphql/queries/Product";
+import axios from "axios";
+import ProductImage from "./ProductImage";
+import {DELETE_PRODUCT_MUTATION} from "../../../graphql/mutations/Product";
+import LoadingScreen from "../../homePage/LoadingScreen";
 
 type ProductTableProps = {
     category: string
 }
 
 const ProductTable:React.FC<ProductTableProps> = (props) => {
+
+    const {loading, error, data, refetch} = useQuery(GET_PRODUCTS);
+    const [productsFromServer, setProductsFromServer] = useState([]);
+    const [delProdId, setDelProdId] = useState<string>("");
+    const [deleteProduct] = useMutation(DELETE_PRODUCT_MUTATION);
+
+
+    useEffect(() => {
+        refetch();
+
+    }, [delProdId]);
+
+    useEffect(() => {
+        if(data){
+            setProductsFromServer(data.getproducts);
+        }
+    }, [data]);
+
+
     const history = useHistory();
 
-    const productToRender:IProduct[] = [];
-    if(props.category == "All"){
-        products.map((productItem) => {
+    const productToRender:any = [];
+    const renderProducts = () => {
+        if(props.category == "All"){
+            console.log("all");
+            productsFromServer.map((productItem, index) => {
+                productToRender.push({key: index , value: productItem});
+            })
+            console.log(productToRender);
+        }else{
+            productsFromServer.map((productItem:any, index) => {
+                if(productItem.category == props.category){
+                    productToRender.push({key: index , value: productItem});
+                }
+            })
+        }
+    }
+    renderProducts();
+    /*if(props.category == "All"){
+
+        productsFromServer.map((productItem, index) => {
             productToRender.push(productItem);
         })
     }else{
-        products.map((productItem)=>{
-            if(productItem.category === props.category){
-                productToRender.push(productItem);
+        productsFromServer.map((productItem: any,index)=>{
+
+            if(productItem.category == props.category){
+                productToRender.push({key:index, value: productItem});
             }
         })
-    }
+    }*/
+
     const columns = [
         {
             dataField: "id",
@@ -100,41 +144,51 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
         history.push(`/admin/product/addproduct/${id}`);
     }
 
-    const HandleOnDelete = (id: number) => {
-        console.log("hello delete" + id);
+    const HandleOnDelete = (id: string) => {
+        console.log(id);
+        setDelProdId(id);
+        deleteProduct({variables: {
+            input: {
+                id: id
+            }
+            }}).then(()=> {
+                console.log("product was deleted successfully");
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
     const productGenerator = (products:IProduct[]): any[] => {
         const checkList : any[] = [];
 
-        productToRender.map((product, i: number) => {
+        productToRender.map((product:any, i: number) => {
             checkList.push({
                 id:
                     <Form.Label>{i+1}</Form.Label>,
                 item:
                     <div className="image-container">
-                        <Image src={product.image} />
+                        <ProductImage imageName={product.value.image} data={data}/>
                     </div>,
                 name:
-                    <Form.Label className="text-left">{product.name}</Form.Label>,
+                    <Form.Label className="text-left">{product.value.name}</Form.Label>,
                 description:
-                    <Form.Label className="text-left" >{product.category}</Form.Label>,
+                    <Form.Label className="text-left" >{product.value.description}</Form.Label>,
                 prevprice:
-                    <Form.Label>{product.price }</Form.Label>,
+                    <Form.Label>{product.value.previousPrice }</Form.Label>,
                 price:
-                    <Form.Label>{product.price}</Form.Label>,
+                    <Form.Label>{product.value.price}</Form.Label>,
                 edit:
                     <React.Fragment>
                         <i
                             className="feather icon-edit-2 product-icon"
-                            onClick={() => HandleOnEdit(product.id)}
+                            onClick={() => HandleOnEdit(product.value.id)}
                         />
                     </React.Fragment>,
                 delete:
                     <React.Fragment>
                         <i
                             className="feather icon-trash product-icon"
-                            onClick={() => HandleOnDelete(product.id)}
+                            onClick={() => HandleOnDelete(product.value.id)}
                         />
                     </React.Fragment>,
             })
@@ -146,6 +200,7 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
 
     return(
         <React.Fragment>
+            {loading && <LoadingScreen/>}
             <Col xs={12}>
                 <BootstrapTable
                     bootstrap4

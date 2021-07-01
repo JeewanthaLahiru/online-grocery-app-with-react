@@ -3,6 +3,7 @@ import {Col, Row, Image, Button, Form} from "react-bootstrap";
 import CoverIMG from "../../../assets/images/banner_images/banner.jpg";
 import ProductTable from "./ProductTable";
 import { useHistory } from 'react-router-dom';
+import LoadingScreen from "../../homePage/LoadingScreen";
 
 const AdminProductArea:React.FC = () => {
 
@@ -19,6 +20,7 @@ const AdminProductArea:React.FC = () => {
 
     return(
         <React.Fragment>
+
             <Row className="admin-product-row justify-content-center mx-0 mt-3">
                 <Col xs={12} md={10} xl={7} className="admin-product-body">
                     <Row className="mx-0">
