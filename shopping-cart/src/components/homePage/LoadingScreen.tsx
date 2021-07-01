@@ -3,9 +3,9 @@ import {Col, Row, Spinner} from "react-bootstrap";
 
 const LoadingScreen:React.FC = () => {
     return(
-        <Row className="m-0 p-0 loading-spinner-screen">
+        <Row className="m-0 p-0 loading-spinner-screen align-items-center">
             <Col xs={12}>
-                <Spinner animation="grow" />
+                <Spinner animation="grow" variant="success" />
             </Col>
         </Row>
     )
