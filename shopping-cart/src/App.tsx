@@ -12,6 +12,7 @@ function App() {
   return (
       <Provider store={store}>
           <div className="App">
+
               <ClientApp/>
           </div>
       </Provider>
