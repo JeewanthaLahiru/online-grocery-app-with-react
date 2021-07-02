@@ -7,17 +7,19 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import {useHistory} from 'react-router-dom';
 import {useMutation, useQuery} from "@apollo/client";
 import {GET_PRODUCTS} from "../../../graphql/queries/Product";
-import axios from "axios";
 import ProductImage from "./ProductImage";
 import {DELETE_PRODUCT_MUTATION} from "../../../graphql/mutations/Product";
-import LoadingScreen from "../../homePage/LoadingScreen";
 import ConfirmationMessage from "../../homePage/SupportiveComponents/ConfirmationMessage";
+import {useDispatch} from "react-redux";
+import {loading_end, loading_start} from "../../../store/actions/LoadingActions";
 
 type ProductTableProps = {
     category: string
 }
 
 const ProductTable:React.FC<ProductTableProps> = (props) => {
+
+    const dispatch = useDispatch();
 
     const {loading, error, data, refetch} = useQuery(GET_PRODUCTS);
     const [productsFromServer, setProductsFromServer] = useState([]);
@@ -26,6 +28,8 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
     const [showModal, setShowModal] = useState(false);
     const [delProdId, setDelProdId] = useState<string>("");
     const [deleteProduct] = useMutation(DELETE_PRODUCT_MUTATION);
+
+    loading? dispatch(loading_start(true)): dispatch(loading_end(false));
 
 
     useEffect(() => {
@@ -201,7 +205,6 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
 
     return(
         <React.Fragment>
-            {loading && <LoadingScreen/>}
             <Col xs={12}>
                 <BootstrapTable
                     bootstrap4
