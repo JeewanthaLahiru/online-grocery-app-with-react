@@ -21,15 +21,17 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
 
     const {loading, error, data, refetch} = useQuery(GET_PRODUCTS);
     const [productsFromServer, setProductsFromServer] = useState([]);
+    const [deleteConfirmed, setDeleteConfirmed] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [delProdId, setDelProdId] = useState<string>("");
     const [deleteProduct] = useMutation(DELETE_PRODUCT_MUTATION);
 
 
     useEffect(() => {
+        console.log("delete confirmed");
         refetch();
 
-    }, [delProdId]);
+    }, [deleteConfirmed]);
 
     useEffect(() => {
         if(data){
@@ -139,16 +141,20 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
     const HandleOnDelete = (id: string) => {
         console.log(id);
         setShowModal(true);
-        /*setDelProdId(id);
+        setDelProdId(id);
+    }
+    const ConfirmDelete = () => {
+        setShowModal(false);
         deleteProduct({variables: {
             input: {
-                id: id
+                id: delProdId
             }
             }}).then(()=> {
+                setDeleteConfirmed(delProdId);
                 console.log("product was deleted successfully");
         }).catch(err => {
             console.log(err);
-        })*/
+        })
     }
 
     const productGenerator = (products:IProduct[]): any[] => {
@@ -212,7 +218,7 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
                 </Modal.Header>
                 <Modal.Body>Are you sure want to delete this product?</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="danger" onClick={handleOnCloseModal}>
+                    <Button variant="danger" onClick={ConfirmDelete}>
                         Delete
                     </Button>
                     <Button variant="secondary" onClick={handleOnCloseModal}>
