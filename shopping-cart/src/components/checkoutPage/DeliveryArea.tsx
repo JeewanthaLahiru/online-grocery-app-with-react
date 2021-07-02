@@ -10,7 +10,7 @@ const DeliveryArea:React.FC = () => {
 
     const [deliveryAddress, setDeliveryAddress] = useState(false);
 
-    const {handleSubmit, control, formState: { errors }, reset, setValue} = useForm<deliveryTypes>();
+    const {handleSubmit, control, formState: { errors }, reset, setValue, getValues} = useForm<deliveryTypes>();
 
     const handleOnSubmit = (data:deliveryTypes) => {
         if(!deliveryAddress){
@@ -103,7 +103,15 @@ const DeliveryArea:React.FC = () => {
                                     render={({field})=>(
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
+                                    rules={{
+                                        required: true,
+                                    }}
                                 />
+                                {errors.fullName &&
+                                    <span className="text-danger float-left">
+                                        * This field is required
+                                    </span>
+                                }
                             </Col>
                             <Col xs={12} className="mt-2">
                                 <Form.Label className="text-left m-0">Address*</Form.Label>
@@ -114,7 +122,15 @@ const DeliveryArea:React.FC = () => {
                                     render={({field})=>(
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
+                                    rules={{
+                                        required: true
+                                    }}
                                 />
+                                {errors.userAddress?.address &&
+                                    <span className="text-danger float-left">
+                                        * This field is required
+                                    </span>
+                                }
                             </Col>
                             <Col xs={4} className="mt-2">
                                 <Form.Label className="text-left m-0">City/suburb*</Form.Label>
@@ -125,7 +141,15 @@ const DeliveryArea:React.FC = () => {
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
                                     name={'userAddress.city'}
+                                    rules={{
+                                        required: true
+                                    }}
                                 />
+                                {errors.userAddress?.city &&
+                                    <span className="text-danger float-left">
+                                        * This field is required
+                                    </span>
+                                }
                             </Col>
                             <Col xs={4} className="mt-2">
                                 <Form.Label className="text-left m-0">Postal code*</Form.Label>
@@ -136,7 +160,15 @@ const DeliveryArea:React.FC = () => {
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
                                     name={'userAddress.postalCode'}
+                                    rules={{
+                                        required: true
+                                    }}
                                 />
+                                {errors.userAddress?.postalCode &&
+                                    <span className="text-danger float-left">
+                                        * This field is required
+                                    </span>
+                                }
                             </Col>
                             <Col xs={4} className="mt-2">
                                 <Form.Label className="text-left m-0">Country*</Form.Label>
@@ -147,7 +179,15 @@ const DeliveryArea:React.FC = () => {
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
                                     name={'userAddress.country'}
+                                    rules={{
+                                        required: true
+                                    }}
                                 />
+                                {errors.userAddress?.country &&
+                                    <span className="text-danger float-left">
+                                        * This field is required
+                                    </span>
+                                }
                             </Col>
                             <Col xs={12} className="mt-2">
                                 <Form.Label className="text-left m-0">Contact Number*</Form.Label>
@@ -158,7 +198,15 @@ const DeliveryArea:React.FC = () => {
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
                                     name={'userAddress.contactNumber'}
+                                    rules={{
+                                        required: true
+                                    }}
                                 />
+                                {errors.userAddress?.contactNumber &&
+                                <span className="text-danger float-left">
+                                        * This field is required
+                                    </span>
+                                }
                             </Col>
                             <Col xs={6} className="mt-2">
                                 <Form.Label className="text-left m-0">Email*</Form.Label>
@@ -169,7 +217,15 @@ const DeliveryArea:React.FC = () => {
                                     render={({field})=>(
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
+                                    rules={{
+                                        required: true
+                                    }}
                                 />
+                                {errors.email &&
+                                <span className="text-danger float-left">
+                                        * This field is required
+                                    </span>
+                                }
                             </Col>
                             <Col xs={6} className="mt-2">
                                 <Form.Label className="text-left m-0">Retype Email*</Form.Label>
@@ -180,7 +236,15 @@ const DeliveryArea:React.FC = () => {
                                     render={({field})=>(
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
+                                    rules={{
+                                        required: true
+                                    }}
                                 />
+                                {errors.retypeEmail &&
+                                    <span className="text-danger float-left">
+                                        * This field is required
+                                    </span>
+                                }
                             </Col>
                             <Col xs={12} className="mt-2">
                                 <Form.Label className="text-left m-0">Choose your password*</Form.Label>
@@ -191,7 +255,15 @@ const DeliveryArea:React.FC = () => {
                                         <Form.Control size={"sm"} className="deliveryInput pr-5" {...field} />
                                     )}
                                     name={'password'}
+                                    rules={{
+                                        required: true
+                                    }}
                                 />
+                                {errors.password &&
+                                <span className="text-danger float-left">
+                                        * This field is required
+                                    </span>
+                                }
                             </Col>
                         </Row>
                         <Form.Label className="text-left mx-0 mt-4">Change Shipping address</Form.Label>
@@ -227,10 +299,10 @@ const DeliveryArea:React.FC = () => {
                                     <Form.Label className="text-left m-0">Delivery Address*</Form.Label>
                                     <Controller
                                         control={control}
-                                        render={(field)=>(
+                                        render={({field})=>(
                                             <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                         )}
-                                        name={'userAddress.address'}
+                                        name={'deliveryAddress.address'}
                                         defaultValue={""}
                                     />
                                 </Col>
