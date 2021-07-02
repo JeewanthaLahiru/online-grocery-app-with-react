@@ -45,11 +45,9 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
     const productToRender:any = [];
     const renderProducts = () => {
         if(props.category == "All"){
-            console.log("all");
             productsFromServer.map((productItem, index) => {
                 productToRender.push({key: index , value: productItem});
             })
-            console.log(productToRender);
         }else{
             productsFromServer.map((productItem:any, index) => {
                 if(productItem.category == props.category){
@@ -139,7 +137,6 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
     }
 
     const HandleOnDelete = (id: string) => {
-        console.log(id);
         setShowModal(true);
         setDelProdId(id);
     }
