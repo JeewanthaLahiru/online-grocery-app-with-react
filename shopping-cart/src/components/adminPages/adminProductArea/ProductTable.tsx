@@ -11,7 +11,7 @@ import axios from "axios";
 import ProductImage from "./ProductImage";
 import {DELETE_PRODUCT_MUTATION} from "../../../graphql/mutations/Product";
 import LoadingScreen from "../../homePage/LoadingScreen";
-import ConfirmationMessage from "../../homePage/ConfirmationMessage";
+import ConfirmationMessage from "../../homePage/SupportiveComponents/ConfirmationMessage";
 
 type ProductTableProps = {
     category: string
@@ -229,17 +229,11 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
 
                 </Modal.Footer>
             </Modal>
-            <Modal
-                show={showAfterDeleteConfirmed}
-                onHide={closeConfirmDeleteModal}
-                centered={true}
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title className="text-success" >
-                        <i className="feather icon-check-square" /> Deleted successfully;
-                    </Modal.Title>
-                </Modal.Header>
-            </Modal>
+            <ConfirmationMessage
+                message={"Product was deleted successfully"}
+                showAfterDeleteConfirmed={showAfterDeleteConfirmed}
+                setShowAfterDeleteConfirmed={closeConfirmDeleteModal}
+            />
         </React.Fragment>
     )
 }
