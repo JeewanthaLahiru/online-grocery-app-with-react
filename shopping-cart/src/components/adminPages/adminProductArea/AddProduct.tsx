@@ -14,6 +14,7 @@ import {ApolloClient, gql, InMemoryCache, useMutation, useQuery} from '@apollo/c
 import { RestLink } from 'apollo-link-rest';
 import Testing from "../../testing";
 import {UPDATE_PRODUCT_MUTATION} from "../../../graphql/mutations/Product";
+import ConfirmationMessage from "../../homePage/SupportiveComponents/ConfirmationMessage";
 interface ICategory {
     value: string;
     label: string;
@@ -26,6 +27,12 @@ interface ParamTypes {
 const AddProduct:React.FC = () => {
     const [updateProduct, setUpdateProduct] = useState(true);
     const [imageUrl, setImageUrl] = useState("");
+    const [productAdded, setProductAdded] = useState(false);
+    const [loadingScreen, setLoadingScreen] = useState(false);
+    const handleOnMessageHide = () => {
+        setProductAdded(false);
+    }
+
     const history = useHistory();
 
     const CreateProduct = gql`
@@ -95,6 +102,7 @@ const AddProduct:React.FC = () => {
 
 
     const handleOnSubmit = async (data:any) => {
+        setLoadingScreen(true);
         const file = productImage;
         const key = productImage[0].name;
         const contentType = productImage[0].type;
@@ -161,6 +169,9 @@ const AddProduct:React.FC = () => {
                         description: data.description
                     }
                 }}).then(() => {
+                    window.location.reload();
+                    setProductAdded(true);
+                    setLoadingScreen(false);
                 console.log("product adding is success");
             }).catch(err => {
                 console.log("product adding error" + err);
@@ -179,6 +190,11 @@ const AddProduct:React.FC = () => {
 
     return(
         <React.Fragment>
+            <ConfirmationMessage
+                message={"Product was added successfully"}
+                showAfterDeleteConfirmed={productAdded}
+                setShowAfterDeleteConfirmed={handleOnMessageHide}
+            />
             <Testing/>
             <Row className="mx-0 justify-content-center add-product">
                 <Col xs={12} xl={8}>
