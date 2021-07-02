@@ -15,6 +15,7 @@ import { RestLink } from 'apollo-link-rest';
 import Testing from "../../testing";
 import {UPDATE_PRODUCT_MUTATION} from "../../../graphql/mutations/Product";
 import ConfirmationMessage from "../../homePage/SupportiveComponents/ConfirmationMessage";
+import LoadingScreen from "../../homePage/LoadingScreen";
 interface ICategory {
     value: string;
     label: string;
@@ -195,7 +196,9 @@ const AddProduct:React.FC = () => {
                 showAfterDeleteConfirmed={productAdded}
                 setShowAfterDeleteConfirmed={handleOnMessageHide}
             />
-            <Testing/>
+            {loadingScreen &&
+                <LoadingScreen/>
+            }
             <Row className="mx-0 justify-content-center add-product">
                 <Col xs={12} xl={8}>
                     <Row className="mx-0 mx-0 add-product-title-row">
