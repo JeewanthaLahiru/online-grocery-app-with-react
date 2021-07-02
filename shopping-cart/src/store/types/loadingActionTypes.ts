@@ -10,3 +10,5 @@ export interface loadingEnd{
     type: typeof LOADING_END,
     payload: boolean
 }
+
+export type loadingScreenAcationTypes = loadingStart | loadingEnd;
