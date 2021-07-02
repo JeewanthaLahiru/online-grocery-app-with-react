@@ -9,13 +9,11 @@ import {useParams} from "react-router-dom";
 import {products} from "../../../repository/Products";
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
-import {IProduct, IProductUpload} from "../../../types/Products";
 import {ApolloClient, gql, InMemoryCache, useMutation, useQuery} from '@apollo/client';
-import { RestLink } from 'apollo-link-rest';
-import Testing from "../../testing";
 import {UPDATE_PRODUCT_MUTATION} from "../../../graphql/mutations/Product";
 import ConfirmationMessage from "../../homePage/SupportiveComponents/ConfirmationMessage";
-import LoadingScreen from "../../homePage/LoadingScreen";
+import {useDispatch} from "react-redux";
+import {loading_end, loading_start} from "../../../store/actions/LoadingActions";
 interface ICategory {
     value: string;
     label: string;
@@ -26,10 +24,11 @@ interface ParamTypes {
 }
 
 const AddProduct:React.FC = () => {
+    const dispatch = useDispatch();
+
     const [updateProduct, setUpdateProduct] = useState(true);
     const [imageUrl, setImageUrl] = useState("");
     const [productAdded, setProductAdded] = useState(false);
-    const [loadingScreen, setLoadingScreen] = useState(false);
     const handleOnMessageHide = () => {
         setProductAdded(false);
     }
@@ -103,7 +102,7 @@ const AddProduct:React.FC = () => {
 
 
     const handleOnSubmit = async (data:any) => {
-        setLoadingScreen(true);
+        dispatch(loading_start(true));
         const file = productImage;
         const key = productImage[0].name;
         const contentType = productImage[0].type;
@@ -156,6 +155,9 @@ const AddProduct:React.FC = () => {
                 }
                 }}).then(()=>{
                     console.log("product updating success");
+                    window.location.reload();
+                    setProductAdded(true);
+                    dispatch(loading_end(false));
             }).catch((err) => {
                 console.log("Product update error: \n" + err);
             })
@@ -172,7 +174,7 @@ const AddProduct:React.FC = () => {
                 }}).then(() => {
                     window.location.reload();
                     setProductAdded(true);
-                    setLoadingScreen(false);
+                    dispatch(loading_end(false));
                 console.log("product adding is success");
             }).catch(err => {
                 console.log("product adding error" + err);
@@ -196,9 +198,6 @@ const AddProduct:React.FC = () => {
                 showAfterDeleteConfirmed={productAdded}
                 setShowAfterDeleteConfirmed={handleOnMessageHide}
             />
-            {loadingScreen &&
-                <LoadingScreen/>
-            }
             <Row className="mx-0 justify-content-center add-product">
                 <Col xs={12} xl={8}>
                     <Row className="mx-0 mx-0 add-product-title-row">
