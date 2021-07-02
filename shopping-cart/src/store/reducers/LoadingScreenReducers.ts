@@ -5,7 +5,7 @@ const initialState: loadingScreenState = {
     loading: false
 }
 
-export const LoadingScreenReducers = (state:loadingScreenState = initialState, action: loadingScreenAcationTypes) : loadingScreenState => {
+export const loadingScreenReducers = (state:loadingScreenState = initialState, action: loadingScreenAcationTypes) : loadingScreenState => {
     switch (action.type) {
         case "LOADING_START":
             return {
