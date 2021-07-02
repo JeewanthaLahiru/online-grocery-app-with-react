@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Col, Image, Form} from "react-bootstrap";
+import {Col, Image, Form, Button, Modal} from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import { products } from "../../../repository/Products";
 import {IProduct} from "../../../types/Products";
@@ -21,6 +21,7 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
 
     const {loading, error, data, refetch} = useQuery(GET_PRODUCTS);
     const [productsFromServer, setProductsFromServer] = useState([]);
+    const [showModal, setShowModal] = useState(false);
     const [delProdId, setDelProdId] = useState<string>("");
     const [deleteProduct] = useMutation(DELETE_PRODUCT_MUTATION);
 
@@ -56,19 +57,9 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
         }
     }
     renderProducts();
-    /*if(props.category == "All"){
-
-        productsFromServer.map((productItem, index) => {
-            productToRender.push(productItem);
-        })
-    }else{
-        productsFromServer.map((productItem: any,index)=>{
-
-            if(productItem.category == props.category){
-                productToRender.push({key:index, value: productItem});
-            }
-        })
-    }*/
+    const handleOnCloseModal = () => {
+        setShowModal(false);
+    }
 
     const columns = [
         {
@@ -147,7 +138,8 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
 
     const HandleOnDelete = (id: string) => {
         console.log(id);
-        setDelProdId(id);
+        setShowModal(true);
+        /*setDelProdId(id);
         deleteProduct({variables: {
             input: {
                 id: id
@@ -156,7 +148,7 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
                 console.log("product was deleted successfully");
         }).catch(err => {
             console.log(err);
-        })
+        })*/
     }
 
     const productGenerator = (products:IProduct[]): any[] => {
@@ -202,7 +194,6 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
     return(
         <React.Fragment>
             {loading && <LoadingScreen/>}
-            <ConfirmationMessage/>
             <Col xs={12}>
                 <BootstrapTable
                     bootstrap4
@@ -215,6 +206,21 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
                     rowClasses="text-nowrap"
                 />
             </Col>
+            <Modal show={showModal} onHide={handleOnCloseModal}>
+                <Modal.Header closeButton className="bg-danger text-white" >
+                    <Modal.Title> <i className="feather icon-alert-triangle text-white" /> Confirm delete</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure want to delete this product?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={handleOnCloseModal}>
+                        Delete
+                    </Button>
+                    <Button variant="secondary" onClick={handleOnCloseModal}>
+                        Close
+                    </Button>
+
+                </Modal.Footer>
+            </Modal>
         </React.Fragment>
     )
 }
