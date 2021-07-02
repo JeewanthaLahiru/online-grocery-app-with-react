@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Col, Image, Form, Button, Modal} from "react-bootstrap";
+import {Col, Image, Form, Button, Modal, Toast} from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import { products } from "../../../repository/Products";
 import {IProduct} from "../../../types/Products";
@@ -22,6 +22,7 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
     const {loading, error, data, refetch} = useQuery(GET_PRODUCTS);
     const [productsFromServer, setProductsFromServer] = useState([]);
     const [deleteConfirmed, setDeleteConfirmed] = useState("");
+    const [showAfterDeleteConfirmed, setShowAfterDeleteConfirmed] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [delProdId, setDelProdId] = useState<string>("");
     const [deleteProduct] = useMutation(DELETE_PRODUCT_MUTATION);
@@ -149,9 +150,13 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
             }}).then(()=> {
                 setDeleteConfirmed(delProdId);
                 console.log("product was deleted successfully");
+                setShowAfterDeleteConfirmed(true);
         }).catch(err => {
             console.log(err);
         })
+    }
+    const closeConfirmDeleteModal = () => {
+        setShowAfterDeleteConfirmed(false);
     }
 
     const productGenerator = (products:IProduct[]): any[] => {
@@ -223,6 +228,17 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
                     </Button>
 
                 </Modal.Footer>
+            </Modal>
+            <Modal
+                show={showAfterDeleteConfirmed}
+                onHide={closeConfirmDeleteModal}
+                centered={true}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title className="text-success" >
+                        <i className="feather icon-check-square" /> Deleted successfully;
+                    </Modal.Title>
+                </Modal.Header>
             </Modal>
         </React.Fragment>
     )
