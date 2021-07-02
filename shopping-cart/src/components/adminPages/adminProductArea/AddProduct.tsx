@@ -10,10 +10,11 @@ import {products} from "../../../repository/Products";
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
 import {ApolloClient, gql, InMemoryCache, useMutation, useQuery} from '@apollo/client';
-import {UPDATE_PRODUCT_MUTATION} from "../../../graphql/mutations/Product";
+import {CREATE_PRODUCT_MUTATION, UPDATE_PRODUCT_MUTATION} from "../../../graphql/mutations/Product";
 import ConfirmationMessage from "../../homePage/SupportiveComponents/ConfirmationMessage";
 import {useDispatch} from "react-redux";
 import {loading_end, loading_start} from "../../../store/actions/LoadingActions";
+import {GET_ONE_PRODUCT, GET_PRODUCTS} from "../../../graphql/queries/Product";
 interface ICategory {
     value: string;
     label: string;
@@ -23,11 +24,12 @@ interface ParamTypes {
     productid: string;
 }
 
+
 const AddProduct:React.FC = () => {
     const dispatch = useDispatch();
 
     const [updateProduct, setUpdateProduct] = useState(true);
-    const [imageUrl, setImageUrl] = useState("");
+    //const [imageUrl, setImageUrl] = useState("");
     const [productAdded, setProductAdded] = useState(false);
     const handleOnMessageHide = () => {
         setProductAdded(false);
@@ -35,24 +37,26 @@ const AddProduct:React.FC = () => {
 
     const history = useHistory();
 
-    const CreateProduct = gql`
-	mutation createproduct($input: CreateProductInput){
-		createproduct(input: $input){
-			id
-		}
-	}
-`;
 
-    const [createProduct] = useMutation(CreateProduct);
+    const [createProduct] = useMutation(CREATE_PRODUCT_MUTATION);
     const [updateProductMutation] = useMutation(UPDATE_PRODUCT_MUTATION);
 
     var productToChange: any = [];
 
     const {productid} = useParams<ParamTypes>();
+    const {loading, error, data, refetch} = useQuery(GET_ONE_PRODUCT, {
+        variables: {input: {
+            id: productid
+            }}
+    });
 
-    const [productToUpdateState, setProductToUpdateState] = useState(
-        products.find(({id})=> productid === id.toString())
-    );
+
+
+    //const updateData:any = data.getOneProduct;
+    const [productToUpdateState, setProductToUpdateState] = useState<any>();
+    const [imageName, setImageName] = useState<any>("");
+    const [imageUrl , setImageUrl] = useState<any>();
+
 
     const handleOnCheckButton = () => {
         if(productid){
@@ -67,6 +71,41 @@ const AddProduct:React.FC = () => {
 
     const { handleSubmit, control, formState:{errors}, reset, setValue, register} = useForm<IAddProductForm>();
     const [productImage, setProductImage] = useState<File[]>([]);
+    if(productid !== undefined){
+        if(loading){
+            dispatch(loading_start(true));
+        }else{
+            dispatch(loading_end(false));
+            if(productid !== undefined){
+                setValue("title", data? data.getOneProduct.name: "");
+                setValue("price", data.getOneProduct.price);
+                setValue("previousPrice", data.getOneProduct.previousPrice);
+                setValue("category", data.getOneProduct.category);
+                setValue("description", data.getOneProduct.description);
+
+                const generateGetUrl = 'http://localhost:4000/generate-get-url';
+
+                const getOptions = {
+                    params: {
+                        Key: data.getOneProduct.image,
+                        ContentType: data.getOneProduct.image.split(/[.]/)[1]
+                    }
+                };
+
+                axios
+                    .get(generateGetUrl, getOptions)
+                    .then(res => {
+                        setImageUrl(res.data);
+                    })
+                    .catch(err => {
+                        console.log("error in generateGet Url : \n"+ err);
+                    })
+
+            }
+
+        }
+    }
+
 
     const onDrop = (acceptedFiles: File[]) => {
         setProductImage(
@@ -101,49 +140,70 @@ const AddProduct:React.FC = () => {
     ));
 
 
-    const handleOnSubmit = async (data:any) => {
-        dispatch(loading_start(true));
-        const file = productImage;
-        const key = productImage[0].name;
-        const contentType = productImage[0].type;
-        const generatePutUrl = 'http://localhost:4000/generate-put-url';
-        const generateGetUrl = 'http://localhost:4000/generate-get-url';
-        const options = {
-            params: {
-                Key: key,
-                ContentType: contentType
-            },
-            headers: {
-                'Content-Type':contentType
-            }
-        };
+    const handleOnSubmit = async (formData:any) => {
+        if(productid === undefined){
+            dispatch(loading_start(true));
+            const file = productImage;
+            const key = productImage[0].name;
+            const contentType = productImage[0].type;
+            const generatePutUrl = 'http://localhost:4000/generate-put-url';
+            const generateGetUrl = 'http://localhost:4000/generate-get-url';
+            const options = {
+                params: {
+                    Key: key,
+                    ContentType: contentType
+                },
+                headers: {
+                    'Content-Type':contentType
+                }
+            };
 
-        const getOptions = {
-            params: {
-                Key: key,
-                ContentType: contentType
-            }
-        };
+            const getOptions = {
+                params: {
+                    Key: key,
+                    ContentType: contentType
+                }
+            };
 
-        await axios.get(generatePutUrl, options).then(res => {
-            const putURL = res.data;
-            axios
-                .put(putURL, file[0], options)
-                .then(res => {
-                    setImageUrl(productImage[0].name);
-                    handleOnGrapqlImageAdding(data, key);
-                })
-                .catch(err => {
-                    console.log("error in putting file : \n"+ err);
-                })
-        }).catch(err => {
-            console.log("erron in generate put url : \n" + err);
-        })
+            await axios.get(generatePutUrl, options).then(res => {
+                const putURL = res.data;
+                axios
+                    .put(putURL, file[0], options)
+                    .then(res => {
+                        setImageUrl(productImage[0].name);
+                        handleOnGrapqlImageAdding(formData, key);
+                    })
+                    .catch(err => {
+                        console.log("error in putting file : \n"+ err);
+                    })
+            }).catch(err => {
+                console.log("erron in generate put url : \n" + err);
+            })
+        }else{
+            updateProductMutation({variables:{
+                    input:{
+                        id: productid,
+                        name: formData.title,
+                        category: formData.category,
+                        price: formData.price,
+                        image: data.getOneProduct.image,
+                        previousPrice: formData.previousPrice,
+                        description: formData.description
+                    }
+                }}).then(()=>{
+                console.log("product updating success");
+                window.location.reload();
+                setProductAdded(true);
+                dispatch(loading_end(false));
+            }).catch((err) => {
+                console.log("Product update error: \n" + err);
+            })
+        }
 
 
     }
     const handleOnGrapqlImageAdding = (data:any, key: string) => {
-        if(productToUpdateState){
+        if(productid !== undefined){
             updateProductMutation({variables:{
                 input:{
                     id: productToUpdateState.id,
@@ -224,7 +284,7 @@ const AddProduct:React.FC = () => {
                                 <input {...getInputProps()} />
                                 {thumbs}
                                 {productImage.length == 0 && <Image src={
-                                    productToUpdateState? productToUpdateState.image : DefaultImg}/>}
+                                    imageUrl? imageUrl : DefaultImg}/>}
                                 <Row className="add-product-text align-items-center">
                                     <Col xs={12}>
                                         <h1>Drop image here or click to upload</h1>
@@ -240,7 +300,7 @@ const AddProduct:React.FC = () => {
                                     <Col xs={12} className="mt-0">
                                         <Form.Label className="float-left m-0">Title</Form.Label>
                                         <Controller
-                                            defaultValue={productToUpdateState? productToUpdateState.name : ""}
+                                            defaultValue={ ""}
                                             control={control}
                                             render={({field})=>(
                                                 <Form.Control size={"sm"} type="text" {...field}/>
@@ -264,7 +324,7 @@ const AddProduct:React.FC = () => {
                                         <Form.Label className="float-left m-0" >Previous price</Form.Label>
                                         <Controller
                                             defaultValue={
-                                                productToUpdateState? String(productToUpdateState.previousPrice) : ""}
+                                                 ""}
                                             render={({field}) => (
                                                 <Form.Control
                                                     size={"sm"}
@@ -288,7 +348,7 @@ const AddProduct:React.FC = () => {
                                         <Form.Label className="float-left m-0" >Price</Form.Label>
                                         <Controller
                                             defaultValue={
-                                                productToUpdateState ? String(productToUpdateState.price) : ""
+                                                 ""
                                             }
                                             render={({field}) => (
                                                 <Form.Control
@@ -312,7 +372,7 @@ const AddProduct:React.FC = () => {
                                         <Form.Label className="float-left m-0">Category</Form.Label>
                                         <br/>
                                         <Controller
-                                            defaultValue={productToUpdateState ? productToUpdateState.category : ""}
+                                            defaultValue={ ""}
                                             control={control}
                                             render={({field:{onChange, value, name, ref}}) => (
 
@@ -342,7 +402,7 @@ const AddProduct:React.FC = () => {
                                         <Controller
                                             control={control}
                                             defaultValue={
-                                                productToUpdateState? productToUpdateState.description : ""
+                                                ""
                                             }
                                             render={({field}) => (
                                                 <Form.Control as="textarea" rows={5} size={"sm"} {...field} />
@@ -365,7 +425,7 @@ const AddProduct:React.FC = () => {
                                         </span>}
                                     </Col>
                                     <Col xs={12} className="mt-2">
-                                        {productToUpdateState &&
+                                        {productid!== undefined &&
                                             <Button type={"submit"}
                                                     className="float-left px-4 mr-2"
                                                     variant="warning"
@@ -373,7 +433,7 @@ const AddProduct:React.FC = () => {
                                                 Update
                                             </Button>
                                         }
-                                        {!productToUpdateState &&
+                                        {productid=== undefined &&
                                             <Button type={"submit"}
                                                     className="float-left px-4 mr-2"
                                                     variant="success"
