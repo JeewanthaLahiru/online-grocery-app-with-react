@@ -1,8 +1,6 @@
 import React, {useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
-import {orders} from "../../../repository/Orders";
 import {Button, Col, Row, Form} from "react-bootstrap";
-import {IPurchasedItems} from "../../../types/Orders";
 import OrderProductItem from "./OrderProductItem";
 import {useQuery} from "@apollo/client";
 import {GET_ONE_ORDER} from "../../../graphql/queries/Order";
@@ -26,16 +24,12 @@ const AdminOrder:React.FC = () => {
     });
     if(loading){
         dispatch(loading_start(true));
-        console.log("loading");
     }else{
         dispatch(loading_start(false));
-        console.log(data.getOneOrder);
     }
 
-    const SelectedOrder:any = orders.find(({orderId}) => orderId == orderid);
-    //const orderedProducts: IPurchasedItems[] = SelectedOrder.purchasedItems;
     const showOrders = () => {
-        console.log("hello world");
+        console.log("you clicked accept");
     }
 
     const handleOnBackToOrders = () => {
@@ -82,7 +76,6 @@ const AdminOrder:React.FC = () => {
                                 <Form.Control
                                     as="textarea"
                                     rows={2}
-                                    /*value={data.getOneOrder.shippingDetails.name}*/
                                     value={data? data.getOneOrder.shippingDetails.name : ""}
                                     disabled={true}
                                 />
@@ -125,10 +118,7 @@ const AdminOrder:React.FC = () => {
                             <Row className="mx-0 mt-4 p-0">
                                 <Col xs={12} className="order-products m-0 p-0">
                                     <Row className="mx-0">
-                                        {/*{orderedProducts.map((orderItem, index:number) => {
-                                            console.log(orderItem.itemName);
-                                            return <OrderProductItem key={index} product={orderItem}/>;
-                                        })}*/}
+
                                         {
                                             data? (data.getOneOrder.purchasedItems.map((orderItem:any, index: number)=>{
                                                 return <OrderProductItem product={orderItem} key={index}/>
