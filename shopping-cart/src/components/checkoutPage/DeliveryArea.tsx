@@ -6,12 +6,18 @@ import {deliveryTypes, paymentMethod} from "../../types/DeliveryTypes";
 import CardImg from "../../assets/images/checkout/credit.webp";
 import CashImg from "../../assets/images/checkout/money.webp";
 import {EOrderStatus, IOrderGql, IPurchasedItems} from "../../types/Orders";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppState} from "../../store/reducers";
+import {useMutation} from "@apollo/client";
+import {CREATE_ORDER_MUTATION} from "../../graphql/mutations/Order";
+import {loading_end, loading_start} from "../../store/actions/LoadingActions";
 
 const DeliveryArea:React.FC = () => {
 
     const [deliveryAddress, setDeliveryAddress] = useState(false);
+    const dispatch = useDispatch();
+
+    const [createOrder] = useMutation(CREATE_ORDER_MUTATION);
 
     const cartItems = useSelector((state:AppState)=> state.cartProduct.cartProducts);
     const purchasedItems:IPurchasedItems[] = [];
@@ -30,6 +36,7 @@ const DeliveryArea:React.FC = () => {
     const {handleSubmit, control, formState: { errors }, reset, setValue, getValues} = useForm<deliveryTypes>();
 
     const handleOnSubmit = (data:deliveryTypes) => {
+        dispatch(loading_start(true));
         if(!deliveryAddress){
             data.deliveryAddress = data.userAddress
         }
@@ -56,10 +63,20 @@ const DeliveryArea:React.FC = () => {
             instructions: data.deliveryInstructions,
             orderStatus: EOrderStatus.PENDING,
             purchasedItems: purchasedItems,
-            subtotal: String(subTotal+100)
+            subTotal: String(subTotal+100),
+            discount: "0"
 
         }
-
+        createOrder({variables:{
+            input: orderDetails
+            }}).then(()=> {
+                console.log("order created successfully")
+                loading_end(false);
+            })
+            .catch((err)=> {
+                console.log("order creation faild: " + err)
+                loading_end(false);
+            })
         console.log(orderDetails);
     }
 

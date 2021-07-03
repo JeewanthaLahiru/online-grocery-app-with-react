@@ -45,6 +45,7 @@ export type IOrderGql = {
     instructions: string,
     purchasedItems: IPurchasedItems[],
     paymentMethod: string,
-    subtotal: string,
+    subTotal: string,
+    discount: string,
     orderStatus: string
 }
