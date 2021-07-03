@@ -3,13 +3,22 @@ import {Col, Row} from "react-bootstrap";
 import Product from "./Product";
 import {products} from "../../../repository/Products";
 import {IProduct} from "../../../types/Products";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppState} from "../../../store/reducers";
+import {useMutation, useQuery} from "@apollo/client";
+import {GET_PRODUCTS} from "../../../graphql/queries/Product";
+import {loading_end, loading_start} from "../../../store/actions/LoadingActions";
 
 const ProductList:React.FC = () => {
 
     const currentCategory = useSelector((state:AppState) => state.category.category)
-
+    const dispatch = useDispatch();
+    const {loading, data, error, refetch} = useQuery(GET_PRODUCTS);
+    if(loading){
+        dispatch(loading_start(true));
+    }else{
+        dispatch(loading_end(true));
+    }
     const renderCategoryList = (category:string) =>{
         return(
             // eslint-disable-next-line
