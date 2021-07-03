@@ -14,7 +14,18 @@ interface ParamTypes{
 const AdminOrder:React.FC = () => {
     const {orderid} = useParams<ParamTypes>();
     const history = useHistory();
-    const {loading, data, refetch, error} = useQuery(GET_ONE_ORDER);
+    const {loading, data, refetch, error} = useQuery(GET_ONE_ORDER, {
+        variables: {
+            input: {
+                id: orderid
+            }
+        }
+    });
+    if(loading){
+        console.log("loading");
+    }else{
+        console.log(data.getOneOrder);
+    }
 
     const SelectedOrder:any = orders.find(({orderId}) => orderId == orderid);
     /*const orderedProducts: IPurchasedItems[] = SelectedOrder.purchasedItems;

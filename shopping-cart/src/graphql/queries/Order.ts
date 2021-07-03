@@ -16,8 +16,8 @@ export const GET_ORDERS_FOR_TABLE = gql`
 `;
 
 export const GET_ONE_ORDER = gql`
-    query getOneOrder($input: String){
-        getOneOrder(id: $input){
+    query getOneOrder($input: FindOneOrderInput){
+        getOneOrder(input: $input){
             id
         }
     }
