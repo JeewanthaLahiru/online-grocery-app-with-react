@@ -19,6 +19,24 @@ export const GET_ONE_ORDER = gql`
     query getOneOrder($input: FindOneOrderInput){
         getOneOrder(input: $input){
             id
+            shippingDetails{
+                name
+                streetAddress
+                city 
+                country
+                postalCode
+                contact
+            }
+            instructions
+            purchasedItems{
+              itemId
+              itemQty
+              itemName
+              itemPrice
+            }
+            subTotal
+            email
+            orderStatus
         }
     }
 `;

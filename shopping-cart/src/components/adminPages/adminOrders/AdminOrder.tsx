@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
 import {orders} from "../../../repository/Orders";
 import {Button, Col, Row, Form} from "react-bootstrap";
@@ -6,12 +6,15 @@ import {IPurchasedItems} from "../../../types/Orders";
 import OrderProductItem from "./OrderProductItem";
 import {useQuery} from "@apollo/client";
 import {GET_ONE_ORDER} from "../../../graphql/queries/Order";
+import {useDispatch} from "react-redux";
+import {loading_start} from "../../../store/actions/LoadingActions";
 
 interface ParamTypes{
     orderid:string
 }
 
 const AdminOrder:React.FC = () => {
+    const dispatch = useDispatch();
     const {orderid} = useParams<ParamTypes>();
     const history = useHistory();
     const {loading, data, refetch, error} = useQuery(GET_ONE_ORDER, {
@@ -22,16 +25,18 @@ const AdminOrder:React.FC = () => {
         }
     });
     if(loading){
+        dispatch(loading_start(true));
         console.log("loading");
     }else{
+        dispatch(loading_start(false));
         console.log(data.getOneOrder);
     }
 
     const SelectedOrder:any = orders.find(({orderId}) => orderId == orderid);
-    /*const orderedProducts: IPurchasedItems[] = SelectedOrder.purchasedItems;
+    //const orderedProducts: IPurchasedItems[] = SelectedOrder.purchasedItems;
     const showOrders = () => {
-        console.log(orderedProducts);
-    }*/
+        console.log("hello world");
+    }
 
     const handleOnBackToOrders = () => {
         history.push("/admin/orders");
@@ -51,12 +56,12 @@ const AdminOrder:React.FC = () => {
                     </Row>
                     <Row className="mx-0 title-row">
                         <Col xs={12} md={5}>
-                            <h5 className="text-left" >Order {/*{SelectedOrder.orderId}*/}</h5>
+                            <h5 className="text-left" >Order { data ? data.getOneOrder.id : ""}</h5>
                             <h6 className="text-left" >Order created at 6/1/2021, 6:42:24</h6>
                         </Col>
                         <Col xs={12} md={7}>
                             <Button
-                                /*onClick={showOrders}*/
+                                onClick={showOrders}
                                 variant={"outline-success"}
                                 className="float-md-right mr-3 mr-md-0 float-left px-5"
                             >
@@ -77,8 +82,8 @@ const AdminOrder:React.FC = () => {
                                 <Form.Control
                                     as="textarea"
                                     rows={2}
-                                    /*value={SelectedOrder.deliveryDetails.name}*/
-                                    value={"hello world"}
+                                    /*value={data.getOneOrder.shippingDetails.name}*/
+                                    value={data? data.getOneOrder.shippingDetails.name : ""}
                                     disabled={true}
                                 />
                             </Form.Group>
@@ -88,9 +93,8 @@ const AdminOrder:React.FC = () => {
                                     as="textarea"
                                     rows={2}
                                     disabled={true}
-                                    /*value={SelectedOrder.deliveryDetails.contact + "\n("
-                                        + SelectedOrder.email + ")" }*/
-                                    value={"hello world"}
+                                    value={data? (data.getOneOrder.shippingDetails.contact + "\n("
+                                        + data.getOneOrder.email + ")" ): ""}
                                 />
                             </Form.Group>
                             <Form.Group >
@@ -99,12 +103,11 @@ const AdminOrder:React.FC = () => {
                                     as="textarea"
                                     rows={4}
                                     disabled={true}
-                                    /*value={SelectedOrder.deliveryDetails.streetAddress + "\n"
-                                        + SelectedOrder.deliveryDetails.city + "\n"
-                                        + SelectedOrder.deliveryDetails.country + "\n"
-                                        + SelectedOrder.deliveryDetails.postalCode
-                                    }*/
-                                    value={"hello world"}
+                                    value={ data? ( data.getOneOrder.shippingDetails.streetAddress + "\n"
+                                        + data.getOneOrder.shippingDetails.city + "\n"
+                                        + data.getOneOrder.shippingDetails.country + "\n"
+                                        + data.getOneOrder.shippingDetails.postalCode) : ""
+                                    }
                                 />
                             </Form.Group>
                             <Form.Group >
@@ -113,8 +116,7 @@ const AdminOrder:React.FC = () => {
                                     as="textarea"
                                     rows={4}
                                     disabled={true}
-                                    /*value={SelectedOrder.instructions}*/
-                                    value={"hello world"}
+                                    value={data? data.getOneOrder.instructions: ""}
                                 />
                             </Form.Group>
 
@@ -127,6 +129,11 @@ const AdminOrder:React.FC = () => {
                                             console.log(orderItem.itemName);
                                             return <OrderProductItem key={index} product={orderItem}/>;
                                         })}*/}
+                                        {
+                                            data? (data.getOneOrder.purchasedItems.map((orderItem:any, index: number)=>{
+                                                return <OrderProductItem product={orderItem} key={index}/>
+                                            })) : ""
+                                        }
                                     </Row>
                                 </Col>
                                 <Col xs={12} className="order-price mx-0 mt-3 p-0">
@@ -145,11 +152,13 @@ const AdminOrder:React.FC = () => {
                                         </tr>
                                         <tr>
                                             <td className="text-left">Subtotal</td>
-                                            <td className="text-right">Rs.{/*{SelectedOrder.subTotal}*/}</td>
+                                            <td className="text-right">Rs.{data? data.getOneOrder.subTotal : ""}</td>
                                         </tr>
                                         <tr>
                                             <td className="text-left">Total</td>
-                                            <td className="text-right" >Rs.{/*{ Number(SelectedOrder.subTotal)  +100 - 200}*/}</td>
+                                            <td className="text-right" >
+                                                Rs.{ data? (data.getOneOrder.subTotal -100) : "" }
+                                            </td>
                                         </tr>
                                     </table>
                                 </Col>
