@@ -104,17 +104,17 @@ const Product:React.FC<ProductTypeProps> = (props) => {
                 <Col xs={12} >
                     <h5 className="text-center mb-5 product-name" >{product_name}</h5>
                 </Col>
-                <Col xs={12} >
-                    <p className="text-center discount" >{product_price}</p>
+                <Col xs={4}>
+                    <p className="text-center discount m-0" >{product_price}</p>
                 </Col>
-                <Col xs={12} >
+                <Col xs={8} >
                     <p className="text-center price text-success" >Rs.{props.product.price}<span className="small-text"></span></p>
                 </Col>
 
                 <Form onSubmit={handleSubmit(handleOnAddProductToCart)}>
                     <Col xs={12}>
                         <Row>
-                            <Col xs={5} className="cart-quantity m-0" >
+                            <Col xs={12} md={5} className="cart-quantity m-0" >
 
                                 <Form.Group>
                                     <Controller
@@ -132,7 +132,7 @@ const Product:React.FC<ProductTypeProps> = (props) => {
                                     />
                                 </Form.Group>
                             </Col>
-                            <Col xs={7} className="add-to-cart m-0" >
+                            <Col xs={12} md={7} className="add-to-cart mx-0 mb-2" >
                                 {!getRelevantCartProductId() && <Button variant="success" type="submit">Add To Cart</Button> }
                                 {!!getRelevantCartProductId() && <Button variant="outline-primary" type="submit">Update</Button> }
                             </Col>

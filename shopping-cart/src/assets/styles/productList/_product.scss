@@ -2,6 +2,7 @@ html{
   scroll-behavior: smooth;
 }
 .product-class{
+  font-family: "Quicksand", sans-serif;
   border: 1px solid #cdcdcd;
   border-radius: 5px;
 
@@ -16,7 +17,7 @@ html{
   .discount{
     color: #8d8d8d;
     text-decoration: line-through;
-    font-size: 1.2em;
+    font-size: 1em;
   }
   .price{
     font-weight: 600;
