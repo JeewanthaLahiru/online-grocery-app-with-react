@@ -25,6 +25,7 @@ const Product:React.FC<ProductTypeProps> = (props) => {
     const product_name = props.product.name;
     const product_price = props.product.price;
     const {handleSubmit, control, setValue} = useForm<FormData>();
+    console.log(props.product);
     useEffect(() => {
         if (!getRelevantCartProductQty()) {
             setValue("productQty", "1");

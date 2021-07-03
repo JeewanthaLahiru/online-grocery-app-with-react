@@ -141,12 +141,21 @@ const ProductList:React.FC = () => {
                 return renderAllCategory();
         }
     }
-
+    const renderProducts = () => {
+        return(
+            productsFromServer.map((product:IProduct, index:number)=>{
+                return(
+                    <Product product={product} index={index} />
+                )
+            })
+        )
+    }
 
 
     return(
         <Row className="product-list p-4"   id={"product-list"} >
-            {renderCategory()}
+            {/*{renderCategory()}*/}
+            {renderProducts()}
         </Row>
     )
 }
