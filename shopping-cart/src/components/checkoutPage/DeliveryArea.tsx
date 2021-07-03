@@ -14,7 +14,18 @@ const DeliveryArea:React.FC = () => {
     const [deliveryAddress, setDeliveryAddress] = useState(false);
 
     const cartItems = useSelector((state:AppState)=> state.cartProduct.cartProducts);
-    const purchasedItems:any = [];
+    const purchasedItems:IPurchasedItems[] = [];
+    var subTotal = 0;
+
+    cartItems.map((item, index) => {
+        subTotal = subTotal + (item.product.price * item.qty);
+        purchasedItems.push({
+            itemId: String(item.id),
+            itemPrice: String(item.product.price),
+            itemName: item.product.name,
+            itemQty: String(item.qty)
+        })
+    })
 
     const {handleSubmit, control, formState: { errors }, reset, setValue, getValues} = useForm<deliveryTypes>();
 
@@ -23,7 +34,7 @@ const DeliveryArea:React.FC = () => {
             data.deliveryAddress = data.userAddress
         }
         console.log(data);
-        /*const orderDetails: IOrderGql = {
+        const orderDetails: IOrderGql = {
             email: data.email,
             billingDetails: {
                 name: data.fullName,
@@ -44,8 +55,12 @@ const DeliveryArea:React.FC = () => {
             paymentMethod: data.paymentMethod,
             instructions: data.deliveryInstructions,
             orderStatus: EOrderStatus.PENDING,
+            purchasedItems: purchasedItems,
+            subtotal: String(subTotal+100)
 
-        }*/
+        }
+
+        console.log(orderDetails);
     }
 
     const paymentName = "paymentMethod";
