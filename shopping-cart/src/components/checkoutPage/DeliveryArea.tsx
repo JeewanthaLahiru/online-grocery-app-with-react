@@ -11,6 +11,7 @@ import {AppState} from "../../store/reducers";
 import {useMutation} from "@apollo/client";
 import {CREATE_ORDER_MUTATION} from "../../graphql/mutations/Order";
 import {loading_end, loading_start} from "../../store/actions/LoadingActions";
+import ConfirmationMessage from "../homePage/SupportiveComponents/ConfirmationMessage";
 
 const DeliveryArea:React.FC = () => {
 
@@ -21,6 +22,10 @@ const DeliveryArea:React.FC = () => {
 
     const cartItems = useSelector((state:AppState)=> state.cartProduct.cartProducts);
     const purchasedItems:IPurchasedItems[] = [];
+    const [successMessage, setSuccessMessage] = useState(false);
+    const handleOnCloseSuccessMessage = () => {
+        setSuccessMessage(false);
+    }
     var subTotal = 0;
 
     cartItems.map((item, index) => {
@@ -70,12 +75,14 @@ const DeliveryArea:React.FC = () => {
         createOrder({variables:{
             input: orderDetails
             }}).then(()=> {
-                console.log("order created successfully")
-                loading_end(false);
+                console.log("order created successfully");
+                dispatch(loading_end(false));
+                setSuccessMessage(true);
+                reset();
             })
             .catch((err)=> {
-                console.log("order creation faild: " + err)
-                loading_end(false);
+                console.log("order creation faild: " + err);
+                dispatch(loading_end(false));
             })
         console.log(orderDetails);
     }
@@ -128,6 +135,10 @@ const DeliveryArea:React.FC = () => {
 
     return(
         <React.Fragment>
+            <ConfirmationMessage
+                message={"Order Created Successfully!"}
+                showAfterDeleteConfirmed={successMessage}
+                setShowAfterDeleteConfirmed={handleOnCloseSuccessMessage}/>
             <Row className="mx-0 mt-3 delivery-area">
                 <Col xs={12} lg={5} className="adver-area p-0 mb-2">
                     <Row className="mx-0 px-0">
