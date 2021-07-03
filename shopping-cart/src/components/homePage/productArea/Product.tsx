@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Col, Form, Image, Row} from "react-bootstrap";
 import {IProduct} from "../../../types/Products";
 import {Controller, useForm} from "react-hook-form";
@@ -10,6 +10,7 @@ import {
     deleteProductFromCart,
     updateProductFromCart
 } from "../../../store/actions/CartProductActions";
+import axios from "axios";
 type ProductTypeProps = {
     index: number,
     product: IProduct
@@ -25,7 +26,25 @@ const Product:React.FC<ProductTypeProps> = (props) => {
     const product_name = props.product.name;
     const product_price = props.product.price;
     const {handleSubmit, control, setValue} = useForm<FormData>();
-    console.log(props.product);
+    const [imageUrl , setImageUrl] = useState();
+    const generateGetUrl = 'http://localhost:4000/generate-get-url';
+
+    const getOptions = {
+        params: {
+            Key: product_image,
+            ContentType: product_image.split(/[.]/)[1]
+        }
+    };
+
+    axios
+        .get(generateGetUrl, getOptions)
+        .then(res => {
+            setImageUrl(res.data);
+        })
+        .catch(err => {
+            console.log("error in generateGet Url : \n"+ err);
+        })
+
     useEffect(() => {
         if (!getRelevantCartProductQty()) {
             setValue("productQty", "1");
@@ -80,16 +99,16 @@ const Product:React.FC<ProductTypeProps> = (props) => {
         <Col xs={6} md={4} lg={3} className="px-4 py-2">
             <Row className="product-class" >
                 <Col xs={12} className="image-container pt-3" >
-                    <Image src={product_image} alt={"coconut"} />
+                    <Image src={imageUrl} alt={"coconut"} />
                 </Col>
                 <Col xs={12} >
                     <h5 className="text-center mb-5 product-name" >{product_name}</h5>
                 </Col>
-                <Col xs={6} >
-                    <p className="text-center discount" >{product_price}.00</p>
+                <Col xs={12} >
+                    <p className="text-center discount" >{product_price}</p>
                 </Col>
-                <Col xs={6} >
-                    <p className="text-center price text-success" >Rs.{props.product.price}.<span className="small-text">00</span></p>
+                <Col xs={12} >
+                    <p className="text-center price text-success" >Rs.{props.product.price}<span className="small-text"></span></p>
                 </Col>
 
                 <Form onSubmit={handleSubmit(handleOnAddProductToCart)}>
