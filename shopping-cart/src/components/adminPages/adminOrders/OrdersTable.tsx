@@ -113,8 +113,8 @@ const OrdersTable:React.FC<OrdersTableProps> = (props) => {
                     <React.Fragment>
                         <i
                             className="feather icon-edit-2"
-                            onClick={() =>  handleOnEditClick(orderItem.orderId)}
-                        ></i>
+                            onClick={() =>  handleOnEditClick(orderItem.id)}
+                        />
                     </React.Fragment>
             })
         })
