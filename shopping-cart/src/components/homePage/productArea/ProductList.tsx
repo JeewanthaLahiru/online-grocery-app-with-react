@@ -24,25 +24,12 @@ const ProductList:React.FC = () => {
         })
         console.log(productsFromServer);
     }
-    const renderCategoryList = (category:string) =>{
-        return(
-            // eslint-disable-next-line
-            products.map((product:IProduct, index:number) => {
-                if(product.category === category){
-                    return(
-                        <Col key={index}  xs={12} sm={6} md={4} lg={3} className="m-0 px-3 py-2">
-                            <Product index={index} product={product} />
-                        </Col>
-                    )
-                }
-            })
-        )
-    }
 
-    const renderAllProducts = (category:string) => {
+
+    const renderCategoryNew = ( category :string) => {
         return(
-            products.map((product:IProduct, index:number)=>{
-                if(product.category === category){
+            productsFromServer.map((product:IProduct, index:number)=>{
+                if(category === product.category){
                     return(
                         <Product product={product} index={index} />
                     )
@@ -50,104 +37,42 @@ const ProductList:React.FC = () => {
             })
         )
     }
-    const renderGroceryList = () => {
-        return(
-            <Col xs={12} className="m-0 p-0">
-                <Row xs={12}>
-                    <Col className="mt-4 ml-3">
-                        <h5 className="text-left">Grocery</h5>
-                    </Col>
-                </Row>
-                <Row className="m-0 p-0" >
-                    {renderAllProducts('Grocery')}
-                </Row>
-            </Col>
-        )
-    }
-    const renderPharmacyList = () => {
-        return(
-            <Col xs={12} className="m-0 p-0">
-                <Row>
-                    <Col className="mt-4 ml-3">
-                        <h5 className="text-left">Pharmacy</h5>
-                    </Col>
-                </Row>
-                <Row className="m-0 p-0" >
-                    {renderAllProducts('Pharmacy')}
-                </Row>
-            </Col>
-        )
-    }
-    const renderFoodList = () => {
-        return(
-            <Col xs={12} className="m-0 p-0">
-                <Row>
-                    <Col className="mt-4 ml-3">
-                        <h5 className="text-left">Foods</h5>
-                    </Col>
-                </Row>
-                <Row className="m-0 p-0" >
-                    {renderAllProducts('Food')}
-                </Row>
-            </Col>
-        )
-    }
-    const renderElectronicList = () => {
-        return(
-            <Col xs={12} className="m-0 p-0">
-                <Row>
-                    <Col xs={12} className="mt-4 ml-3">
-                        <h5 className="text-left">Electronic</h5>
-                    </Col>
-                </Row>
-                <Row className="m-0 p-0" >
-                    {renderAllProducts('Electronic')}
-                </Row>
-            </Col>
-        )
-    }
-    const renderAllCategory = () => {
-        return(
-            <Col xs={12} className="m-0 p-0">
-                <Row className="product-list mb-5">
-                    {renderGroceryList()}
-                </Row>
-                <Row className="product-list mb-5">
-                    {renderPharmacyList()}
-                </Row>
-                <Row className="product-list mb-5">
-                    {renderFoodList()}
-                </Row>
-                <Row className="product-list mb-5">
-                    {renderElectronicList()}
-                </Row>
-            </Col>
-        );
-    }
-
-    const renderCategory = () => {
-        switch (currentCategory){
-            case 'Grocery':
-                return renderGroceryList();
-            case 'Pharmacy':
-                return renderPharmacyList();
-            case 'Food':
-                return renderFoodList();
-            case 'Electronic':
-                return renderElectronicList();
-            case '':
-                return renderAllCategory();
-            default:
-                return renderAllCategory();
-        }
-    }
     const renderProducts = () => {
         return(
-            productsFromServer.map((product:IProduct, index:number)=>{
-                return(
-                    <Product product={product} index={index} />
-                )
-            })
+            <React.Fragment>
+                {(currentCategory==="All" || currentCategory === "Grocery") &&
+                    <React.Fragment>
+                        <Col xs={12}>
+                            <h2 className="text-left" >Grocery</h2>
+                        </Col>
+                        {renderCategoryNew("Grocery")}
+                    </React.Fragment>
+                }
+                {(currentCategory==="All" || currentCategory ==="Pharmacy") &&
+                <React.Fragment>
+                    <Col xs={12}>
+                        <h2 className="text-left" >Pharmacy</h2>
+                    </Col>
+                    {renderCategoryNew("Pharmacy")}
+                </React.Fragment>
+                }
+                {(currentCategory==="All" || currentCategory ==="Food") &&
+                <React.Fragment>
+                    <Col xs={12}>
+                        <h2 className="text-left" >Food</h2>
+                    </Col>
+                    {renderCategoryNew("Food")}
+                </React.Fragment>
+                }
+                {(currentCategory==="All" || currentCategory ==="Electronic") &&
+                <React.Fragment>
+                    <Col xs={12}>
+                        <h2 className="text-left" >Electronic</h2>
+                    </Col>
+                    {renderCategoryNew("Electronic")}
+                </React.Fragment>
+                }
+            </React.Fragment>
         )
     }
 
