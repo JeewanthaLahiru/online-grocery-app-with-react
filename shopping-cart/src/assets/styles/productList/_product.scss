@@ -2,6 +2,7 @@ html{
   scroll-behavior: smooth;
 }
 .product-class{
+  font-family: "Quicksand", sans-serif;
   border: 1px solid #cdcdcd;
   border-radius: 5px;
 
@@ -16,7 +17,7 @@ html{
   .discount{
     color: #8d8d8d;
     text-decoration: line-through;
-    font-size: 1.2em;
+    font-size: 1em;
   }
   .price{
     font-weight: 600;
@@ -29,7 +30,10 @@ html{
   .cart-quantity{}
   .add-to-cart{
     .btn {
-      border-radius: 20px;
+      width: 100%;
+      font-weight: 800;
+      font-size: 0.9em;
+      min-height: 37px;
     }
   }
 
@@ -38,9 +42,9 @@ html{
 @media screen and (max-width: 1200px) {
   .product-class{
     .add-to-cart{
-      padding-left: 0;
+      //padding-left: 0;
       .btn {
-        border-radius: 20px;
+        //border-radius: 20px;
       }
     }
   }
@@ -49,9 +53,9 @@ html{
 @media screen and (max-width: 992px) {
   .product-class{
     .add-to-cart{
-      padding-left: 0;
+      //padding-left: 0;
       .btn {
-        border-radius: 20px;
+        //border-radius: 20px;
       }
     }
   }

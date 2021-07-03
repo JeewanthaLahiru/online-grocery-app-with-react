@@ -5,18 +5,86 @@ import {Controller, useForm, useFormState} from 'react-hook-form';
 import {deliveryTypes, paymentMethod} from "../../types/DeliveryTypes";
 import CardImg from "../../assets/images/checkout/credit.webp";
 import CashImg from "../../assets/images/checkout/money.webp";
+import {EOrderStatus, IOrderGql, IPurchasedItems} from "../../types/Orders";
+import {useDispatch, useSelector} from "react-redux";
+import {AppState} from "../../store/reducers";
+import {useMutation} from "@apollo/client";
+import {CREATE_ORDER_MUTATION} from "../../graphql/mutations/Order";
+import {loading_end, loading_start} from "../../store/actions/LoadingActions";
+import ConfirmationMessage from "../homePage/SupportiveComponents/ConfirmationMessage";
 
 const DeliveryArea:React.FC = () => {
 
     const [deliveryAddress, setDeliveryAddress] = useState(false);
+    const dispatch = useDispatch();
 
-    const {handleSubmit, control, formState: { errors }, reset, setValue} = useForm<deliveryTypes>();
+    const [createOrder] = useMutation(CREATE_ORDER_MUTATION);
+
+    const cartItems = useSelector((state:AppState)=> state.cartProduct.cartProducts);
+    const purchasedItems:IPurchasedItems[] = [];
+    const [successMessage, setSuccessMessage] = useState(false);
+    const handleOnCloseSuccessMessage = () => {
+        setSuccessMessage(false);
+    }
+    var subTotal = 0;
+
+    cartItems.map((item, index) => {
+        subTotal = subTotal + (item.product.price * item.qty);
+        purchasedItems.push({
+            itemId: String(item.id),
+            itemPrice: String(item.product.price),
+            itemName: item.product.name,
+            itemQty: String(item.qty)
+        })
+    })
+
+    const {handleSubmit, control, formState: { errors }, reset, setValue, getValues} = useForm<deliveryTypes>();
 
     const handleOnSubmit = (data:deliveryTypes) => {
+        dispatch(loading_start(true));
         if(!deliveryAddress){
             data.deliveryAddress = data.userAddress
         }
         console.log(data);
+        const orderDetails: IOrderGql = {
+            email: data.email,
+            billingDetails: {
+                name: data.fullName,
+                streetAddress: data.userAddress.address,
+                city: data.userAddress.city,
+                country: data.userAddress.country,
+                postalCode: data.userAddress.postalCode,
+                contact: data.userAddress.contactNumber
+            },
+            shippingDetails: {
+                name: data.fullName,
+                streetAddress: data.deliveryAddress.address,
+                city: data.deliveryAddress.city,
+                country: data.deliveryAddress.country,
+                postalCode: data.deliveryAddress.postalCode,
+                contact: data.deliveryAddress.contactNumber
+            },
+            paymentMethod: data.paymentMethod,
+            instructions: data.deliveryInstructions,
+            orderStatus: EOrderStatus.PENDING,
+            purchasedItems: purchasedItems,
+            subTotal: String(subTotal+100),
+            discount: "0"
+
+        }
+        createOrder({variables:{
+            input: orderDetails
+            }}).then(()=> {
+                console.log("order created successfully");
+                dispatch(loading_end(false));
+                setSuccessMessage(true);
+                reset();
+            })
+            .catch((err)=> {
+                console.log("order creation faild: " + err);
+                dispatch(loading_end(false));
+            })
+        console.log(orderDetails);
     }
 
     const paymentName = "paymentMethod";
@@ -67,6 +135,10 @@ const DeliveryArea:React.FC = () => {
 
     return(
         <React.Fragment>
+            <ConfirmationMessage
+                message={"Order Created Successfully!"}
+                showAfterDeleteConfirmed={successMessage}
+                setShowAfterDeleteConfirmed={handleOnCloseSuccessMessage}/>
             <Row className="mx-0 mt-3 delivery-area">
                 <Col xs={12} lg={5} className="adver-area p-0 mb-2">
                     <Row className="mx-0 px-0">
@@ -103,7 +175,15 @@ const DeliveryArea:React.FC = () => {
                                     render={({field})=>(
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
+                                    rules={{
+                                        required: true,
+                                    }}
                                 />
+                                {errors.fullName &&
+                                    <span className="text-danger float-left">
+                                        * This field is required
+                                    </span>
+                                }
                             </Col>
                             <Col xs={12} className="mt-2">
                                 <Form.Label className="text-left m-0">Address*</Form.Label>
@@ -114,7 +194,15 @@ const DeliveryArea:React.FC = () => {
                                     render={({field})=>(
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
+                                    rules={{
+                                        required: true
+                                    }}
                                 />
+                                {errors.userAddress?.address &&
+                                    <span className="text-danger float-left">
+                                        * This field is required
+                                    </span>
+                                }
                             </Col>
                             <Col xs={4} className="mt-2">
                                 <Form.Label className="text-left m-0">City/suburb*</Form.Label>
@@ -125,7 +213,15 @@ const DeliveryArea:React.FC = () => {
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
                                     name={'userAddress.city'}
+                                    rules={{
+                                        required: true
+                                    }}
                                 />
+                                {errors.userAddress?.city &&
+                                    <span className="text-danger float-left">
+                                        * This field is required
+                                    </span>
+                                }
                             </Col>
                             <Col xs={4} className="mt-2">
                                 <Form.Label className="text-left m-0">Postal code*</Form.Label>
@@ -136,7 +232,15 @@ const DeliveryArea:React.FC = () => {
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
                                     name={'userAddress.postalCode'}
+                                    rules={{
+                                        required: true
+                                    }}
                                 />
+                                {errors.userAddress?.postalCode &&
+                                    <span className="text-danger float-left">
+                                        * This field is required
+                                    </span>
+                                }
                             </Col>
                             <Col xs={4} className="mt-2">
                                 <Form.Label className="text-left m-0">Country*</Form.Label>
@@ -147,7 +251,15 @@ const DeliveryArea:React.FC = () => {
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
                                     name={'userAddress.country'}
+                                    rules={{
+                                        required: true
+                                    }}
                                 />
+                                {errors.userAddress?.country &&
+                                    <span className="text-danger float-left">
+                                        * This field is required
+                                    </span>
+                                }
                             </Col>
                             <Col xs={12} className="mt-2">
                                 <Form.Label className="text-left m-0">Contact Number*</Form.Label>
@@ -158,7 +270,15 @@ const DeliveryArea:React.FC = () => {
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
                                     name={'userAddress.contactNumber'}
+                                    rules={{
+                                        required: true
+                                    }}
                                 />
+                                {errors.userAddress?.contactNumber &&
+                                <span className="text-danger float-left">
+                                        * This field is required
+                                    </span>
+                                }
                             </Col>
                             <Col xs={6} className="mt-2">
                                 <Form.Label className="text-left m-0">Email*</Form.Label>
@@ -169,7 +289,15 @@ const DeliveryArea:React.FC = () => {
                                     render={({field})=>(
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
+                                    rules={{
+                                        required: true
+                                    }}
                                 />
+                                {errors.email &&
+                                <span className="text-danger float-left">
+                                        * This field is required
+                                    </span>
+                                }
                             </Col>
                             <Col xs={6} className="mt-2">
                                 <Form.Label className="text-left m-0">Retype Email*</Form.Label>
@@ -180,7 +308,15 @@ const DeliveryArea:React.FC = () => {
                                     render={({field})=>(
                                         <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                     )}
+                                    rules={{
+                                        required: true
+                                    }}
                                 />
+                                {errors.retypeEmail &&
+                                    <span className="text-danger float-left">
+                                        * This field is required
+                                    </span>
+                                }
                             </Col>
                             <Col xs={12} className="mt-2">
                                 <Form.Label className="text-left m-0">Choose your password*</Form.Label>
@@ -191,7 +327,15 @@ const DeliveryArea:React.FC = () => {
                                         <Form.Control size={"sm"} className="deliveryInput pr-5" {...field} />
                                     )}
                                     name={'password'}
+                                    rules={{
+                                        required: true
+                                    }}
                                 />
+                                {errors.password &&
+                                <span className="text-danger float-left">
+                                        * This field is required
+                                    </span>
+                                }
                             </Col>
                         </Row>
                         <Form.Label className="text-left mx-0 mt-4">Change Shipping address</Form.Label>
@@ -227,10 +371,10 @@ const DeliveryArea:React.FC = () => {
                                     <Form.Label className="text-left m-0">Delivery Address*</Form.Label>
                                     <Controller
                                         control={control}
-                                        render={(field)=>(
+                                        render={({field})=>(
                                             <Form.Control size={"sm"} className="deliveryInput" {...field} />
                                         )}
-                                        name={'userAddress.address'}
+                                        name={'deliveryAddress.address'}
                                         defaultValue={""}
                                     />
                                 </Col>
