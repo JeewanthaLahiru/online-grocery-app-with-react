@@ -132,7 +132,7 @@ const Product:React.FC<ProductTypeProps> = (props) => {
                                     />
                                 </Form.Group>
                             </Col>
-                            <Col xs={12} md={7} className="add-to-cart mx-0 mb-2" >
+                            <Col xs={12} md={7} className="add-to-cart mx-0 mb-2 pl-xs-1 pl-md-0" >
                                 {!getRelevantCartProductId() && <Button variant="success" type="submit">Add To Cart</Button> }
                                 {!!getRelevantCartProductId() && <Button variant="outline-primary" type="submit">Update</Button> }
                             </Col>
