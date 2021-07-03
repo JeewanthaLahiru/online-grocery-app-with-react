@@ -2,7 +2,7 @@ import {categoryState} from "../types/categoryTypes";
 import {categoryActionTypes, CHANGE_CATEGORY, ChangeCategory} from "../types/categoryActionTypes";
 
 const initialState:categoryState={
-    category: ""
+    category: "All"
 }
 
 export const categoryReducer = (
