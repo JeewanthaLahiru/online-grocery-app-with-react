@@ -37,3 +37,14 @@ export type IOrder = {
     discount : string,
     orderStatus : EOrderStatus
 }
+
+export type IOrderGql = {
+    email: string,
+    billingDetails: IAddressDetails,
+    shippingDetails: IAddressDetails,
+    instructions: string,
+    purchasedItems: IPurchasedItems[],
+    paymentMethod: string,
+    subtotal: string,
+    orderStatus: string
+}

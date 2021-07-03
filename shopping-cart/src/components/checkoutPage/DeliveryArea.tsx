@@ -5,10 +5,16 @@ import {Controller, useForm, useFormState} from 'react-hook-form';
 import {deliveryTypes, paymentMethod} from "../../types/DeliveryTypes";
 import CardImg from "../../assets/images/checkout/credit.webp";
 import CashImg from "../../assets/images/checkout/money.webp";
+import {EOrderStatus, IOrderGql, IPurchasedItems} from "../../types/Orders";
+import {useSelector} from "react-redux";
+import {AppState} from "../../store/reducers";
 
 const DeliveryArea:React.FC = () => {
 
     const [deliveryAddress, setDeliveryAddress] = useState(false);
+
+    const cartItems = useSelector((state:AppState)=> state.cartProduct.cartProducts);
+    const purchasedItems:any = [];
 
     const {handleSubmit, control, formState: { errors }, reset, setValue, getValues} = useForm<deliveryTypes>();
 
@@ -17,6 +23,29 @@ const DeliveryArea:React.FC = () => {
             data.deliveryAddress = data.userAddress
         }
         console.log(data);
+        /*const orderDetails: IOrderGql = {
+            email: data.email,
+            billingDetails: {
+                name: data.fullName,
+                streetAddress: data.userAddress.address,
+                city: data.userAddress.city,
+                country: data.userAddress.country,
+                postalCode: data.userAddress.postalCode,
+                contact: data.userAddress.contactNumber
+            },
+            shippingDetails: {
+                name: data.fullName,
+                streetAddress: data.deliveryAddress.address,
+                city: data.deliveryAddress.city,
+                country: data.deliveryAddress.country,
+                postalCode: data.deliveryAddress.postalCode,
+                contact: data.deliveryAddress.contactNumber
+            },
+            paymentMethod: data.paymentMethod,
+            instructions: data.deliveryInstructions,
+            orderStatus: EOrderStatus.PENDING,
+
+        }*/
     }
 
     const paymentName = "paymentMethod";
