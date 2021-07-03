@@ -1,25 +1,42 @@
-import React from "react";
+import React, {useState} from "react";
 import {Col} from "react-bootstrap";
 import {EOrderStatus, IOrder} from "../../../types/Orders";
 import {orders} from "../../../repository/Orders";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import {useHistory} from "react-router-dom";
+import {useQuery} from "@apollo/client";
+import {GET_ORDERS_FOR_TABLE} from "../../../graphql/queries/Order";
+import {useDispatch} from "react-redux";
+import {loading_start} from "../../../store/actions/LoadingActions";
 
 type OrdersTableProps = {
     isPending: boolean
 }
 const OrdersTable:React.FC<OrdersTableProps> = (props) => {
+    const dispatch = useDispatch();
+    const {loading, data, refetch, error} = useQuery(GET_ORDERS_FOR_TABLE);
+    //const [ordersFromServer, setOrdersFromServer] = useState<any>();
+    const orderList:any[] = [];
+    if(loading){
+        dispatch(loading_start(true));
+    }else{
+        dispatch(loading_start(false));
+        data.getOrders.map((order:any)=> {
+            orderList.push(order);
+        })
+    }
+    console.log(orderList);
     const history = useHistory();
-    const orderData:IOrder[] = [];
+    const orderData:any[] = [];
     if(props.isPending){
-        orders.map((orderitem) => {
+        orderList.map((orderitem) => {
             if(orderitem.orderStatus === EOrderStatus.PENDING){
                 orderData.push(orderitem);
             }
         })
     }else{
-        orders.map((orderitem) => {
+        orderList.map((orderitem) => {
             if(orderitem.orderStatus !== EOrderStatus.PENDING){
                 orderData.push(orderitem);
             }
@@ -82,13 +99,14 @@ const OrdersTable:React.FC<OrdersTableProps> = (props) => {
     const orderGenerator = (orders:IOrder[]) => {
         const generatedOrderList:any[] = [];
 
-        orders.map((orderItem:IOrder, index:number) => {
+        orders.map((orderItem:any, index:number) => {
             generatedOrderList.push({
                 id : index+1,
-                invoiceNumber : orderItem.orderId,
+                invoiceNumber : orderItem.id,
                 area :
                     <React.Fragment>
-                        {orderItem.deliveryDetails.city + "," + orderItem.deliveryDetails.postalCode}
+                        {orderItem.shippingDetails.city + "," + orderItem.shippingDetails.postalCode}
+                        {/*{orderItem.deliveryDetails.city + "," + orderItem.deliveryDetails.postalCode}*/}
                     </React.Fragment>,
                 value : orderItem.subTotal,
                 actions :

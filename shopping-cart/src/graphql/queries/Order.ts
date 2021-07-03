@@ -10,6 +10,7 @@ export const GET_ORDERS_FOR_TABLE = gql`
               postalCode
             }
             subTotal
+            orderStatus
         }
     }
 `;
