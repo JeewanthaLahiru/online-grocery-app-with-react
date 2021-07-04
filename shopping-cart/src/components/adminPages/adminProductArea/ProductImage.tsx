@@ -10,7 +10,7 @@ type productImageProps = {
 const ProductImage:React.FC<productImageProps> = (props) => {
 
     const [imageUrl , setImageUrl] = useState();
-    const generateGetUrl = 'http://localhost:4000/generate-get-url';
+    const generateGetUrl = 'http://ec2-54-174-33-34.compute-1.amazonaws.com:4000/generate-get-url';
 
     const getOptions = {
         params: {

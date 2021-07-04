@@ -27,7 +27,7 @@ const Product:React.FC<ProductTypeProps> = (props) => {
     const product_price = props.product.price;
     const {handleSubmit, control, setValue} = useForm<FormData>();
     const [imageUrl , setImageUrl] = useState();
-    const generateGetUrl = 'http://localhost:4000/generate-get-url';
+    const generateGetUrl = 'http://ec2-54-174-33-34.compute-1.amazonaws.com:4000/generate-get-url';
 
     const getOptions = {
         params: {
