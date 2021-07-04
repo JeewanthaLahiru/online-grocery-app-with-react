@@ -1,0 +1,2 @@
+export const GENERATE_PUT_URL = 'http://ec2-54-174-33-34.compute-1.amazonaws.com:4000/generate-put-url';
+export const GENERAGE_GET_URL = 'http://ec2-54-174-33-34.compute-1.amazonaws.com:4000/generate-get-url';
