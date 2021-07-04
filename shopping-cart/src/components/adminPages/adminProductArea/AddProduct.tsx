@@ -146,8 +146,8 @@ const AddProduct:React.FC = () => {
             const file = productImage;
             const key = productImage[0].name;
             const contentType = productImage[0].type;
-            const generatePutUrl = 'http://localhost:4000/generate-put-url';
-            const generateGetUrl = 'http://localhost:4000/generate-get-url';
+            const generatePutUrl = 'http://ec2-54-174-33-34.compute-1.amazonaws.com:4000/generate-put-url';
+            const generateGetUrl = 'http://ec2-54-174-33-34.compute-1.amazonaws.com:4000/generate-get-url';
             const options = {
                 params: {
                     Key: key,
