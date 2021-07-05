@@ -80,9 +80,9 @@ const AddProduct:React.FC = () => {
     const [productToUpdateState, setProductToUpdateState] = useState<any>();
     const [imageName, setImageName] = useState<any>(DefaultImg);
     const [imageUrl , setImageUrl] = useState<any>();
-    /*useEffect(()=> {
-        setImageName(imageUrl);
-    },[imageUrl])*/
+    const handleOnBackToProduct = () => {
+        history.push("/admin/product");
+    }
 
     const handleOnCheckButton = () => {
         if(productid){
@@ -293,7 +293,7 @@ const AddProduct:React.FC = () => {
                 <Col xs={12} xl={8}>
                     <Row className="mx-0 mx-0 add-product-title-row">
                         <Col xs={12}>
-                            <h6 className="text-left" >
+                            <h6 className="text-left back-to-product" onClick={handleOnBackToProduct} >
                                 <i className="feather icon-chevron-left"/>
                                 back to products
                             </h6>
