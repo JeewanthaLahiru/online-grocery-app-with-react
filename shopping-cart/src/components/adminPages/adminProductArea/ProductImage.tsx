@@ -19,15 +19,16 @@ const ProductImage:React.FC<productImageProps> = (props) => {
             ContentType: props.imageName.split(/[.]/)[1]
         }
     };
-
-    axios
-        .get(generateGetUrl, getOptions)
-        .then(res => {
-            setImageUrl(res.data);
-        })
-        .catch(err => {
-            console.log("error in generateGet Url : \n"+ err);
-        })
+    useEffect(() => {
+        axios
+            .get(generateGetUrl, getOptions)
+            .then(res => {
+                setImageUrl(res.data);
+            })
+            .catch(err => {
+                console.log("error in generateGet Url : \n"+ err);
+            })
+    },[props.imageName])
 
     return(
         <React.Fragment>

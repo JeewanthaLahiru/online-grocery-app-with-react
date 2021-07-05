@@ -38,11 +38,11 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
 
     }, [deleteConfirmed]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         if(data){
             setProductsFromServer(data.getproducts);
         }
-    }, [data]);
+    }, [data]);*/
 
 
     const history = useHistory();
@@ -65,6 +65,19 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
     const handleOnCloseModal = () => {
         setShowModal(false);
     }
+    if(loading){
+        return (
+            <React.Fragment>Loading...</React.Fragment>
+        )
+    }
+    if(error){
+        return (
+            <React.Fragment>Error...</React.Fragment>
+        )
+    }
+    //setProductsFromServer(data.getproducts);
+    const newdatafromserver = data.getproducts;
+    console.log(newdatafromserver);
 
     const columns = [
         {
@@ -166,34 +179,34 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
     const productGenerator = (products:IProduct[]): any[] => {
         const checkList : any[] = [];
 
-        productToRender.map((product:any, i: number) => {
+        newdatafromserver.map((product:any, i: number) => {
             checkList.push({
                 id:
                     <Form.Label>{i+1}</Form.Label>,
                 item:
                     <div className="image-container">
-                        <ProductImage imageName={product.value.image} data={data}/>
+                        <ProductImage imageName={product.image} data={data}/>
                     </div>,
                 name:
-                    <Form.Label className="text-left">{product.value.name}</Form.Label>,
+                    <Form.Label className="text-left">{product.name}</Form.Label>,
                 description:
-                    <Form.Label className="text-left" >{product.value.description}</Form.Label>,
+                    <Form.Label className="text-left" >{product.description}</Form.Label>,
                 prevprice:
-                    <Form.Label>{product.value.previousPrice }</Form.Label>,
+                    <Form.Label>{product.previousPrice }</Form.Label>,
                 price:
-                    <Form.Label>{product.value.price}</Form.Label>,
+                    <Form.Label>{product.price}</Form.Label>,
                 edit:
                     <React.Fragment>
                         <i
                             className="feather icon-edit-2 product-icon"
-                            onClick={() => HandleOnEdit(product.value.id)}
+                            onClick={() => HandleOnEdit(product.id)}
                         />
                     </React.Fragment>,
                 delete:
                     <React.Fragment>
                         <i
                             className="feather icon-trash product-icon"
-                            onClick={() => HandleOnDelete(product.value.id)}
+                            onClick={() => HandleOnDelete(product.id)}
                         />
                     </React.Fragment>,
             })
