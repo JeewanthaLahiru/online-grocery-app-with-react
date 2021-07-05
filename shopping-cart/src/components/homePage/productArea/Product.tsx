@@ -45,13 +45,13 @@ const Product:React.FC<ProductTypeProps> = (props) => {
             console.log("error in generateGet Url : \n"+ err);
         })
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (!getRelevantCartProductQty()) {
             setValue("productQty", "1");
             return;
         }
         setValue("productQty", getRelevantCartProductQty());
-    });
+    });*/
 
     const cartProducts: ICartProduct[] = useSelector((state:AppState)=>state.cartProduct.cartProducts);
 
@@ -127,6 +127,7 @@ const Product:React.FC<ProductTypeProps> = (props) => {
                                                     min={1}
                                                 />
                                             )}
+                                        defaultValue={"1"}
                                         name={'productQty'}
                                         control={control}
                                     />

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import DefaultImg from "../../../assets/images/default/default.jpg";
 import {Image} from 'react-bootstrap';
 import axios from "axios";
+import {GENERAGE_GET_URL} from "../../../assets/variables/APIKeys";
 
 type productImageProps = {
     imageName: string,
@@ -10,7 +11,7 @@ type productImageProps = {
 const ProductImage:React.FC<productImageProps> = (props) => {
 
     const [imageUrl , setImageUrl] = useState();
-    const generateGetUrl = 'http://ec2-54-174-33-34.compute-1.amazonaws.com:4000/generate-get-url';
+    const generateGetUrl = GENERAGE_GET_URL;
 
     const getOptions = {
         params: {
