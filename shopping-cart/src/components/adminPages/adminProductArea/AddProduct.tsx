@@ -18,6 +18,8 @@ import {GET_ONE_PRODUCT, GET_PRODUCTS} from "../../../graphql/queries/Product";
 import {GENERAGE_GET_URL} from "../../../assets/variables/APIKeys";
 import {IProduct} from "../../../types/Products";
 import LoadingScreen from "../../homePage/LoadingScreen";
+import ProductImage from "./ProductImage";
+import AddProductImage from "./AddProductImage";
 interface ICategory {
     value: string;
     label: string;
@@ -54,6 +56,23 @@ const AddProduct:React.FC = () => {
             id: productid
             }}
     });
+    const onDrop = (acceptedFiles: File[]) => {
+        setProductImage(
+            acceptedFiles.map(
+                file => Object.assign(file, {
+                    preview: URL.createObjectURL(file)
+                })
+            )
+        );
+    }
+    const {
+        getRootProps,
+        getInputProps,
+        isDragActive,
+        isDragAccept,
+        isDragReject
+    } = useDropzone({ accept: "image/*", onDrop: onDrop, multiple: false });
+
 
 
 
@@ -139,22 +158,8 @@ const AddProduct:React.FC = () => {
     }*/
 
 
-    const onDrop = (acceptedFiles: File[]) => {
-        setProductImage(
-            acceptedFiles.map(
-                file => Object.assign(file, {
-                    preview: URL.createObjectURL(file)
-                })
-            )
-        );
-    }
-    /*const {
-        getRootProps,
-        getInputProps,
-        isDragActive,
-        isDragAccept,
-        isDragReject
-    } = useDropzone({ accept: "image/!*", onDrop: onDrop, multiple: false });*/
+
+
 
     /*useEffect(
         () => () => {
@@ -310,21 +315,22 @@ const AddProduct:React.FC = () => {
                             className="add-product-image-col"
                         >
 
-                            {/*<Container
+                            <Container
                                 {...getRootProps({ isDragActive, isDragAccept, isDragReject })}
                             >
                                 <input {...getInputProps()} />
                                 {thumbs}
-                                {productImage.length == 0 && <Image src={
-                                    imageUrl}/>}
-                                <Image src={imageName}/>
+                                {/*{productImage.length == 0 && <ProductImage imageName={} data={}}*/}
+                                {isToUpdate &&
+                                    <AddProductImage imageName={String(newProductFromServer?.image)} />
+                                }
                                 <Row className="add-product-text align-items-center">
                                     <Col xs={12}>
                                         <h1>Drop image here or click to upload</h1>
                                     </Col>
 
                                 </Row>
-                            </Container>*/}
+                            </Container>
 
                         </Col>
                         <Col xs={12} sm={6}>
