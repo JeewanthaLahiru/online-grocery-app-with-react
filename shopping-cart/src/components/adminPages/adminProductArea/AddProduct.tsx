@@ -15,6 +15,9 @@ import ConfirmationMessage from "../../homePage/SupportiveComponents/Confirmatio
 import {useDispatch} from "react-redux";
 import {loading_end, loading_start} from "../../../store/actions/LoadingActions";
 import {GET_ONE_PRODUCT, GET_PRODUCTS} from "../../../graphql/queries/Product";
+import {GENERAGE_GET_URL} from "../../../assets/variables/APIKeys";
+import {IProduct} from "../../../types/Products";
+import LoadingScreen from "../../homePage/LoadingScreen";
 interface ICategory {
     value: string;
     label: string;
@@ -44,6 +47,8 @@ const AddProduct:React.FC = () => {
     var productToChange: any = [];
 
     const {productid} = useParams<ParamTypes>();
+
+    const [isToUpdate, setIsToUpdate] = useState<boolean>(!!productid);
     const {loading, error, data, refetch} = useQuery(GET_ONE_PRODUCT, {
         variables: {input: {
             id: productid
@@ -54,9 +59,11 @@ const AddProduct:React.FC = () => {
 
     //const updateData:any = data.getOneProduct;
     const [productToUpdateState, setProductToUpdateState] = useState<any>();
-    const [imageName, setImageName] = useState<any>("");
+    const [imageName, setImageName] = useState<any>(DefaultImg);
     const [imageUrl , setImageUrl] = useState<any>();
-
+    /*useEffect(()=> {
+        setImageName(imageUrl);
+    },[imageUrl])*/
 
     const handleOnCheckButton = () => {
         if(productid){
@@ -70,20 +77,45 @@ const AddProduct:React.FC = () => {
     }
 
     const { handleSubmit, control, formState:{errors}, reset, setValue, register} = useForm<IAddProductForm>();
+    const [prdName, setPrdName] = useState();
+    let newProductFromServer: IProduct | null = null;
     const [productImage, setProductImage] = useState<File[]>([]);
-    if(productid !== undefined){
+
+    if (loading) {
+        dispatch(loading_start(true));
+        return <React.Fragment>loading</React.Fragment>
+    };
+    if (error) return <React.Fragment>`Error! ${error.message}`</React.Fragment>;
+    newProductFromServer = data.getOneProduct;
+    dispatch(loading_start(false));
+    console.log(newProductFromServer);
+    /*if(loading){
+        dispatch(loading_start(true));
+        console.log("now loading");
+    }else{
+        dispatch(loading_start(false));
+        console.log("loading stop");
+        newProductFromServer = data.getOneProduct;
+        console.log(newProductFromServer);
+        console.log(isToUpdate);
+        console.log(newProductFromServer?.name);
+    }*/
+    //dispatch(loading_start(false));
+
+    /*if(productid !== undefined){
         if(loading){
             dispatch(loading_start(true));
         }else{
             dispatch(loading_end(false));
             if(productid !== undefined){
-                setValue("title", data? data.getOneProduct.name: "");
+                setPrdName(data.getOneProduct.name);
+                /!*setValue("title", data? data.getOneProduct.name: "");
                 setValue("price", data.getOneProduct.price);
                 setValue("previousPrice", data.getOneProduct.previousPrice);
                 setValue("category", data.getOneProduct.category);
-                setValue("description", data.getOneProduct.description);
+                setValue("description", data.getOneProduct.description);*!/
 
-                const generateGetUrl = 'http://localhost:4000/generate-get-url';
+                const generateGetUrl = GENERAGE_GET_URL;
 
                 const getOptions = {
                     params: {
@@ -104,7 +136,7 @@ const AddProduct:React.FC = () => {
             }
 
         }
-    }
+    }*/
 
 
     const onDrop = (acceptedFiles: File[]) => {
@@ -116,20 +148,20 @@ const AddProduct:React.FC = () => {
             )
         );
     }
-    const {
+    /*const {
         getRootProps,
         getInputProps,
         isDragActive,
         isDragAccept,
         isDragReject
-    } = useDropzone({ accept: "image/*", onDrop: onDrop, multiple: false });
+    } = useDropzone({ accept: "image/!*", onDrop: onDrop, multiple: false });*/
 
-    useEffect(
+    /*useEffect(
         () => () => {
             productImage.forEach((file:any) => URL.revokeObjectURL(file.preview));
         },
         [productImage]
-    );
+    );*/
 
     const thumbs = productImage.map((file: any) => (
         <div key={file.name}>
@@ -278,20 +310,21 @@ const AddProduct:React.FC = () => {
                             className="add-product-image-col"
                         >
 
-                            <Container
+                            {/*<Container
                                 {...getRootProps({ isDragActive, isDragAccept, isDragReject })}
                             >
                                 <input {...getInputProps()} />
                                 {thumbs}
                                 {productImage.length == 0 && <Image src={
-                                    imageUrl? imageUrl : DefaultImg}/>}
+                                    imageUrl}/>}
+                                <Image src={imageName}/>
                                 <Row className="add-product-text align-items-center">
                                     <Col xs={12}>
                                         <h1>Drop image here or click to upload</h1>
                                     </Col>
 
                                 </Row>
-                            </Container>
+                            </Container>*/}
 
                         </Col>
                         <Col xs={12} sm={6}>
@@ -300,7 +333,7 @@ const AddProduct:React.FC = () => {
                                     <Col xs={12} className="mt-0">
                                         <Form.Label className="float-left m-0">Title</Form.Label>
                                         <Controller
-                                            defaultValue={ ""}
+                                            defaultValue={isToUpdate? newProductFromServer?.name: ""}
                                             control={control}
                                             render={({field})=>(
                                                 <Form.Control size={"sm"} type="text" {...field}/>

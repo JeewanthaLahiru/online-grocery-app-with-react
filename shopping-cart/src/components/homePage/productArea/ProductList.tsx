@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Col, Row} from "react-bootstrap";
 import Product from "./Product";
 import {products} from "../../../repository/Products";
@@ -15,15 +15,13 @@ const ProductList:React.FC = () => {
     const dispatch = useDispatch();
     const {loading, data, error, refetch} = useQuery(GET_PRODUCTS);
     const productsFromServer:any = [];
-    if(loading){
-        dispatch(loading_start(true));
-    }else{
-        dispatch(loading_end(false));
-        data.getproducts.map((product:any)=>{
-            productsFromServer.push(product);
-        })
-        console.log(productsFromServer);
-    }
+    if (loading) return <React.Fragment>'Loading...'</React.Fragment>;
+    if (error) return <React.Fragment>`Error! ${error.message}`</React.Fragment>;
+    //dispatch(loading_end(false));
+    data.getproducts.map((product:any)=>{
+        productsFromServer.push(product);
+    })
+    console.log(productsFromServer);
 
 
     const renderCategoryNew = ( category :string) => {
