@@ -4,6 +4,7 @@ import {Col, Row, Image} from "react-bootstrap";
 import {useDispatch} from "react-redux";
 import {deleteProductFromCart} from "../../../store/actions/CartProductActions";
 import axios from "axios";
+import {GENERAGE_GET_URL} from "../../../assets/variables/APIKeys";
 
 type CartProductProps = {
     cartProduct: ICartProduct,
@@ -15,7 +16,7 @@ const CartProduct:React.FC<CartProductProps> = (props) => {
     //start
 
     const [imageUrl , setImageUrl] = useState();
-    const generateGetUrl = 'http://localhost:4000/generate-get-url';
+    const generateGetUrl = GENERAGE_GET_URL;
 
     const getOptions = {
         params: {
