@@ -5,6 +5,7 @@ import {Controller, useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
 import {ICartProduct} from "../../../types/CartProducts";
 import {AppState} from "../../../store/reducers";
+import DefaultImg from "../../../assets/images/default/default.jpg";
 import {
     addProductToCart,
     deleteProductFromCart,
@@ -35,15 +36,18 @@ const Product:React.FC<ProductTypeProps> = (props) => {
             ContentType: product_image.split(/[.]/)[1]
         }
     };
+    useEffect(()=> {
+        axios
+            .get(generateGetUrl, getOptions)
+            .then(res => {
+                setImageUrl(res.data);
+            })
+            .catch(err => {
+                console.log("error in generateGet Url : \n"+ err);
+            })
+    },[product_image])
 
-    axios
-        .get(generateGetUrl, getOptions)
-        .then(res => {
-            setImageUrl(res.data);
-        })
-        .catch(err => {
-            console.log("error in generateGet Url : \n"+ err);
-        })
+
 
     /*useEffect(() => {
         if (!getRelevantCartProductQty()) {
@@ -71,6 +75,11 @@ const Product:React.FC<ProductTypeProps> = (props) => {
         })
         return relevantCartProductQty.toString()
     }
+    useEffect(() => {
+        if(Number(getRelevantCartProductQty()) > 0){
+            setValue("productQty", getRelevantCartProductQty());
+        }
+    })
 
     const handleOnAddProductToCart = (data:FormData) => {
         if(data.productQty === '0' && !getRelevantCartProductQty()){
@@ -99,7 +108,7 @@ const Product:React.FC<ProductTypeProps> = (props) => {
         <Col xs={6} md={4} lg={3} className="px-4 py-2">
             <Row className="product-class" >
                 <Col xs={12} className="image-container pt-3" >
-                    <Image src={imageUrl} alt={"coconut"} />
+                    <Image src={imageUrl? imageUrl : DefaultImg} alt={"coconut"} />
                 </Col>
                 <Col xs={12} >
                     <h5 className="text-center mb-5 product-name" >{product_name}</h5>
