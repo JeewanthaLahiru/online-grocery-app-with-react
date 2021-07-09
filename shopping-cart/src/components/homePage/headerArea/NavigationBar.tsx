@@ -23,7 +23,7 @@ const NavigationBar:React.FC = () => {
 
     return (
         <Container fluid={true} className="navBar">
-            <Navbar bg="white" >
+            <Navbar bg="white" className="px-0" >
 
                 <DropdownButton title="Categories" variant="outline-secondary">
                     <Dropdown.Item className='dropdown-item' href='#product-list'
@@ -45,15 +45,15 @@ const NavigationBar:React.FC = () => {
                 <Nav.Link href="#link" className="text-secondary" >Contact Us</Nav.Link>
                 {logedState &&
                     <div className="ml-auto" >
-                        <Button variant={"light"} onClick={handleOnProfileClick} className="admin-nav" >
+                        <Button variant={"outline-success"} onClick={handleOnProfileClick} className="admin-nav mr-1" >
                             <i className="feather icon-user" />
                             &nbsp;profile
                         </Button>
-                        <Button variant={"light"} onClick={handleOnProductClick} className="admin-nav">
+                        <Button variant={"outline-success"} onClick={handleOnProductClick} className="admin-nav mr-1">
                             <i className="feather icon-shopping-bag" />
                             &nbsp;Product
                         </Button>
-                        <Button variant={"light"} onClick={handleOnOrderClick} className="admin-nav">
+                        <Button variant={"outline-success"} onClick={handleOnOrderClick} className="admin-nav">
                             <i className="feather icon-list" />
                             &nbsp;Orders
                         </Button>

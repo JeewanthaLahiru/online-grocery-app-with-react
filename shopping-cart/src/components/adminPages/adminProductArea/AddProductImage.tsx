@@ -4,22 +4,22 @@ import {Image} from 'react-bootstrap';
 import axios from "axios";
 import {GENERAGE_GET_URL} from "../../../assets/variables/APIKeys";
 
-type productImageProps = {
-    imageName: string,
-    data: any
+type addProductImageProps = {
+    imageName: string
 }
-const ProductImage:React.FC<productImageProps> = (props) => {
+const AddProductImage:React.FC<addProductImageProps> = (props) => {
 
     const [imageUrl , setImageUrl] = useState();
     const generateGetUrl = GENERAGE_GET_URL;
 
-    const getOptions = {
-        params: {
-            Key: props.imageName,
-            ContentType: props.imageName.split(/[.]/)[1]
-        }
-    };
     useEffect(() => {
+        const getOptions = {
+            params: {
+                Key: props.imageName,
+                ContentType: props.imageName.split(/[.]/)[1]
+            }
+        };
+
         axios
             .get(generateGetUrl, getOptions)
             .then(res => {
@@ -28,13 +28,14 @@ const ProductImage:React.FC<productImageProps> = (props) => {
             .catch(err => {
                 console.log("error in generateGet Url : \n"+ err);
             })
-    },[props.imageName])
+    }, [])
+
 
     return(
         <React.Fragment>
-            <Image src={imageUrl? imageUrl : DefaultImg}/>
+            <Image src={imageUrl}/>
         </React.Fragment>
     )
 }
 
-export default ProductImage;
+export default AddProductImage;

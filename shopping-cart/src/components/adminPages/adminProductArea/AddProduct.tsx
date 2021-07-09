@@ -15,6 +15,11 @@ import ConfirmationMessage from "../../homePage/SupportiveComponents/Confirmatio
 import {useDispatch} from "react-redux";
 import {loading_end, loading_start} from "../../../store/actions/LoadingActions";
 import {GET_ONE_PRODUCT, GET_PRODUCTS} from "../../../graphql/queries/Product";
+import {GENERAGE_GET_URL, GENERATE_PUT_URL} from "../../../assets/variables/APIKeys";
+import {IProduct} from "../../../types/Products";
+import LoadingScreen from "../../homePage/LoadingScreen";
+import ProductImage from "./ProductImage";
+import AddProductImage from "./AddProductImage";
 interface ICategory {
     value: string;
     label: string;
@@ -44,69 +49,13 @@ const AddProduct:React.FC = () => {
     var productToChange: any = [];
 
     const {productid} = useParams<ParamTypes>();
+
+    const [isToUpdate, setIsToUpdate] = useState<boolean>(!!productid);
     const {loading, error, data, refetch} = useQuery(GET_ONE_PRODUCT, {
         variables: {input: {
             id: productid
             }}
     });
-
-
-
-    //const updateData:any = data.getOneProduct;
-    const [productToUpdateState, setProductToUpdateState] = useState<any>();
-    const [imageName, setImageName] = useState<any>("");
-    const [imageUrl , setImageUrl] = useState<any>();
-
-
-    const handleOnCheckButton = () => {
-        if(productid){
-            setUpdateProduct(true);
-            productToChange  = products.find(({id})=> productid === id.toString());
-
-        }else{
-            setUpdateProduct(false);
-        }
-        history.push("/admin/product");
-    }
-
-    const { handleSubmit, control, formState:{errors}, reset, setValue, register} = useForm<IAddProductForm>();
-    const [productImage, setProductImage] = useState<File[]>([]);
-    if(productid !== undefined){
-        if(loading){
-            dispatch(loading_start(true));
-        }else{
-            dispatch(loading_end(false));
-            if(productid !== undefined){
-                setValue("title", data? data.getOneProduct.name: "");
-                setValue("price", data.getOneProduct.price);
-                setValue("previousPrice", data.getOneProduct.previousPrice);
-                setValue("category", data.getOneProduct.category);
-                setValue("description", data.getOneProduct.description);
-
-                const generateGetUrl = 'http://localhost:4000/generate-get-url';
-
-                const getOptions = {
-                    params: {
-                        Key: data.getOneProduct.image,
-                        ContentType: data.getOneProduct.image.split(/[.]/)[1]
-                    }
-                };
-
-                axios
-                    .get(generateGetUrl, getOptions)
-                    .then(res => {
-                        setImageUrl(res.data);
-                    })
-                    .catch(err => {
-                        console.log("error in generateGet Url : \n"+ err);
-                    })
-
-            }
-
-        }
-    }
-
-
     const onDrop = (acceptedFiles: File[]) => {
         setProductImage(
             acceptedFiles.map(
@@ -124,12 +73,44 @@ const AddProduct:React.FC = () => {
         isDragReject
     } = useDropzone({ accept: "image/*", onDrop: onDrop, multiple: false });
 
-    useEffect(
-        () => () => {
-            productImage.forEach((file:any) => URL.revokeObjectURL(file.preview));
-        },
-        [productImage]
-    );
+
+
+
+    //const updateData:any = data.getOneProduct;
+    const [productToUpdateState, setProductToUpdateState] = useState<any>();
+    const [imageName, setImageName] = useState<any>(DefaultImg);
+    const [imageUrl , setImageUrl] = useState<any>();
+    const handleOnBackToProduct = () => {
+        history.push("/admin/product");
+    }
+
+    const handleOnCheckButton = () => {
+        if(productid){
+            setUpdateProduct(true);
+            productToChange  = products.find(({id})=> productid === id.toString());
+
+        }else{
+            setUpdateProduct(false);
+        }
+        history.push("/admin/product");
+    }
+
+    const { handleSubmit, control, formState:{errors}, reset, setValue, register} = useForm<IAddProductForm>();
+    const [prdName, setPrdName] = useState();
+    let newProductFromServer: IProduct | null = null;
+    const [productImage, setProductImage] = useState<File[]>([]);
+
+    if (loading) {
+        return <React.Fragment>
+            <LoadingScreen/>
+        </React.Fragment>
+    }
+    if (error) return <React.Fragment>`Error! ${error.message}`</React.Fragment>;
+    if(isToUpdate){
+        newProductFromServer = data.getOneProduct;
+    }
+
+
 
     const thumbs = productImage.map((file: any) => (
         <div key={file.name}>
@@ -141,13 +122,14 @@ const AddProduct:React.FC = () => {
 
 
     const handleOnSubmit = async (formData:any) => {
-        if(productid === undefined){
-            dispatch(loading_start(true));
+        dispatch(loading_start(true));
+        if(!isToUpdate){
+
             const file = productImage;
             const key = productImage[0].name;
             const contentType = productImage[0].type;
-            const generatePutUrl = 'http://localhost:4000/generate-put-url';
-            const generateGetUrl = 'http://localhost:4000/generate-get-url';
+            const generatePutUrl = 'http://ec2-54-174-33-34.compute-1.amazonaws.com:4000/generate-put-url';
+            const generateGetUrl = 'http://ec2-54-174-33-34.compute-1.amazonaws.com:4000/generate-get-url';
             const options = {
                 params: {
                     Key: key,
@@ -180,30 +162,81 @@ const AddProduct:React.FC = () => {
                 console.log("erron in generate put url : \n" + err);
             })
         }else{
-            updateProductMutation({variables:{
-                    input:{
-                        id: productid,
-                        name: formData.title,
-                        category: formData.category,
-                        price: formData.price,
-                        image: data.getOneProduct.image,
-                        previousPrice: formData.previousPrice,
-                        description: formData.description
+            if(productImage.length !==0){
+                const file = productImage;
+                const key = productImage[0].name;
+                const contentType = productImage[0].type;
+                const generatePutUrl = GENERATE_PUT_URL;
+                const options = {
+                    params: {
+                        Key: key,
+                        ContentType: contentType
+                    },
+                    headers: {
+                        'Content-Type':contentType
                     }
-                }}).then(()=>{
-                console.log("product updating success");
-                window.location.reload();
-                setProductAdded(true);
-                dispatch(loading_end(false));
-            }).catch((err) => {
-                console.log("Product update error: \n" + err);
-            })
+                };
+
+                await axios.get(generatePutUrl, options).then(res => {
+                    const putURL = res.data;
+                    axios
+                        .put(putURL, file[0], options)
+                        .then(res => {
+                            setImageUrl(productImage[0].name);
+                            updateProductMutation({variables:{
+                                    input:{
+                                        id: productid,
+                                        name: formData.title,
+                                        category: formData.category,
+                                        price: formData.price,
+                                        image: key,
+                                        previousPrice: formData.previousPrice,
+                                        description: formData.description
+                                    }
+                                }}).then(()=>{
+                                console.log("product updating success");
+                                window.location.reload();
+                                setProductAdded(true);
+                            }).catch((err) => {
+                                console.log("Product update error: \n" + err);
+                            })
+
+                        })
+                        .catch(err => {
+                            console.log("error in putting file : \n"+ err);
+                        })
+                }).catch(err => {
+                    console.log("erron in generate put url : \n" + err);
+                })
+            }else{
+                updateProductMutation({variables:{
+                        input:{
+                            id: productid,
+                            name: formData.title,
+                            category: formData.category,
+                            price: formData.price,
+                            image: newProductFromServer?.image,
+                            previousPrice: formData.previousPrice,
+                            description: formData.description
+                        }
+                    }}).then(()=>{
+                    console.log("product updating success");
+                    window.location.reload();
+                    setProductAdded(true);
+                }).catch((err) => {
+                    console.log("Product update error: \n" + err);
+                })
+            }
+
         }
 
 
     }
+    const putImageAndGetUrl = async () => {
+
+    }
     const handleOnGrapqlImageAdding = (data:any, key: string) => {
-        if(productid !== undefined){
+        if(isToUpdate){
             updateProductMutation({variables:{
                 input:{
                     id: productToUpdateState.id,
@@ -217,7 +250,6 @@ const AddProduct:React.FC = () => {
                     console.log("product updating success");
                     window.location.reload();
                     setProductAdded(true);
-                    dispatch(loading_end(false));
             }).catch((err) => {
                 console.log("Product update error: \n" + err);
             })
@@ -234,7 +266,6 @@ const AddProduct:React.FC = () => {
                 }}).then(() => {
                     window.location.reload();
                     setProductAdded(true);
-                    dispatch(loading_end(false));
                 console.log("product adding is success");
             }).catch(err => {
                 console.log("product adding error" + err);
@@ -262,7 +293,7 @@ const AddProduct:React.FC = () => {
                 <Col xs={12} xl={8}>
                     <Row className="mx-0 mx-0 add-product-title-row">
                         <Col xs={12}>
-                            <h6 className="text-left" >
+                            <h6 className="text-left back-to-product" onClick={handleOnBackToProduct} >
                                 <i className="feather icon-chevron-left"/>
                                 back to products
                             </h6>
@@ -283,8 +314,12 @@ const AddProduct:React.FC = () => {
                             >
                                 <input {...getInputProps()} />
                                 {thumbs}
-                                {productImage.length == 0 && <Image src={
-                                    imageUrl? imageUrl : DefaultImg}/>}
+                                {/*{productImage.length == 0 && <ProductImage imageName={} data={}}*/}
+                                {!isToUpdate && productImage.length ==0 && <Image src={DefaultImg}/>
+                                }
+                                {isToUpdate && productImage.length == 0 &&
+                                    <AddProductImage imageName={String(newProductFromServer?.image)} />
+                                }
                                 <Row className="add-product-text align-items-center">
                                     <Col xs={12}>
                                         <h1>Drop image here or click to upload</h1>
@@ -300,7 +335,7 @@ const AddProduct:React.FC = () => {
                                     <Col xs={12} className="mt-0">
                                         <Form.Label className="float-left m-0">Title</Form.Label>
                                         <Controller
-                                            defaultValue={ ""}
+                                            defaultValue={isToUpdate? newProductFromServer?.name: ""}
                                             control={control}
                                             render={({field})=>(
                                                 <Form.Control size={"sm"} type="text" {...field}/>
@@ -323,8 +358,7 @@ const AddProduct:React.FC = () => {
                                     <Col xs={12} className="mt-2">
                                         <Form.Label className="float-left m-0" >Previous price</Form.Label>
                                         <Controller
-                                            defaultValue={
-                                                 ""}
+                                            defaultValue={isToUpdate? String(newProductFromServer?.previousPrice): ""}
                                             render={({field}) => (
                                                 <Form.Control
                                                     size={"sm"}
@@ -347,9 +381,7 @@ const AddProduct:React.FC = () => {
                                     <Col xs={12} className="mt-2">
                                         <Form.Label className="float-left m-0" >Price</Form.Label>
                                         <Controller
-                                            defaultValue={
-                                                 ""
-                                            }
+                                            defaultValue={isToUpdate? String(newProductFromServer?.price): ""}
                                             render={({field}) => (
                                                 <Form.Control
                                                     size={"sm"}
@@ -372,7 +404,7 @@ const AddProduct:React.FC = () => {
                                         <Form.Label className="float-left m-0">Category</Form.Label>
                                         <br/>
                                         <Controller
-                                            defaultValue={ ""}
+                                            defaultValue={isToUpdate? newProductFromServer?.category: ""}
                                             control={control}
                                             render={({field:{onChange, value, name, ref}}) => (
 
@@ -401,9 +433,7 @@ const AddProduct:React.FC = () => {
                                         <Form.Label className="float-left m-0" >Description</Form.Label>
                                         <Controller
                                             control={control}
-                                            defaultValue={
-                                                ""
-                                            }
+                                            defaultValue={isToUpdate? String(newProductFromServer?.description): ""}
                                             render={({field}) => (
                                                 <Form.Control as="textarea" rows={5} size={"sm"} {...field} />
                                             )}
