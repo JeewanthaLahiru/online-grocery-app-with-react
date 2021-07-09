@@ -1,30 +1,84 @@
-import React from "react";
-import {Col, Image, Form} from "react-bootstrap";
+import React, {useEffect, useState} from "react";
+import {Col, Image, Form, Button, Modal, Toast} from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import { products } from "../../../repository/Products";
 import {IProduct} from "../../../types/Products";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import {useHistory} from 'react-router-dom';
+import {useMutation, useQuery} from "@apollo/client";
+import {GET_PRODUCTS} from "../../../graphql/queries/Product";
+import ProductImage from "./ProductImage";
+import {DELETE_PRODUCT_MUTATION} from "../../../graphql/mutations/Product";
+import ConfirmationMessage from "../../homePage/SupportiveComponents/ConfirmationMessage";
+import {useDispatch} from "react-redux";
+import {loading_end, loading_start} from "../../../store/actions/LoadingActions";
 
 type ProductTableProps = {
     category: string
 }
 
 const ProductTable:React.FC<ProductTableProps> = (props) => {
+
+    const dispatch = useDispatch();
+
+    const {loading, error, data, refetch} = useQuery(GET_PRODUCTS);
+    const [productsFromServer, setProductsFromServer] = useState([]);
+    const [deleteConfirmed, setDeleteConfirmed] = useState("");
+    const [showAfterDeleteConfirmed, setShowAfterDeleteConfirmed] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [delProdId, setDelProdId] = useState<string>("");
+    const [deleteProduct] = useMutation(DELETE_PRODUCT_MUTATION);
+
+    loading? dispatch(loading_start(true)): dispatch(loading_end(false));
+
+
+    useEffect(() => {
+        console.log("delete confirmed");
+        refetch();
+
+    }, [deleteConfirmed]);
+
+    /*useEffect(() => {
+        if(data){
+            setProductsFromServer(data.getproducts);
+        }
+    }, [data]);*/
+
+
     const history = useHistory();
 
-    const productToRender:IProduct[] = [];
-    if(props.category == "All"){
-        products.map((productItem) => {
-            productToRender.push(productItem);
-        })
-    }else{
-        products.map((productItem)=>{
-            if(productItem.category === props.category){
-                productToRender.push(productItem);
-            }
-        })
+    const productToRender:any = [];
+    const renderProducts = () => {
+        if(props.category == "All"){
+            productsFromServer.map((productItem, index) => {
+                productToRender.push({key: index , value: productItem});
+            })
+        }else{
+            productsFromServer.map((productItem:any, index) => {
+                if(productItem.category == props.category){
+                    productToRender.push({key: index , value: productItem});
+                }
+            })
+        }
     }
+    renderProducts();
+    const handleOnCloseModal = () => {
+        setShowModal(false);
+    }
+    if(loading){
+        return (
+            <React.Fragment>Loading...</React.Fragment>
+        )
+    }
+    if(error){
+        return (
+            <React.Fragment>Error...</React.Fragment>
+        )
+    }
+    //setProductsFromServer(data.getproducts);
+    const newdatafromserver = data.getproducts;
+    console.log(newdatafromserver);
+
     const columns = [
         {
             dataField: "id",
@@ -100,27 +154,45 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
         history.push(`/admin/product/addproduct/${id}`);
     }
 
-    const HandleOnDelete = (id: number) => {
-        console.log("hello delete" + id);
+    const HandleOnDelete = (id: string) => {
+        setShowModal(true);
+        setDelProdId(id);
+    }
+    const ConfirmDelete = () => {
+        setShowModal(false);
+        deleteProduct({variables: {
+            input: {
+                id: delProdId
+            }
+            }}).then(()=> {
+                setDeleteConfirmed(delProdId);
+                console.log("product was deleted successfully");
+                setShowAfterDeleteConfirmed(true);
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+    const closeConfirmDeleteModal = () => {
+        setShowAfterDeleteConfirmed(false);
     }
 
     const productGenerator = (products:IProduct[]): any[] => {
         const checkList : any[] = [];
 
-        productToRender.map((product, i: number) => {
+        newdatafromserver.map((product:any, i: number) => {
             checkList.push({
                 id:
                     <Form.Label>{i+1}</Form.Label>,
                 item:
                     <div className="image-container">
-                        <Image src={product.image} />
+                        <ProductImage imageName={product.image} data={data}/>
                     </div>,
                 name:
                     <Form.Label className="text-left">{product.name}</Form.Label>,
                 description:
-                    <Form.Label className="text-left" >{product.category}</Form.Label>,
+                    <Form.Label className="text-left" >{product.description}</Form.Label>,
                 prevprice:
-                    <Form.Label>{product.price }</Form.Label>,
+                    <Form.Label>{product.previousPrice }</Form.Label>,
                 price:
                     <Form.Label>{product.price}</Form.Label>,
                 edit:
@@ -158,6 +230,26 @@ const ProductTable:React.FC<ProductTableProps> = (props) => {
                     rowClasses="text-nowrap"
                 />
             </Col>
+            <Modal show={showModal} onHide={handleOnCloseModal}>
+                <Modal.Header closeButton className="bg-danger text-white" >
+                    <Modal.Title> <i className="feather icon-alert-triangle text-white" /> Confirm delete</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure want to delete this product?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={ConfirmDelete}>
+                        Delete
+                    </Button>
+                    <Button variant="secondary" onClick={handleOnCloseModal}>
+                        Close
+                    </Button>
+
+                </Modal.Footer>
+            </Modal>
+            <ConfirmationMessage
+                message={"Product was deleted successfully"}
+                showAfterDeleteConfirmed={showAfterDeleteConfirmed}
+                setShowAfterDeleteConfirmed={closeConfirmDeleteModal}
+            />
         </React.Fragment>
     )
 }

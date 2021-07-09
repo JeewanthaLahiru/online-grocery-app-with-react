@@ -2,6 +2,7 @@ import React from "react";
 import {IPurchasedItems} from "../../../types/Orders";
 import {Col, Image, Row} from "react-bootstrap";
 import SampleImg from "../../../assets/images/products/coconut.jpg";
+import DefaultImg from "../../../assets/images/default/default.jpg";
 
 type OrderProductItemProps = {
     product: IPurchasedItems;
@@ -19,7 +20,7 @@ const OrderProductItem:React.FC<OrderProductItemProps> = (props) => {
                 </Row>
                 <Row className="m-0 p-0 item-body">
                     <Col xs={3}>
-                        <Image src={SampleImg} />
+                        <Image src={DefaultImg} />
                     </Col>
                     <Col xs={9}>
                         <table>

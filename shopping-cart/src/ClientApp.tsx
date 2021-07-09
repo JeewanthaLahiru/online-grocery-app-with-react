@@ -17,11 +17,17 @@ import AdminProductArea from "./components/adminPages/adminProductArea/AdminProd
 import AdminOrderArea from "./components/adminPages/adminOrders/AdminOrderArea";
 import AdminOrder from "./components/adminPages/adminOrders/AdminOrder";
 import AddProduct from "./components/adminPages/adminProductArea/AddProduct";
+import {AppState} from "./store/reducers";
+import {useSelector} from "react-redux";
+import LoadingScreen from "./components/homePage/LoadingScreen";
 
 const ClientApp:React.FC = () => {
+    const loadingState = useSelector((state:AppState) => state.loading.loading);
     return(
         <Router>
-            <Container fluid={true} className="m-0 p-0" >
+            <Container fluid={true} className="m-0 p-0 client-app" >
+                { loadingState &&
+                    <LoadingScreen/>}
                 <HeaderArea/>
                 <Switch>
                     <Route path="/" exact component={HomePage} />

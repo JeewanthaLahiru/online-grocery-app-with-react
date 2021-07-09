@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import {ICartProduct} from "../../../types/CartProducts";
 import {Col, Row, Image} from "react-bootstrap";
 import {useDispatch} from "react-redux";
 import {deleteProductFromCart} from "../../../store/actions/CartProductActions";
+import axios from "axios";
+import {GENERAGE_GET_URL} from "../../../assets/variables/APIKeys";
 
 type CartProductProps = {
     cartProduct: ICartProduct,
@@ -10,6 +12,28 @@ type CartProductProps = {
 
 const CartProduct:React.FC<CartProductProps> = (props) => {
     const {cartProduct} = props;
+
+    //start
+
+    const [imageUrl , setImageUrl] = useState();
+    const generateGetUrl = GENERAGE_GET_URL;
+
+    const getOptions = {
+        params: {
+            Key: props.cartProduct.product.image,
+            ContentType: props.cartProduct.product.image.split(/[.]/)[1]
+        }
+    };
+
+    axios
+        .get(generateGetUrl, getOptions)
+        .then(res => {
+            setImageUrl(res.data);
+        })
+        .catch(err => {
+            console.log("error in generateGet Url : \n"+ err);
+        })
+    //end
 
     const dispatch = useDispatch();
 
@@ -20,7 +44,7 @@ const CartProduct:React.FC<CartProductProps> = (props) => {
     return(
         <Row className={'cart-product'}>
             <Col xs={4} className={'pr-0'}>
-                <Image className='cart-product-img' src={cartProduct.product.image} rounded={true}/>
+                <Image className='cart-product-img' src={imageUrl} rounded={true}/>
             </Col>
             <Col xs={8}>
                 <Row>

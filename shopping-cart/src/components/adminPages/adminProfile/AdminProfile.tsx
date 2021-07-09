@@ -5,6 +5,11 @@ import {UserTypes} from "../../../types/admin/UserTypes";
 import {products} from "../../../repository/Products";
 import {IProduct} from "../../../types/Products";
 import Product from "../../homePage/productArea/Product";
+import {useQuery} from "@apollo/client";
+import {GET_PRODUCTS} from "../../../graphql/queries/Product";
+import LoadingScreen from "../../homePage/LoadingScreen";
+import {useDispatch} from "react-redux";
+import {loading_start} from "../../../store/actions/LoadingActions";
 
 const AdminProfile:React.FC = () => {
 
@@ -17,10 +22,28 @@ const AdminProfile:React.FC = () => {
         description: "We have every kind of liquors. delivery is available",
         image: Profile
     }
+    const dispatch = useDispatch();
+
+    const {loading, error, data, refetch} = useQuery(GET_PRODUCTS);
+    if(loading){
+        return (
+            <React.Fragment>
+                <LoadingScreen/>
+            </React.Fragment>
+        )
+    }
+    if(error){
+        return (
+            <React.Fragment>
+                <h2>Error</h2>
+            </React.Fragment>
+        )
+    }
+    let productList:any = data.getproducts;
 
     const renderProducts = () => {
         return(
-            products.slice(0,5).map((product:IProduct, index:number) => {
+            productList.slice(0,8).map((product:IProduct, index:number) => {
                 return(
                     <Product index={index} product={product}/>
                 )

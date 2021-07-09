@@ -10,6 +10,7 @@ import EmptyImg from '../../assets/images/ui/emptycheckout.png';
 import {HashLink} from "react-router-hash-link";
 import CheckoutBillingArea from "./CheckoutBillingArea";
 import CheckoutDiscountArea from "./CheckoutDiscountArea";
+import CheckoutProductImage from "./CheckoutProductImage";
 
 const CheckoutProductList:React.FC = () => {
 
@@ -107,7 +108,7 @@ const CheckoutProductList:React.FC = () => {
                 item:
                     <Row>
                         <Col className='text-center px-0 px-sm-3'>
-                            <Image src={cartProduct.product.image} className='product-img'/>
+                            <CheckoutProductImage image={cartProduct.product.image}/>
                         </Col>
                     </Row>
                 ,

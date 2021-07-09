@@ -1,15 +1,17 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Col, Form, Image, Row} from "react-bootstrap";
 import {IProduct} from "../../../types/Products";
 import {Controller, useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
 import {ICartProduct} from "../../../types/CartProducts";
 import {AppState} from "../../../store/reducers";
+import DefaultImg from "../../../assets/images/default/default.jpg";
 import {
     addProductToCart,
     deleteProductFromCart,
     updateProductFromCart
 } from "../../../store/actions/CartProductActions";
+import axios from "axios";
 type ProductTypeProps = {
     index: number,
     product: IProduct
@@ -25,13 +27,35 @@ const Product:React.FC<ProductTypeProps> = (props) => {
     const product_name = props.product.name;
     const product_price = props.product.price;
     const {handleSubmit, control, setValue} = useForm<FormData>();
-    useEffect(() => {
+    const [imageUrl , setImageUrl] = useState();
+    const generateGetUrl = 'http://ec2-54-174-33-34.compute-1.amazonaws.com:4000/generate-get-url';
+
+    const getOptions = {
+        params: {
+            Key: product_image,
+            ContentType: product_image.split(/[.]/)[1]
+        }
+    };
+    useEffect(()=> {
+        axios
+            .get(generateGetUrl, getOptions)
+            .then(res => {
+                setImageUrl(res.data);
+            })
+            .catch(err => {
+                console.log("error in generateGet Url : \n"+ err);
+            })
+    },[product_image])
+
+
+
+    /*useEffect(() => {
         if (!getRelevantCartProductQty()) {
             setValue("productQty", "1");
             return;
         }
         setValue("productQty", getRelevantCartProductQty());
-    });
+    });*/
 
     const cartProducts: ICartProduct[] = useSelector((state:AppState)=>state.cartProduct.cartProducts);
 
@@ -51,6 +75,11 @@ const Product:React.FC<ProductTypeProps> = (props) => {
         })
         return relevantCartProductQty.toString()
     }
+    useEffect(() => {
+        if(Number(getRelevantCartProductQty()) > 0){
+            setValue("productQty", getRelevantCartProductQty());
+        }
+    })
 
     const handleOnAddProductToCart = (data:FormData) => {
         if(data.productQty === '0' && !getRelevantCartProductQty()){
@@ -79,22 +108,22 @@ const Product:React.FC<ProductTypeProps> = (props) => {
         <Col xs={6} md={4} lg={3} className="px-4 py-2">
             <Row className="product-class" >
                 <Col xs={12} className="image-container pt-3" >
-                    <Image src={product_image} alt={"coconut"} />
+                    <Image src={imageUrl? imageUrl : DefaultImg} alt={"coconut"} />
                 </Col>
                 <Col xs={12} >
                     <h5 className="text-center mb-5 product-name" >{product_name}</h5>
                 </Col>
-                <Col xs={6} >
-                    <p className="text-center discount" >{product_price}.00</p>
+                <Col xs={4}>
+                    <p className="text-center discount m-0" >{product_price}</p>
                 </Col>
-                <Col xs={6} >
-                    <p className="text-center price text-success" >Rs.{props.product.price}.<span className="small-text">00</span></p>
+                <Col xs={8} >
+                    <p className="text-center price text-success" >Rs.{props.product.price}<span className="small-text"></span></p>
                 </Col>
 
                 <Form onSubmit={handleSubmit(handleOnAddProductToCart)}>
                     <Col xs={12}>
                         <Row>
-                            <Col xs={5} className="cart-quantity m-0" >
+                            <Col xs={12} md={5} className="cart-quantity m-0" >
 
                                 <Form.Group>
                                     <Controller
@@ -107,12 +136,13 @@ const Product:React.FC<ProductTypeProps> = (props) => {
                                                     min={1}
                                                 />
                                             )}
+                                        defaultValue={"1"}
                                         name={'productQty'}
                                         control={control}
                                     />
                                 </Form.Group>
                             </Col>
-                            <Col xs={7} className="add-to-cart m-0" >
+                            <Col xs={12} md={7} className="add-to-cart mx-0 mb-2 pl-xs-1 pl-md-0" >
                                 {!getRelevantCartProductId() && <Button variant="success" type="submit">Add To Cart</Button> }
                                 {!!getRelevantCartProductId() && <Button variant="outline-primary" type="submit">Update</Button> }
                             </Col>

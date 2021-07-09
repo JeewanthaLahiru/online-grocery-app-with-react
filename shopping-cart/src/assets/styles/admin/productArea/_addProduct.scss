@@ -2,6 +2,10 @@
   min-height: 68vh;
   font-family: 'Quicksand', sans-serif;
   .add-product-title-row{
+    .back-to-product:hover{
+      color: $success;
+      cursor: pointer;
+    }
     h3{
       font-weight: 600;
     }

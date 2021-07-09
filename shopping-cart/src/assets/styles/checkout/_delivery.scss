@@ -1,5 +1,8 @@
 .delivery-area{
-  font-family: 'Roboto', sans-serif;;
+  font-family: 'Roboto', sans-serif;
+  span{
+    font-size: 0.8em;
+  }
 
   .border-round{
     border: 1px solid $divider-color;

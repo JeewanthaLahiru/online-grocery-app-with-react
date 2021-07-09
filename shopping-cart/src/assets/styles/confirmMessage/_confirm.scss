@@ -1,0 +1,25 @@
+.confirm-message-area{
+  font-family: "Quicksand", sans-serif;
+  .first-row{
+    border: 1px solid $success;
+    border-radius: 7px 7px 0 0 ;
+    h2{
+
+      color: white;
+      font-weight: 600;
+    }
+  }
+  .second-row{
+    border: 1px solid $success;
+    border-bottom-color: transparent;
+    span{
+      font-size: 1em;
+      font-weight: 500;
+    }
+  }
+  .third-row{
+    border: 1px solid $success;
+    border-top-color: transparent;
+    border-radius: 0 0 7px 7px;
+  }
+}
