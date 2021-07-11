@@ -12,6 +12,7 @@ import {
     updateProductFromCart
 } from "../../../store/actions/CartProductActions";
 import axios from "axios";
+import {GENERAGE_GET_URL} from "../../../assets/variables/APIKeys";
 type ProductTypeProps = {
     index: number,
     product: IProduct
@@ -28,7 +29,7 @@ const Product:React.FC<ProductTypeProps> = (props) => {
     const product_price = props.product.price;
     const {handleSubmit, control, setValue} = useForm<FormData>();
     const [imageUrl , setImageUrl] = useState();
-    const generateGetUrl = 'http://ec2-54-174-33-34.compute-1.amazonaws.com:4000/generate-get-url';
+    const generateGetUrl = GENERAGE_GET_URL;
 
     const getOptions = {
         params: {
